@@ -109,3 +109,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverColour: {r: 0.33490568, g: 1, b: 0.8572818, a: 0}
+  warningColour: {r: 1, g: 0, b: 0, a: 0}

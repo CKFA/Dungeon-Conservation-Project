@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class Node : MonoBehaviour
 {
     public Color hoverColour;
-
+    public Color warningColour;
     private GameObject cannon;
     private Renderer rend;
     private Color startColour;
@@ -31,7 +31,14 @@ public class Node : MonoBehaviour
             return;
 
         if (buildManager.GetCannonToBuild() == null) // 
+        return;
+
+        if (cannon != null)
+        {
+            rend.material.color = warningColour;
             return;
+        }
+
         rend.material.color = hoverColour;
     }
 
@@ -51,6 +58,7 @@ public class Node : MonoBehaviour
         if (cannon != null) 
         {
             Debug.Log("Can't Build there - ToDo: Display to the screen");
+            rend.material.color = warningColour;
             return;
         }
 
