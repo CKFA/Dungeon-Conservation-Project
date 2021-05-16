@@ -12,22 +12,22 @@ public class BuildManager : MonoBehaviour
         instance = this;
     }
 
-    public GameObject standardCannonPrefab;
+    public GameObject CannonPrefab;
 
-    public GameObject LaserPrefab;
+    public GameObject RocketLauncherPrefab;
 
-    private GameObject CannonToBuild;
-    public GameObject GetCannonToBuild()
+    private GameObject TowerToBuild;
+    public GameObject GetTowerToBuild()
     {
-        return CannonToBuild;
+        return TowerToBuild;
     }
 
-    public void SetCannonToBuild(GameObject Cannon)
+    public void SetTowerToBuild(GameObject Tower)
     {
-        CannonToBuild = Cannon;
+        TowerToBuild = Tower;
     }
 
-    public GameObject rocketLauncher;
+
 
 
 

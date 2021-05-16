@@ -30,7 +30,7 @@ public class Node : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject()) // if hovering the UI
             return;
 
-        if (buildManager.GetCannonToBuild() == null) // 
+        if (buildManager.GetTowerToBuild() == null) // 
         return;
 
         if (cannon != null)
@@ -52,7 +52,7 @@ public class Node : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject()) // if hovering the UI
             return;
 
-        if (buildManager.GetCannonToBuild() == null)
+        if (buildManager.GetTowerToBuild() == null)
             return;
 
         if (cannon != null) 
@@ -63,7 +63,7 @@ public class Node : MonoBehaviour
         }
 
         //build a cannon
-        GameObject cannonToBuild = buildManager.GetCannonToBuild();
+        GameObject cannonToBuild = buildManager.GetTowerToBuild();
         cannon = (GameObject)Instantiate(cannonToBuild, transform.position + new Vector3(0f, 0.5f, 0f), transform.rotation);
     }
 }

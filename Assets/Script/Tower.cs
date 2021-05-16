@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cannon : MonoBehaviour
+public class Tower : MonoBehaviour
 {
     private Transform target;
 
@@ -16,7 +16,7 @@ public class Cannon : MonoBehaviour
     Mesh mesh;
     //public MeshFilter meshFilter;
 
-    private float rate = 1f;
+    public float rate = 1f;
     private float fireCountDown = 0f;
 
     [Header("Unity Setup Fields")]

@@ -13,6 +13,11 @@ public class Shop : MonoBehaviour
     public void BuyCannon()
     {
         Debug.Log("CannonPurchased");
-        buildManager.SetCannonToBuild(buildManager.standardCannonPrefab);
+        buildManager.SetTowerToBuild(buildManager.CannonPrefab);
+    }
+    public void BuyLauncher()
+    {
+        Debug.Log("RocketLauncherPurchased");
+        buildManager.SetTowerToBuild(buildManager.RocketLauncherPrefab);
     }
 }
