@@ -33,6 +33,7 @@ public class WaveSpawner : MonoBehaviour
         }
 
         countDown -= Time.deltaTime;
+        countDown = Mathf.Clamp(countDown, 0f, Mathf.Infinity);
         waveCountDownText.text = Mathf.Round(countDown).ToString();
         waveIndexUi.text = waveIndex.ToString();
     }

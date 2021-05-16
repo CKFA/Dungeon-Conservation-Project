@@ -7,7 +7,9 @@ public class Node : MonoBehaviour
 {
     public Color hoverColour;
     public Color warningColour;
-    private GameObject cannon;
+    public Vector3 positionOffset;
+    [Header("Optional")]
+    public GameObject tower;
     private Renderer rend;
     private Color startColour;
     BuildManager buildManager;
@@ -19,10 +21,9 @@ public class Node : MonoBehaviour
         buildManager = BuildManager.instance;
     }
 
-    // Update is called once per frame
-    void Update()
+    public Vector3 GetBuildPosition()
     {
-        
+        return transform.position + positionOffset;
     }
 
     private void OnMouseEnter()
@@ -30,16 +31,21 @@ public class Node : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject()) // if hovering the UI
             return;
 
-        if (buildManager.GetTowerToBuild() == null) // 
+        if (!buildManager.CanBuild) // 
         return;
 
-        if (cannon != null)
+        if (tower != null)
         {
-            rend.material.color = warningColour;
             return;
         }
-
-        rend.material.color = hoverColour;
+        if (buildManager.HasMoney)
+        {
+            rend.material.color = hoverColour;
+        }
+        else
+        {
+            rend.material.color = warningColour;
+        }
     }
 
     private void OnMouseExit()
@@ -52,18 +58,15 @@ public class Node : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject()) // if hovering the UI
             return;
 
-        if (buildManager.GetTowerToBuild() == null)
+        if (!buildManager.CanBuild)
             return;
 
-        if (cannon != null) 
+        if (tower != null) 
         {
             Debug.Log("Can't Build there - ToDo: Display to the screen");
-            rend.material.color = warningColour;
             return;
         }
 
-        //build a cannon
-        GameObject cannonToBuild = buildManager.GetTowerToBuild();
-        cannon = (GameObject)Instantiate(cannonToBuild, transform.position + new Vector3(0f, 0.5f, 0f), transform.rotation);
+        buildManager.BuildTowerOn(this);
     }
 }

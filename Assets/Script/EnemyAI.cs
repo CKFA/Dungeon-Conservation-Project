@@ -6,6 +6,12 @@ public class EnemyAI : MonoBehaviour
 {
     public float speed = 10f;
 
+    public int hp = 100;
+
+    public int moneyDrop = 50;
+
+    public GameObject deathEffect;
+
     private Transform target;
     private int wavepointIndex = 0;
 
@@ -15,6 +21,22 @@ public class EnemyAI : MonoBehaviour
         target = Waypoints.points[0];
     }
 
+    public void TakeDamage(int amount)
+    {
+        hp -= amount;
+        if (hp <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        PlayerStats.money += moneyDrop;
+        GameObject effect = (GameObject)Instantiate(deathEffect, transform.position, Quaternion.identity);
+        Destroy(effect, 5f);
+        Destroy(gameObject);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -29,13 +51,19 @@ public class EnemyAI : MonoBehaviour
 
     void GetNextWaypoint()
     {
-        if (wavepointIndex >= Waypoints.points.Length - 1)
+        if (wavepointIndex >= Waypoints.points.Length - 1) // if no next waypoint
         {
-            Destroy(gameObject);
+            Goal();
             return;
         }
 
         wavepointIndex++;
         target = Waypoints.points[wavepointIndex];
+    }
+
+    void Goal()
+    {
+        PlayerStats.hp--;
+        Destroy(gameObject);
     }
 }

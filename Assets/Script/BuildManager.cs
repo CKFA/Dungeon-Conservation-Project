@@ -13,18 +13,33 @@ public class BuildManager : MonoBehaviour
     }
 
     public GameObject CannonPrefab;
-
     public GameObject RocketLauncherPrefab;
 
-    private GameObject TowerToBuild;
-    public GameObject GetTowerToBuild()
-    {
-        return TowerToBuild;
-    }
+    public GameObject buildEffect;
 
-    public void SetTowerToBuild(GameObject Tower)
+    private TowerTemplate TowerToBuild;
+
+    public bool CanBuild { get { return TowerToBuild != null; } }
+    public bool HasMoney { get { return PlayerStats.money >=TowerToBuild.cost; } }
+
+    public void BuildTowerOn(Node node)
     {
-        TowerToBuild = Tower;
+        if (PlayerStats.money< TowerToBuild.cost)
+        {
+            Debug.Log("Not Enough Money");
+            return;
+        }
+
+        PlayerStats.money -= TowerToBuild.cost;
+        GameObject tower = (GameObject)Instantiate(TowerToBuild.Prefabs, node.GetBuildPosition(), Quaternion.identity); //build tower
+        node.tower = tower;
+
+        GameObject effect = (GameObject)Instantiate(buildEffect, node.GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 5f);
+    }
+    public void SelectTowerToBuild(TowerTemplate tower)
+    {
+        TowerToBuild = tower;
     }
 
 

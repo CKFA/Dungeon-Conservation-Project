@@ -4,20 +4,23 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
+    public TowerTemplate towerTemplate;
+    public TowerTemplate launcherTemplate;
+
     BuildManager buildManager;
     private void Start()
     {
         buildManager = BuildManager.instance;
     }
 
-    public void BuyCannon()
+    public void SelectCannon()
     {
         Debug.Log("CannonPurchased");
-        buildManager.SetTowerToBuild(buildManager.CannonPrefab);
+        buildManager.SelectTowerToBuild(towerTemplate);
     }
-    public void BuyLauncher()
+    public void SelectLauncher()
     {
         Debug.Log("RocketLauncherPurchased");
-        buildManager.SetTowerToBuild(buildManager.RocketLauncherPrefab);
+        buildManager.SelectTowerToBuild(launcherTemplate);
     }
 }
