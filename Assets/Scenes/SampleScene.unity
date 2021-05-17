@@ -2976,6 +2976,7 @@ GameObject:
   - component: {fileID: 1547931679}
   - component: {fileID: 1547931681}
   - component: {fileID: 1547931682}
+  - component: {fileID: 1547931683}
   m_Layer: 5
   m_Name: NodeUIPanel
   m_TagString: Untagged
@@ -3082,6 +3083,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 1547931677}
+--- !u!95 &1547931683
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547931677}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: db639161163585e4b9a06cc7ca53afc0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1576918269
 GameObject:
   m_ObjectHideFlags: 0
@@ -4263,7 +4283,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 150}
+  m_SizeDelta: {x: 350.6421, y: 150}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1992230237
 MonoBehaviour:

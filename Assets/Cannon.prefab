@@ -47,11 +47,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 15
   showRange: 1
+  slowPrecent: 0.5
+  bulletPrefab: {fileID: 5787892650999074104, guid: 8cc84af548bb7464dbe91d6923434e80, type: 3}
   rate: 1
+  useLaser: 0
+  damageOverTime: 30
+  lineRenderer: {fileID: 0}
+  laserEffect: {fileID: 0}
+  laserLightEffect: {fileID: 0}
   enemyTag: Enemy
   partToRotate: {fileID: 7293131692524104637}
   turnSpeed: 10
-  bulletPrefab: {fileID: 5787892650999074104, guid: 8cc84af548bb7464dbe91d6923434e80, type: 3}
   firePoint: {fileID: 5489395608737921307}
 --- !u!1 &3527195938412461264
 GameObject:
@@ -126,6 +132,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Head
       objectReference: {fileID: 0}
+    - target: {fileID: 2650202639646823323, guid: 027fbca1e354c1a4cb2f5a13700fed69, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3541874508478054853, guid: 027fbca1e354c1a4cb2f5a13700fed69, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905649345475806727, guid: 027fbca1e354c1a4cb2f5a13700fed69, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5386332376258906139, guid: 027fbca1e354c1a4cb2f5a13700fed69, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -177,6 +195,14 @@ PrefabInstance:
     - target: {fileID: 5836550455624506540, guid: 027fbca1e354c1a4cb2f5a13700fed69, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6531192910914859391, guid: 027fbca1e354c1a4cb2f5a13700fed69, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522655944060540942, guid: 027fbca1e354c1a4cb2f5a13700fed69, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 027fbca1e354c1a4cb2f5a13700fed69, type: 3}

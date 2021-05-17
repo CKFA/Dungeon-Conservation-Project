@@ -91,7 +91,7 @@ MeshCollider:
   m_GameObject: {fileID: 51175066820547514}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -187,7 +187,7 @@ BoxCollider:
   m_GameObject: {fileID: 80732742339394288}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -282,7 +282,7 @@ BoxCollider:
   m_GameObject: {fileID: 141077542306274803}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -377,7 +377,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 244947960185221583}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
@@ -473,7 +473,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 281008508162716116}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
@@ -569,7 +569,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 600917042506747314}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
@@ -665,7 +665,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 603357396155932525}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
@@ -761,7 +761,7 @@ MeshCollider:
   m_GameObject: {fileID: 998874741352991565}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -917,7 +917,7 @@ BoxCollider:
   m_GameObject: {fileID: 3361374332318596138}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -1119,7 +1119,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 5578922774055934518}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
@@ -1215,7 +1215,7 @@ MeshCollider:
   m_GameObject: {fileID: 6005399444400645721}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -1311,7 +1311,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 6081371905473860002}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
@@ -1363,11 +1363,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 20
   showRange: 1
+  slowPrecent: 0.5
+  bulletPrefab: {fileID: 4978385564715041698, guid: d3496de9d2a5aa24a92689e3bbf8fddd, type: 3}
   rate: 0.5
+  useLaser: 0
+  damageOverTime: 30
+  lineRenderer: {fileID: 0}
+  laserEffect: {fileID: 0}
+  laserLightEffect: {fileID: 0}
   enemyTag: Enemy
   partToRotate: {fileID: 4294745891559635385}
   turnSpeed: 10
-  bulletPrefab: {fileID: 4978385564715041698, guid: d3496de9d2a5aa24a92689e3bbf8fddd, type: 3}
   firePoint: {fileID: 892866302767418316}
 --- !u!1 &6267042186245520188
 GameObject:
@@ -1460,7 +1466,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 6267042186245520188}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
@@ -1618,7 +1624,7 @@ BoxCollider:
   m_GameObject: {fileID: 7985103221068453808}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
