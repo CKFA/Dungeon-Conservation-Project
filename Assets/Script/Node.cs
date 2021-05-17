@@ -58,14 +58,14 @@ public class Node : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject()) // if hovering the UI
             return;
 
-        if (!buildManager.CanBuild)
-            return;
-
         if (tower != null) 
         {
-            Debug.Log("Can't Build there - ToDo: Display to the screen");
+            buildManager.SelectNode(this);
             return;
         }
+
+        if (!buildManager.CanBuild)
+            return;
 
         buildManager.BuildTowerOn(this);
     }

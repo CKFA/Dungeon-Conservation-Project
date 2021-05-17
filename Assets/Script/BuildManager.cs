@@ -15,6 +15,9 @@ public class BuildManager : MonoBehaviour
     public GameObject buildEffect;
 
     private TowerTemplate TowerToBuild;
+    private Node selectedNode;
+
+    public NodeUI nodeUI;
 
     public bool CanBuild { get { return TowerToBuild != null; } }
     public bool HasMoney { get { return PlayerStats.money >=TowerToBuild.cost; } }
@@ -34,9 +37,28 @@ public class BuildManager : MonoBehaviour
         GameObject effect = (GameObject)Instantiate(buildEffect, node.GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 5f);
     }
+    public void SelectNode(Node node)
+    {
+        if(selectedNode == node)
+        {
+            DeselectNode();
+            return;
+        }
+        selectedNode = node;
+        TowerToBuild = null;
+
+        nodeUI.SetTarget(node);
+    }
+
+    public void DeselectNode()
+    {
+        selectedNode = null;
+        nodeUI.Hide();
+    }
     public void SelectTowerToBuild(TowerTemplate tower)
     {
         TowerToBuild = tower;
+        DeselectNode();
     }
 
 
