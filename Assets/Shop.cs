@@ -6,6 +6,7 @@ public class Shop : MonoBehaviour
 {
     public TowerTemplate towerTemplate;
     public TowerTemplate launcherTemplate;
+    public TowerTemplate laserTemplate;
 
     BuildManager buildManager;
     private void Start()
@@ -22,5 +23,11 @@ public class Shop : MonoBehaviour
     {
         Debug.Log("RocketLauncherPurchased");
         buildManager.SelectTowerToBuild(launcherTemplate);
+    }
+
+    public void SelectLaserGun()
+    {
+        Debug.Log("LaserGunPurchased");
+        buildManager.SelectTowerToBuild(laserTemplate);
     }
 }

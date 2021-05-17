@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 15
   showRange: 1
+  rate: 1
   enemyTag: Enemy
   partToRotate: {fileID: 7293131692524104637}
   turnSpeed: 10
@@ -131,7 +132,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5386332376258906139, guid: 027fbca1e354c1a4cb2f5a13700fed69, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.19
+      value: -0.178
       objectReference: {fileID: 0}
     - target: {fileID: 5386332376258906139, guid: 027fbca1e354c1a4cb2f5a13700fed69, type: 3}
       propertyPath: m_LocalPosition.y
@@ -139,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5386332376258906139, guid: 027fbca1e354c1a4cb2f5a13700fed69, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.12
+      value: -0.203
       objectReference: {fileID: 0}
     - target: {fileID: 5386332376258906139, guid: 027fbca1e354c1a4cb2f5a13700fed69, type: 3}
       propertyPath: m_LocalRotation.w

@@ -4,24 +4,21 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    public float speed = 10f;
+    public float startSpeed = 10f;
+    [HideInInspector]
+    public float speed;
 
-    public int hp = 100;
+    public float hp = 100;
 
     public int moneyDrop = 50;
 
     public GameObject deathEffect;
 
-    private Transform target;
-    private int wavepointIndex = 0;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        target = Waypoints.points[0];
+        speed = startSpeed;
     }
-
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         hp -= amount;
         if (hp <= 0)
@@ -30,6 +27,10 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    public void Slow(float pct)
+    {
+        speed = startSpeed * (1f - pct);
+    }
     void Die()
     {
         PlayerStats.money += moneyDrop;
@@ -37,33 +38,5 @@ public class EnemyAI : MonoBehaviour
         Destroy(effect, 5f);
         Destroy(gameObject);
     }
-    // Update is called once per frame
-    void Update()
-    {
-        Vector3 dir = target.position - transform.position;
-        transform.Translate(dir.normalized * speed * Time.deltaTime,Space.World);
-
-        if (Vector3.Distance(transform.position, target.position) <= 0.1f)
-        {
-            GetNextWaypoint();
-        }
-    }
-
-    void GetNextWaypoint()
-    {
-        if (wavepointIndex >= Waypoints.points.Length - 1) // if no next waypoint
-        {
-            Goal();
-            return;
-        }
-
-        wavepointIndex++;
-        target = Waypoints.points[wavepointIndex];
-    }
-
-    void Goal()
-    {
-        PlayerStats.hp--;
-        Destroy(gameObject);
-    }
+    
 }

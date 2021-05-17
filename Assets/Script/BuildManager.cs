@@ -12,9 +12,6 @@ public class BuildManager : MonoBehaviour
         instance = this;
     }
 
-    public GameObject CannonPrefab;
-    public GameObject RocketLauncherPrefab;
-
     public GameObject buildEffect;
 
     private TowerTemplate TowerToBuild;
