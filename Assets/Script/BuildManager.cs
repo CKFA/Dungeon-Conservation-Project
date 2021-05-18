@@ -13,30 +13,16 @@ public class BuildManager : MonoBehaviour
     }
 
     public GameObject buildEffect;
+    public GameObject sellEffect;
 
-    private TowerTemplate TowerToBuild;
+    private TowerTemplate towerToBuild;
     private Node selectedNode;
 
     public NodeUI nodeUI;
 
-    public bool CanBuild { get { return TowerToBuild != null; } }
-    public bool HasMoney { get { return PlayerStats.money >=TowerToBuild.cost; } }
+    public bool CanBuild { get { return towerToBuild != null; } }
+    public bool HasMoney { get { return PlayerStats.money >=towerToBuild.cost; } }
 
-    public void BuildTowerOn(Node node)
-    {
-        if (PlayerStats.money< TowerToBuild.cost)
-        {
-            Debug.Log("Not Enough Money");
-            return;
-        }
-
-        PlayerStats.money -= TowerToBuild.cost;
-        GameObject tower = (GameObject)Instantiate(TowerToBuild.Prefabs, node.GetBuildPosition(), Quaternion.identity); //build tower
-        node.tower = tower;
-
-        GameObject effect = (GameObject)Instantiate(buildEffect, node.GetBuildPosition(), Quaternion.identity);
-        Destroy(effect, 5f);
-    }
     public void SelectNode(Node node)
     {
         if(selectedNode == node)
@@ -45,7 +31,7 @@ public class BuildManager : MonoBehaviour
             return;
         }
         selectedNode = node;
-        TowerToBuild = null;
+        towerToBuild = null;
 
         nodeUI.SetTarget(node);
     }
@@ -57,11 +43,14 @@ public class BuildManager : MonoBehaviour
     }
     public void SelectTowerToBuild(TowerTemplate tower)
     {
-        TowerToBuild = tower;
+        towerToBuild = tower;
         DeselectNode();
     }
 
-
+    public TowerTemplate GetTowerToBuild()
+    {
+        return towerToBuild;
+    }
 
 
 

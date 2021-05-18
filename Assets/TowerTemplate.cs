@@ -7,4 +7,12 @@ public class TowerTemplate
 {
     public GameObject Prefabs;
     public int cost;
+
+    public GameObject upgradedPrefabs;
+    public int upgradeCost;
+
+    public int GetSellAmount()
+    {
+        return cost / 2;
+    }
 }

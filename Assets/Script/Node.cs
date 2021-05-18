@@ -8,8 +8,13 @@ public class Node : MonoBehaviour
     public Color hoverColour;
     public Color warningColour;
     public Vector3 positionOffset;
-    [Header("Optional")]
+    [HideInInspector]
     public GameObject tower;
+    [HideInInspector]
+    public TowerTemplate towerTemplate;
+    [HideInInspector]
+    public bool isUpgraded = false;
+
     private Renderer rend;
     private Color startColour;
     BuildManager buildManager;
@@ -25,6 +30,7 @@ public class Node : MonoBehaviour
     {
         return transform.position + positionOffset;
     }
+
 
     private void OnMouseEnter()
     {
@@ -67,6 +73,55 @@ public class Node : MonoBehaviour
         if (!buildManager.CanBuild)
             return;
 
-        buildManager.BuildTowerOn(this);
+        BuildTower(buildManager.GetTowerToBuild());
+    }
+
+    void BuildTower(TowerTemplate template)
+    {
+        if (PlayerStats.money < template.cost)
+        {
+            Debug.Log("Not Enough Money");
+            return;
+        }
+
+        PlayerStats.money -= template.cost;
+        GameObject _tower = (GameObject)Instantiate(template.Prefabs, GetBuildPosition(), Quaternion.identity); //build tower
+        tower = _tower;
+
+        towerTemplate = template;
+
+        GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 5f);
+    }
+
+    public void UpgradeTower()
+    {
+        if (PlayerStats.money < towerTemplate.upgradeCost)
+        {
+            Debug.Log("Not Enough Money");
+            return;
+        }
+
+        PlayerStats.money -= towerTemplate.upgradeCost;
+
+        Destroy(tower); // destory the old tower
+        GameObject _tower = (GameObject)Instantiate(towerTemplate.upgradedPrefabs, GetBuildPosition(), Quaternion.identity); //build tower
+        tower = _tower;
+
+        GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 5f);
+
+        isUpgraded = true;
+    }
+
+    public void SellTower()
+    {
+        PlayerStats.money += towerTemplate.GetSellAmount();
+
+        GameObject effect = (GameObject)Instantiate(buildManager.sellEffect, GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 5f);
+
+        Destroy(tower);
+        towerTemplate = null;
     }
 }
