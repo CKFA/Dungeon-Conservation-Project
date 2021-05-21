@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -8,19 +9,25 @@ public class EnemyAI : MonoBehaviour
     [HideInInspector]
     public float speed;
 
-    public float hp = 100;
+    private float hp;
+    public float startHp = 100;
 
     public int moneyDrop = 50;
 
     public GameObject deathEffect;
 
+    [Header("Unit Stuff")]
+    public Image healthBar;
+
     private void Start()
     {
         speed = startSpeed;
+        hp = startHp;
     }
     public void TakeDamage(float amount)
     {
         hp -= amount;
+        healthBar.fillAmount = hp / startHp;
         if (hp <= 0)
         {
             Die();
@@ -36,6 +43,7 @@ public class EnemyAI : MonoBehaviour
         PlayerStats.money += moneyDrop;
         GameObject effect = (GameObject)Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(effect, 5f);
+        WaveSpawner.EnemiesAlive--;
         Destroy(gameObject);
     }
     

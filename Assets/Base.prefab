@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5850911243080942977}
   - component: {fileID: 3982986827818290313}
   m_Layer: 0
-  m_Name: Floor (1)
+  m_Name: Inner Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,7 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4454384334450723663}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 3006405447781175839}
   - component: {fileID: 2711576280966565612}
   m_Layer: 0
-  m_Name: Floor
+  m_Name: Outer Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

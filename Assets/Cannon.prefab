@@ -46,15 +46,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 15
-  showRange: 1
+  startRange: 15
+  upgradeRange: 5
+  maxRange: 100
   slowPrecent: 0.5
   bulletPrefab: {fileID: 5787892650999074104, guid: 8cc84af548bb7464dbe91d6923434e80, type: 3}
   rate: 1
+  startRate: 1
+  upgradeRate: 1
+  maxRate: 100
   useLaser: 0
   damageOverTime: 30
   lineRenderer: {fileID: 0}
   laserEffect: {fileID: 0}
   laserLightEffect: {fileID: 0}
+  damageUpgradeCost: 500
+  rangeUpgradeCost: 500
+  rateUpgradeCost: 500
+  firstGradedTime: 6
+  secondGradedTime: 12
+  thirdGradedTime: 20
+  partToChange: {fileID: 7595013153615446507}
+  firstGradedColour: {fileID: 0}
+  secondGradedColour: {fileID: 0}
+  thirdGradedColour: {fileID: 0}
   enemyTag: Enemy
   partToRotate: {fileID: 7293131692524104637}
   turnSpeed: 10
@@ -74,7 +89,7 @@ GameObject:
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5489395608737921307
 Transform:
   m_ObjectHideFlags: 0
@@ -279,5 +294,10 @@ PrefabInstance:
 --- !u!4 &1343660215625436207 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3094490983474858053, guid: 91c27935317d6f64ebc68c58d5e44677, type: 3}
+  m_PrefabInstance: {fileID: 4058997805644432490}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7595013153615446507 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5850911243080942977, guid: 91c27935317d6f64ebc68c58d5e44677, type: 3}
   m_PrefabInstance: {fileID: 4058997805644432490}
   m_PrefabAsset: {fileID: 0}

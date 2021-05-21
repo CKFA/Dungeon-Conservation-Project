@@ -8,14 +8,20 @@ public class Tower : MonoBehaviour
     private EnemyAI targetEnemy;
 
     [Header("General")]
-
-    public float range = 15f;
-    public bool showRange = true;
+    [HideInInspector]
+    public float range;
+    public float startRange = 15f;
+    public float upgradeRange = 5f;
+    public float maxRange = 100f;
     public float slowPrecent = .5f;
 
     [Header("Normal Bullet")]
     public GameObject bulletPrefab;
-    public float rate = 1f;
+    [HideInInspector]
+    public float rate;
+    public float startRate = 1f;
+    public float upgradeRate = 1f;
+    public float maxRate = 100f;
     private float fireCountDown = 0f;
 
     [Header("Laser")]
@@ -25,6 +31,22 @@ public class Tower : MonoBehaviour
     public ParticleSystem laserEffect;
     public Light laserLightEffect;
 
+    [Header("Upgrade")]
+
+    private int upgradeTime = 0;
+    public int firstGradedTime = 6;
+    public int secondGradedTime = 12;
+    public int thirdGradedTime = 20;
+
+    public MeshRenderer partToChange;
+    public Material firstGradedColour;
+    public Material secondGradedColour;
+    public Material thirdGradedColour;
+
+    private bool isFirstGraded = false;
+    private bool isSecondGraded = false;
+    private bool isThirdGraded = false;
+
     [Header("Unity Setup Fields")]
 
     public string enemyTag = "Enemy";
@@ -32,14 +54,14 @@ public class Tower : MonoBehaviour
     public Transform partToRotate;
     public float turnSpeed = 10f;
 
-
     public Transform firePoint;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //meshFilter.mesh = mesh;
+        range = startRange;
+        rate = startRate;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
@@ -58,7 +80,7 @@ public class Tower : MonoBehaviour
             }
         }
 
-        if (nearestEnemy != null && shortestDistance <= range)
+        if (nearestEnemy != null && shortestDistance <= startRange)
         {
             target = nearestEnemy.transform;
             targetEnemy = nearestEnemy.GetComponent<EnemyAI>();
@@ -72,9 +94,9 @@ public class Tower : MonoBehaviour
     {
         if (target == null)
         {
-            if(useLaser)
+            if (useLaser) // close laser
             {
-                if(lineRenderer.enabled)
+                if (lineRenderer.enabled)
                 {
                     laserEffect.Stop();
                     lineRenderer.enabled = false;
@@ -85,17 +107,17 @@ public class Tower : MonoBehaviour
         }
 
         LockOnTarget();
-        
-        if(useLaser)
+
+        if (useLaser) // turn on laser
         {
             Laser();
         }
-        else
+        else // shoot by normal bullet
         {
             if (fireCountDown <= 0f)
             {
                 Shoot();
-                fireCountDown = 1f / rate;
+                fireCountDown = 1f / startRate;
             }
 
             fireCountDown -= Time.deltaTime;
@@ -137,17 +159,53 @@ public class Tower : MonoBehaviour
     void Shoot()
     {
         GameObject bulletGo = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        CannonBullet bullet = bulletGo.GetComponent<CannonBullet>();
+        Bullet bullet = bulletGo.GetComponent<Bullet>();
 
         if (bullet != null)
         {
             bullet.Seek(target);
         }
     }
-
-    private void OnDrawGizmosSelected()
+    public void UpgradeRange()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range);
+        upgradeTime++;
+        range += upgradeRange;
     }
+    public void UpgradeRate()
+    {
+        upgradeTime++;
+        rate += upgradeRate;
+    }
+
+    public bool CheckIsMaxRange { get { return range >= maxRange; } }
+
+    public bool CheckIsMaxRate { get { return rate >= maxRate; } }
+
+    public void ChangeColorChecker() // for upgrading
+    {
+        if ((upgradeTime > firstGradedTime) && (!isFirstGraded))
+        {
+            isFirstGraded = true;
+            partToChange.material = firstGradedColour;
+            return;
+        }
+        else if ((upgradeTime > firstGradedTime) && (!isSecondGraded))
+        {
+            isFirstGraded = true;
+            partToChange.material = secondGradedColour;
+            return;
+        }
+        else if ((upgradeTime > firstGradedTime) && (!isThirdGraded))
+        {
+            isFirstGraded = true;
+            partToChange.material = thirdGradedColour;
+        }
+    }
+
+
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(transform.position, startRange);
+    //}
 }

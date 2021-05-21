@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject ui;
+    public string menuSceneName = "MainMenu";
+    public SceneFader sceneFader;
     // Update is called once per frame
     void Update()
     {
@@ -14,7 +16,7 @@ public class PauseMenu : MonoBehaviour
             Toggle();
         }
     }
-    public void Toggle()
+    public void Toggle() // for play or pause
     {
         ui.SetActive(!ui.activeSelf);
         if (ui.activeSelf)
@@ -27,18 +29,27 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    public void Pause()
+    {
+        Time.timeScale = 0f;
+    }
+    public void Play()
+    {
+        Time.timeScale = 1f;
+    }
+
     public void Retry()
     {
         Toggle();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        sceneFader.FadeTo(SceneManager.GetActiveScene().name);
     }
     public void Menu()
     {
-
+        sceneFader.FadeTo(menuSceneName);
     }
 
     public void Quit()
     {
-
+        Application.Quit();
     }
 }

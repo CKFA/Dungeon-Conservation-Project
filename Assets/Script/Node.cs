@@ -9,15 +9,20 @@ public class Node : MonoBehaviour
     public Color warningColour;
     public Vector3 positionOffset;
     [HideInInspector]
-    public GameObject tower;
+    public GameObject towerObject;
     [HideInInspector]
     public TowerTemplate towerTemplate;
+    public BuildingTemplate buildingTemplate;
     [HideInInspector]
     public bool isUpgraded = false;
 
     private Renderer rend;
     private Color startColour;
+
     BuildManager buildManager;
+
+    public NodeData nodeData;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +45,7 @@ public class Node : MonoBehaviour
         if (!buildManager.CanBuild) // 
         return;
 
-        if (tower != null)
+        if (towerObject != null)
         {
             return;
         }
@@ -51,6 +56,7 @@ public class Node : MonoBehaviour
         else
         {
             rend.material.color = warningColour;
+            BuildManager.instance.NotEnoughMoney();
         }
     }
 
@@ -64,29 +70,41 @@ public class Node : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject()) // if hovering the UI
             return;
 
-        if (tower != null) 
+        if (towerObject != null) // if the tower built
         {
-            buildManager.SelectNode(this);
+            buildManager.SelectNode(this); // select this node
             return;
         }
 
-        if (!buildManager.CanBuild)
+        if (!buildManager.CanBuild) // if can't build
             return;
 
-        BuildTower(buildManager.GetTowerToBuild());
+        BuildTower(buildManager.GetTowerToBuild()); // build
     }
 
     void BuildTower(TowerTemplate template)
     {
         if (PlayerStats.money < template.cost)
         {
-            Debug.Log("Not Enough Money");
+            BuildManager.instance.NotEnoughMoney();
             return;
         }
 
         PlayerStats.money -= template.cost;
         GameObject _tower = (GameObject)Instantiate(template.Prefabs, GetBuildPosition(), Quaternion.identity); //build tower
-        tower = _tower;
+        towerObject = _tower;
+
+
+        // save
+        if(string.IsNullOrEmpty(nodeData.id))
+        {
+            nodeData.id = System.DateTime.Now.ToLongDateString() + System.DateTime.Now.ToLongTimeString() + this.name;
+            nodeData.towerType = template.Prefabs.name;
+            nodeData.position = template.Prefabs.transform.position;
+            nodeData.quaternion = template.Prefabs.transform.rotation;
+            SaveData.current.nodeData
+        }
+        
 
         towerTemplate = template;
 
@@ -94,24 +112,70 @@ public class Node : MonoBehaviour
         Destroy(effect, 5f);
     }
 
-    public void UpgradeTower()
+    public bool UpgradeTowerDmg(bool isTradeSuccess)
     {
-        if (PlayerStats.money < towerTemplate.upgradeCost)
+        if (PlayerStats.money < towerTemplate.damageUpgradeCost)
         {
-            Debug.Log("Not Enough Money");
-            return;
+            BuildManager.instance.NotEnoughMoney();
+            
+            isTradeSuccess = false;
+            return isTradeSuccess;
         }
 
-        PlayerStats.money -= towerTemplate.upgradeCost;
+        PlayerStats.money -= towerTemplate.damageUpgradeCost;
+        
+        towerObject.GetComponent<Tower>().ChangeColorChecker();
 
-        Destroy(tower); // destory the old tower
-        GameObject _tower = (GameObject)Instantiate(towerTemplate.upgradedPrefabs, GetBuildPosition(), Quaternion.identity); //build tower
-        tower = _tower;
 
         GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 5f);
 
-        isUpgraded = true;
+        towerObject.GetComponent<Tower>().bulletPrefab.GetComponent<Bullet>().startDamage += 10; // add value
+        isTradeSuccess = true;
+        return isTradeSuccess;
+        // if max
+        //isUpgraded = true;
+    }
+
+    public void UpgradeTowerRange()
+    {
+        if (!towerObject.GetComponent<Tower>().CheckIsMaxRange)
+        {
+            if (PlayerStats.money < towerTemplate.rangeUpgradeCost)
+            {
+                Debug.Log("Not Enough Money");
+                return;
+            }
+            PlayerStats.money -= towerTemplate.rangeUpgradeCost;
+
+            towerObject.GetComponent<Tower>().ChangeColorChecker();
+
+            GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
+            Destroy(effect, 5f);
+
+            towerObject.GetComponent<Tower>().UpgradeRange();
+        }
+    }
+
+    public void UpgradeTowerRate()
+    {
+        if(!towerObject.GetComponent<Tower>().CheckIsMaxRate)
+        {
+            if (PlayerStats.money < towerTemplate.rateUpgradeCost)
+            {
+                Debug.Log("Not Enough Money");
+                return;
+            }
+            PlayerStats.money -= towerTemplate.rateUpgradeCost;
+
+            towerObject.GetComponent<Tower>().ChangeColorChecker();
+
+            GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
+            Destroy(effect, 5f);
+
+            towerObject.GetComponent<Tower>().UpgradeRate();
+        }
+
     }
 
     public void SellTower()
@@ -121,7 +185,17 @@ public class Node : MonoBehaviour
         GameObject effect = (GameObject)Instantiate(buildManager.sellEffect, GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 5f);
 
-        Destroy(tower);
+        Destroy(towerObject);
         towerTemplate = null;
+    }
+
+    public Bullet GetBullet()
+    {
+        return towerObject.GetComponent<Tower>().bulletPrefab.GetComponent<Bullet>();
+    }
+
+    public Tower GetTower()
+    {
+        return towerObject.GetComponent<Tower>();
     }
 }

@@ -143,4 +143,5 @@ MonoBehaviour:
   damage: 200
   speed: 30
   explosionRange: 2
-  impactEffect: {fileID: 8251321406015849084, guid: 82759ea4666a180469eb4524a167f781, type: 3}
+  hitEffect: {fileID: 8251321406015849084, guid: 82759ea4666a180469eb4524a167f781, type: 3}
+  disappearEffect: {fileID: 5490095318705714828, guid: 93e07841314010f4cbf310e307c81a90, type: 3}
