@@ -6,15 +6,17 @@ using UnityEngine;
 [System.Serializable]
 public class NodeData
 {
-
     public string id;
-
-    public Tower tower;
-
-    public string towerType;
-
-    public Vector3 position;
-
-    public Quaternion quaternion;
+    public GameObject towerGameobject;
+    public TowerTemplate towerTemplate;
+    public int totalUpgradeTime;
+    public int damageUpgradeTime;
+    public int rangeUpgradeTime;
+    public int rateUpgradeTime;
+    public bool reachedFirstGrade;
+    public bool reachedSecondGrade;
+    public bool reachedThirdGrade;
+    public bool isMaxLevel;
+    public Color filledColor;
 
 }

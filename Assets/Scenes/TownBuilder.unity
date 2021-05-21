@@ -3911,6 +3911,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startMoney: 50000
   startHp: 10
+  nodes: {fileID: 0}
 --- !u!114 &1576918274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3925,10 +3926,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defenseSceneName: TowerDefense
   townSceneName: TownBuilder
+  isThisTownStage: 1
   gameOverUI: {fileID: 1979054677}
   buildManager: {fileID: 0}
   cityBuildManager: {fileID: 1576918276}
   sceneFader: {fileID: 1637873789}
+  nodes: {fileID: 0}
 --- !u!114 &1576918275
 MonoBehaviour:
   m_ObjectHideFlags: 0

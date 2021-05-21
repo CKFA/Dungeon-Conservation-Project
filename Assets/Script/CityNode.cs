@@ -141,26 +141,7 @@ public class CityNode : MonoBehaviour
 
         PlayerStats.money -= buildingTemplate.upgradeCost;
 
-        int upgradeTime = ChangeColorChecker();
-
-        switch (upgradeTime)
-        {
-            case 1:
-                startColour = GetBuildingComponent().firstGradedColour;
-                rend.material.color = startColour;
-                break;
-            case 2:
-                startColour = GetBuildingComponent().secondGradedColour;
-                rend.material.color = startColour;
-                break;
-            case 3:
-                startColour = GetBuildingComponent().thirdGradedColour;
-                rend.material.color = startColour;
-                isMaxed = true;
-                break;
-            default:
-                break;
-        }
+        ColourChanger();
        
         GameObject effect = (GameObject)Instantiate(cityBuildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 5f);
@@ -176,7 +157,7 @@ public class CityNode : MonoBehaviour
         return buildingTemplate.Prefabs.GetComponent<Building>();
     }
 
-    public int ChangeColorChecker() // for upgrading
+    public int GradeChecker() // for check grade
     {
         if ((upgradeTime == firstGradeTime) && (!isFirstGraded))
         {
@@ -200,6 +181,28 @@ public class CityNode : MonoBehaviour
         return 0;
     }
 
+    public void ColourChanger()
+    {
+        int gradeLevel = GradeChecker();
+        switch (gradeLevel)
+        {
+            case 1:
+                startColour = GetBuildingComponent().firstGradedColour;
+                rend.material.color = startColour;
+                break;
+            case 2:
+                startColour = GetBuildingComponent().secondGradedColour;
+                rend.material.color = startColour;
+                break;
+            case 3:
+                startColour = GetBuildingComponent().thirdGradedColour;
+                rend.material.color = startColour;
+                isMaxed = true;
+                break;
+            default:
+                break;
+        }
+    }
     public int TimesUpgradeChecker()
     {
         int _upgradeTime = upgradeTime;

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,26 +10,46 @@ public class Node : MonoBehaviour
     public Color warningColour;
     public Vector3 positionOffset;
     [HideInInspector]
-    public GameObject towerObject;
+    public GameObject towerObject; // the distinct tower object built in this node
     [HideInInspector]
-    public TowerTemplate towerTemplate;
-    public BuildingTemplate buildingTemplate;
-    [HideInInspector]
-    public bool isUpgraded = false;
+    public TowerTemplate towerTemplate;  // a template of tower
 
     private Renderer rend;
     private Color startColour;
+    private Color initialColour;
+
+    [Header("Upgrade")]
+
+    private int firstGradeTime = 0;
+    private int secondGradeTime = 0;
+    private int thirdGradeTime = 0;
+
+    public bool isFirstGraded = false;
+    public bool isSecondGraded = false;
+    public bool isThirdGraded = false;
+
+    public int totalUpgradeTime = 0;
+    public int damageUpgradeTime = 0;
+    public int rangeUpgradeTime = 0;
+    public int rateUpgradeTime = 0;
+
+    [HideInInspector]
+    public bool isMaxed = false;
 
     BuildManager buildManager;
-
-    public NodeData nodeData;
 
     // Start is called before the first frame update
     void Start()
     {
         rend = GetComponent<Renderer>();
         startColour = rend.material.color;
+        initialColour = startColour;
         buildManager = BuildManager.instance;
+
+        if(PlayerStats.nodeData[GetNameToInt()]!=null)
+        {
+            LoadTower();
+        }
     }
 
     public Vector3 GetBuildPosition()
@@ -93,20 +114,11 @@ public class Node : MonoBehaviour
         PlayerStats.money -= template.cost;
         GameObject _tower = (GameObject)Instantiate(template.Prefabs, GetBuildPosition(), Quaternion.identity); //build tower
         towerObject = _tower;
-
-
-        // save
-        if(string.IsNullOrEmpty(nodeData.id))
-        {
-            nodeData.id = System.DateTime.Now.ToLongDateString() + System.DateTime.Now.ToLongTimeString() + this.name;
-            nodeData.towerType = template.Prefabs.name;
-            nodeData.position = template.Prefabs.transform.position;
-            nodeData.quaternion = template.Prefabs.transform.rotation;
-            SaveData.current.nodeData
-        }
-        
+        towerObject.transform.parent = gameObject.transform;
 
         towerTemplate = template;
+
+        SaveTower();
 
         GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 5f);
@@ -122,10 +134,11 @@ public class Node : MonoBehaviour
             return isTradeSuccess;
         }
 
+        DamageUpgradeAdder();
         PlayerStats.money -= towerTemplate.damageUpgradeCost;
-        
-        towerObject.GetComponent<Tower>().ChangeColorChecker();
 
+        ColourChanger(); // with grade checker
+        SaveTower();
 
         GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 5f);
@@ -146,9 +159,12 @@ public class Node : MonoBehaviour
                 Debug.Log("Not Enough Money");
                 return;
             }
+
+            RangeUpgradeAdder();
             PlayerStats.money -= towerTemplate.rangeUpgradeCost;
 
-            towerObject.GetComponent<Tower>().ChangeColorChecker();
+            ColourChanger(); // with grade checker
+            SaveTower();
 
             GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
             Destroy(effect, 5f);
@@ -166,9 +182,12 @@ public class Node : MonoBehaviour
                 Debug.Log("Not Enough Money");
                 return;
             }
+
+            RateUpgradeAdder();
             PlayerStats.money -= towerTemplate.rateUpgradeCost;
 
-            towerObject.GetComponent<Tower>().ChangeColorChecker();
+            ColourChanger(); // with grade checker
+            SaveTower();
 
             GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
             Destroy(effect, 5f);
@@ -197,5 +216,168 @@ public class Node : MonoBehaviour
     public Tower GetTower()
     {
         return towerObject.GetComponent<Tower>();
+    }
+
+    public Tower GetTowerComponent()
+    {
+        return towerTemplate.Prefabs.GetComponent<Tower>();
+    }
+    public int GradeChecker() // for check grade
+    {
+        if ((totalUpgradeTime == firstGradeTime) && (!isFirstGraded))
+        {
+            isFirstGraded = true;
+            return 1;
+        }
+        else if ((totalUpgradeTime == secondGradeTime) && (!isSecondGraded))
+        {
+            isSecondGraded = true;
+            return 2;
+        }
+        else if ((totalUpgradeTime == thirdGradeTime) && (!isThirdGraded))
+        {
+            isThirdGraded = true;
+            return 3;
+        }
+        else if (isThirdGraded)
+        {
+            return 3;
+        }
+        return 0;
+    }
+
+    public void ColourChanger()
+    {
+        int gradeLevel = GradeChecker();
+        switch (gradeLevel)
+        {
+            case 1:
+                startColour = GetTowerComponent().firstGradedColour.color;
+                rend.material.color = startColour;
+                break;
+            case 2:
+                startColour = GetTowerComponent().secondGradedColour.color;
+                rend.material.color = startColour;
+                break;
+            case 3:
+                startColour = GetTowerComponent().thirdGradedColour.color;
+                rend.material.color = startColour;
+                isMaxed = true;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public bool DamageUpgradeAdder()
+    {
+        if (totalUpgradeTime < GetTowerComponent().bulletPrefab.GetComponent<Bullet>().maxDamage)
+        {
+            totalUpgradeTime++;
+            Debug.Log(this.name + "'s damage upgrade time: " + totalUpgradeTime);
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public bool RangeUpgradeAdder()
+    {
+        if (totalUpgradeTime < GetTowerComponent().maxRange)
+        {
+            totalUpgradeTime++;
+            Debug.Log(this.name + "'s range upgrade time: " + totalUpgradeTime);
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public bool RateUpgradeAdder()
+    {
+        if (totalUpgradeTime < GetTowerComponent().maxRate)
+        {
+            totalUpgradeTime++;
+            Debug.Log(this.name + "'s rate upgrade time: " + totalUpgradeTime);
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public void Initialise()
+    {
+        startColour = initialColour;
+        rend.material.color = initialColour;
+
+        isFirstGraded = false;
+        isSecondGraded = false;
+        isThirdGraded = false;
+
+        isMaxed = false;
+
+        totalUpgradeTime = 0;
+        ClearTower();
+    }
+
+    public int GetNameToInt()
+    {
+        int export = 0;
+        for(int i = 0; i < PlayerStats.nodeData.Length; i++)
+        {
+            if (this.gameObject.name.Contains(i.ToString()))
+            {
+                export = i;
+            }
+        }
+        return export;
+    }
+
+    public void SaveTower(/*GameObject towerGameobject, TowerTemplate towerTemplate, int upgradeTime, int dmg, int range, int rate, bool firstGraded, bool secondGraded, bool thirdGraded, Color filledColor*/)
+    {
+        int id = GetNameToInt();
+        PlayerStats.nodeData[id].id = id.ToString(); // use GetNameToInt()
+        PlayerStats.nodeData[id].towerGameobject = towerObject;
+        PlayerStats.nodeData[id].towerTemplate = towerTemplate;
+        PlayerStats.nodeData[id].totalUpgradeTime = totalUpgradeTime;
+        PlayerStats.nodeData[id].damageUpgradeTime = damageUpgradeTime;
+        PlayerStats.nodeData[id].rangeUpgradeTime = rangeUpgradeTime;
+        PlayerStats.nodeData[id].rateUpgradeTime = rateUpgradeTime;
+        PlayerStats.nodeData[id].reachedFirstGrade = isFirstGraded;
+        PlayerStats.nodeData[id].reachedSecondGrade = isSecondGraded;
+        PlayerStats.nodeData[id].reachedThirdGrade = isThirdGraded;
+        PlayerStats.nodeData[id].filledColor = rend.material.color;
+    }
+
+    public void ClearTower()
+    {
+        int id = GetNameToInt();
+        PlayerStats.nodeData[id].id = id.ToString(); // use GetNameToInt()
+        PlayerStats.nodeData[id].towerGameobject = null;
+        PlayerStats.nodeData[id].towerTemplate = null;
+        PlayerStats.nodeData[id].totalUpgradeTime = 0;
+        PlayerStats.nodeData[id].damageUpgradeTime = 0;
+        PlayerStats.nodeData[id].rangeUpgradeTime = 0;
+        PlayerStats.nodeData[id].rateUpgradeTime = 0;
+        PlayerStats.nodeData[id].reachedFirstGrade = false;
+        PlayerStats.nodeData[id].reachedSecondGrade = false;
+        PlayerStats.nodeData[id].reachedThirdGrade = false;
+        PlayerStats.nodeData[id].isMaxLevel = false;
+        PlayerStats.nodeData[id].filledColor = initialColour;
+    }
+    
+    public void LoadTower()
+    {
+        int id = GetNameToInt();
+        towerObject = PlayerStats.nodeData[id].towerGameobject;
+        towerTemplate = PlayerStats.nodeData[id].towerTemplate;
+        totalUpgradeTime = PlayerStats.nodeData[id].totalUpgradeTime;
+        damageUpgradeTime = PlayerStats.nodeData[id].damageUpgradeTime;
+        rangeUpgradeTime = PlayerStats.nodeData[id].rangeUpgradeTime;
+        rateUpgradeTime = PlayerStats.nodeData[id].rateUpgradeTime;
+        isFirstGraded = PlayerStats.nodeData[id].reachedFirstGrade;
+        isSecondGraded = PlayerStats.nodeData[id].reachedSecondGrade;
+        isThirdGraded = PlayerStats.nodeData[id].reachedThirdGrade;
+        startColour = PlayerStats.nodeData[id].filledColor;
     }
 }

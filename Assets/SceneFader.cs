@@ -14,13 +14,13 @@ public class SceneFader : MonoBehaviour
         StartCoroutine(FadeIn());
     }
 
-    public void FadeTo(string scene)
+    public void FadeTo(string scene, bool sync)
     {
-        StartCoroutine(FadeOut(scene));
+        StartCoroutine(FadeOut(scene,sync));
     }
-    public void FadeTo(int scene)
+    public void FadeTo(int scene,bool sync)
     {
-        StartCoroutine(FadeOut(scene));
+        StartCoroutine(FadeOut(scene,sync));
     }
 
     IEnumerator FadeIn()
@@ -34,8 +34,10 @@ public class SceneFader : MonoBehaviour
             yield return 0; // skip to the next frame
         }
     }
-    IEnumerator FadeOut(string scene)
+    IEnumerator FadeOut(string scene, bool sync)
     {
+        IsSceneExist(scene);
+
         float t = 0f;
         while (t < 1f)
         {
@@ -45,21 +47,81 @@ public class SceneFader : MonoBehaviour
             yield return 0; // skip to the next frame
         }
 
+        if(sync)
+        {
+            var progress = SceneManager.LoadSceneAsync(scene,LoadSceneMode.Additive);
+            while(!progress.isDone)
+            {
+                yield return null;
+            }
+
+            Debug.Log("Level loaded");
+            yield break;
+        }
+        else
+        {
+            SceneManager.LoadScene(scene);
+        }
+    }
+    
+    IEnumerator FadeOut(int scene, bool sync)
+    {
+        IsSceneExist(scene);
+
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime;
+            float a = fadeCurve.Evaluate(t);
+            img.color = new Color(0f, 0f, 0f, a);
+            yield return 0; // skip to the next frame
+        }
+
+        if (sync)
+        {
+            var progress = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+            while (!progress.isDone)
+            {
+                yield return null;
+            }
+           
+
+            Debug.Log("Level loaded");
+            yield break;
+        }
+        else
         SceneManager.LoadScene(scene);
     }
     
-    IEnumerator FadeOut(int scene)
+    bool IsSceneExist(int scene)
     {
-        float t = 0f;
-        while (t < 1f)
+        if (SceneManager.sceneCount > 0)
         {
-            t += Time.deltaTime;
-            float a = fadeCurve.Evaluate(t);
-            img.color = new Color(0f, 0f, 0f, a);
-            yield return 0; // skip to the next frame
+            for(int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                Scene checkingScene = SceneManager.GetSceneAt(i);
+                if(SceneManager.GetSceneByBuildIndex(scene) == checkingScene)
+                {
+                    return false;
+                }
+            }
         }
-
-        SceneManager.LoadScene(scene);
+        return true;
     }
-
+    
+    bool IsSceneExist(string scene)
+    {
+        if (SceneManager.sceneCount > 0)
+        {
+            for(int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                Scene checkingScene = SceneManager.GetSceneAt(i);
+                if(SceneManager.GetSceneByName(scene) == checkingScene)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

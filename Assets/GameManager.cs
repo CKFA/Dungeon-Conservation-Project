@@ -8,11 +8,12 @@ public class GameManager : MonoBehaviour
     public static bool gameIsOver;
     public string defenseSceneName;
     public string townSceneName;
+    public bool isThisTownStage;
     public GameObject gameOverUI;
     public BuildManager buildManager;
     public CityBuildManager cityBuildManager;
     public SceneFader sceneFader;
-
+    public GameObject nodes;
     private int nextSceneToLoad;
     private int prevSceneToLoad;
     // Start is called before the first frame update
@@ -22,6 +23,38 @@ public class GameManager : MonoBehaviour
 
         nextSceneToLoad = SceneManager.GetActiveScene().buildIndex + 1;
         prevSceneToLoad = SceneManager.GetActiveScene().buildIndex - 1;
+
+
+        if (PlayerStats.nodesIsSpawned)
+        {
+            Destroy(nodes);
+            Debug.Log("Destroy the nodes and keep the original nodes");
+            
+            if (PlayerStats.savedNodes != null) // if savenodes exists
+            {
+                if (isThisTownStage) // if this is town stage, disable it
+                {
+                    PlayerStats.savedNodes.SetActive(false);
+                    Debug.Log("Set SavedNodes to False");
+                    return;
+                }
+                else
+                {
+
+                    PlayerStats.savedNodes.SetActive(true);
+                    Debug.Log("Set SavedNodes to True");
+                    return;
+                }
+                
+            }
+
+            if (nodes == null)
+            {
+                nodes = PlayerStats.savedNodes;
+            }
+        }
+        PlayerStats.nodesIsSpawned = true;
+
     }
 
     // Update is called once per frame
@@ -41,12 +74,12 @@ public class GameManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Q))
         {
-            ToPrevScene();
+            ToPrevScene(false);
         }
 
         if(Input.GetKeyDown(KeyCode.E))
         {
-            ToNextScene();
+            ToNextScene(false);
             
         }
 
@@ -71,13 +104,13 @@ public class GameManager : MonoBehaviour
         gameOverUI.SetActive(true);
     }
 
-    void ToNextScene()
+    void ToNextScene(bool sync)
     {
-        sceneFader.FadeTo(nextSceneToLoad);
+        sceneFader.FadeTo(nextSceneToLoad,sync);
     }
 
-    void ToPrevScene()
+    void ToPrevScene(bool sync)
     {
-        sceneFader.FadeTo(prevSceneToLoad);
+        sceneFader.FadeTo(prevSceneToLoad,sync);
     }
 }

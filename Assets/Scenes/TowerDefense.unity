@@ -5966,6 +5966,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startMoney: 500
   startHp: 10
+  nodes: {fileID: 7530966282933678160}
 --- !u!114 &1576918274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5980,10 +5981,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defenseSceneName: 
   townSceneName: 
+  isThisTownStage: 0
   gameOverUI: {fileID: 1979054677}
   buildManager: {fileID: 1576918272}
   cityBuildManager: {fileID: 0}
   sceneFader: {fileID: 1637873789}
+  nodes: {fileID: 7530966282933678160}
 --- !u!114 &1576918275
 MonoBehaviour:
   m_ObjectHideFlags: 0
