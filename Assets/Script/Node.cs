@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class Node : MonoBehaviour
 {
+    [HideInInspector]
+    public int id;
     public Color hoverColour;
     public Color warningColour;
     public Vector3 positionOffset;
@@ -41,15 +43,13 @@ public class Node : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        id = transform.GetSiblingIndex();
         rend = GetComponent<Renderer>();
         startColour = rend.material.color;
         initialColour = startColour;
         buildManager = BuildManager.instance;
 
-        if(PlayerStats.nodeData[GetNameToInt()]!=null)
-        {
-            LoadTower();
-        }
+
     }
 
     public Vector3 GetBuildPosition()
@@ -60,11 +60,18 @@ public class Node : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        rend.material.color = hoverColour;
         if (EventSystem.current.IsPointerOverGameObject()) // if hovering the UI
+        {
             return;
+        }
 
-        if (!buildManager.CanBuild) // 
-        return;
+
+        if (!buildManager.CanBuild) // can't build
+        {
+            return;
+        }
+            
 
         if (towerObject != null)
         {
@@ -89,17 +96,25 @@ public class Node : MonoBehaviour
     private void OnMouseDown()
     {
         if (EventSystem.current.IsPointerOverGameObject()) // if hovering the UI
-            return;
-
-        if (towerObject != null) // if the tower built
         {
-            buildManager.SelectNode(this); // select this node
+            Debug.Log(this.name + ": 1");
             return;
         }
 
-        if (!buildManager.CanBuild) // if can't build
+        if (towerObject != null) // if this node have tower be built
+        {
+            buildManager.SelectNode(this);
+            Debug.Log(this.name + ": 2");
             return;
+        }
 
+        if (!buildManager.CanBuild) // if no tower be select to build
+        {
+            Debug.Log(this.name + ": 3");
+            return;
+        }
+
+        Debug.Log(this.name + ": 4");
         BuildTower(buildManager.GetTowerToBuild()); // build
     }
 
@@ -320,23 +335,9 @@ public class Node : MonoBehaviour
         ClearTower();
     }
 
-    public int GetNameToInt()
+    public void SaveTower()
     {
-        int export = 0;
-        for(int i = 0; i < PlayerStats.nodeData.Length; i++)
-        {
-            if (this.gameObject.name.Contains(i.ToString()))
-            {
-                export = i;
-            }
-        }
-        return export;
-    }
-
-    public void SaveTower(/*GameObject towerGameobject, TowerTemplate towerTemplate, int upgradeTime, int dmg, int range, int rate, bool firstGraded, bool secondGraded, bool thirdGraded, Color filledColor*/)
-    {
-        int id = GetNameToInt();
-        PlayerStats.nodeData[id].id = id.ToString(); // use GetNameToInt()
+        PlayerStats.nodeData[id].id = id; // use GetNameToInt()
         PlayerStats.nodeData[id].towerGameobject = towerObject;
         PlayerStats.nodeData[id].towerTemplate = towerTemplate;
         PlayerStats.nodeData[id].totalUpgradeTime = totalUpgradeTime;
@@ -346,13 +347,11 @@ public class Node : MonoBehaviour
         PlayerStats.nodeData[id].reachedFirstGrade = isFirstGraded;
         PlayerStats.nodeData[id].reachedSecondGrade = isSecondGraded;
         PlayerStats.nodeData[id].reachedThirdGrade = isThirdGraded;
-        PlayerStats.nodeData[id].filledColor = rend.material.color;
     }
 
     public void ClearTower()
     {
-        int id = GetNameToInt();
-        PlayerStats.nodeData[id].id = id.ToString(); // use GetNameToInt()
+        PlayerStats.nodeData[id].id = id; // use GetNameToInt()
         PlayerStats.nodeData[id].towerGameobject = null;
         PlayerStats.nodeData[id].towerTemplate = null;
         PlayerStats.nodeData[id].totalUpgradeTime = 0;
@@ -363,12 +362,11 @@ public class Node : MonoBehaviour
         PlayerStats.nodeData[id].reachedSecondGrade = false;
         PlayerStats.nodeData[id].reachedThirdGrade = false;
         PlayerStats.nodeData[id].isMaxLevel = false;
-        PlayerStats.nodeData[id].filledColor = initialColour;
     }
     
     public void LoadTower()
     {
-        int id = GetNameToInt();
+
         towerObject = PlayerStats.nodeData[id].towerGameobject;
         towerTemplate = PlayerStats.nodeData[id].towerTemplate;
         totalUpgradeTime = PlayerStats.nodeData[id].totalUpgradeTime;
@@ -378,6 +376,6 @@ public class Node : MonoBehaviour
         isFirstGraded = PlayerStats.nodeData[id].reachedFirstGrade;
         isSecondGraded = PlayerStats.nodeData[id].reachedSecondGrade;
         isThirdGraded = PlayerStats.nodeData[id].reachedThirdGrade;
-        startColour = PlayerStats.nodeData[id].filledColor;
+        
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class NodeData
 {
-    public string id;
+    public int id;
     public GameObject towerGameobject;
     public TowerTemplate towerTemplate;
     public int totalUpgradeTime;
@@ -17,6 +17,5 @@ public class NodeData
     public bool reachedSecondGrade;
     public bool reachedThirdGrade;
     public bool isMaxLevel;
-    public Color filledColor;
 
 }

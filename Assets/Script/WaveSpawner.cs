@@ -21,16 +21,13 @@ public class WaveSpawner : MonoBehaviour
     public Text waveIndexUi;
     public HpUI hpUI;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
         if (isSpawning) // if spawning
         {
+            
             hpUI.isEnabled = true;
             if (countDown <= 0f) // less than 0 second , next wave go
             {

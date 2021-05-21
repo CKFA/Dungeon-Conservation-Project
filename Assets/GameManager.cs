@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject nodes;
     private int nextSceneToLoad;
     private int prevSceneToLoad;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +24,6 @@ public class GameManager : MonoBehaviour
 
         nextSceneToLoad = SceneManager.GetActiveScene().buildIndex + 1;
         prevSceneToLoad = SceneManager.GetActiveScene().buildIndex - 1;
-
 
         if (PlayerStats.nodesIsSpawned)
         {
@@ -106,6 +106,7 @@ public class GameManager : MonoBehaviour
 
     void ToNextScene(bool sync)
     {
+        BuildManager.instance.DeselectNode();
         sceneFader.FadeTo(nextSceneToLoad,sync);
     }
 

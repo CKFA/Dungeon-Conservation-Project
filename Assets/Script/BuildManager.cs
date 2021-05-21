@@ -7,21 +7,33 @@ public class BuildManager : MonoBehaviour
     public static BuildManager instance;
     // Start is called before the first frame update
 
-    private void Awake()
-    {
-        instance = this;
-    }
 
     public GameObject buildEffect;
     public GameObject sellEffect;
 
-    private TowerTemplate towerToBuild;
+    private static TowerTemplate towerToBuild;
     private Node selectedNode;
 
-    public Shop shopUI;
+    public GameObject shopUI ;
+    public static GameObject storedShopUI;
     public GameObject notEnoughMoneyUI;
-    public NodeUI nodeUI;
-    public RangeArea rangeArea;
+
+    public GameObject nodeUI;
+    public static GameObject storedNodeUI;
+    public GameObject rangeGameObject;
+
+    private void Awake()
+    {
+        instance = this;
+        storedShopUI = shopUI;
+        storedNodeUI = nodeUI;
+        storedNodeUI.GetComponent<NodeUI>().Hide();
+        DeselectNode();
+        if (rangeGameObject == null)
+        {
+            rangeGameObject = FindObjectOfType<RangeArea>().gameObject;
+        }
+    }
 
     public bool CanBuild { get { return towerToBuild != null; } }
     public bool HasMoney { get { return PlayerStats.money >=towerToBuild.cost; } }
@@ -36,19 +48,20 @@ public class BuildManager : MonoBehaviour
         selectedNode = node;
         DeselectTowerToBuild();
 
-        rangeArea.Enabled(node);
-        nodeUI.SetTarget(node);
+        rangeGameObject.GetComponent<RangeArea>().TurnOn(node);
+        storedNodeUI.GetComponent<NodeUI>().SetTarget(node);
     }
 
     public void DeselectNode()
     {
-        rangeArea.Disabled();
+        rangeGameObject.GetComponent<RangeArea>().TurnOff();
         selectedNode = null;
-        nodeUI.Hide();
+        storedNodeUI.GetComponent<NodeUI>().Hide();
     }
     public void SelectTowerToBuild(TowerTemplate tower)
     {
         towerToBuild = tower;
+        Debug.Log(towerToBuild.Prefabs.name + " from BuildManager" );
         DeselectNode();
     }
 

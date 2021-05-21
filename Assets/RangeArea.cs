@@ -17,7 +17,7 @@ public class RangeArea : MonoBehaviour
         
     }
 
-    public void Enabled(Node _target)
+    public void TurnOn(Node _target)
     {
         target = _target;
 
@@ -30,7 +30,7 @@ public class RangeArea : MonoBehaviour
         
     }
 
-    public void Disabled()
+    public void TurnOff()
     {
         this.gameObject.SetActive(false);
     }

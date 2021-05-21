@@ -16,6 +16,7 @@ public class GameOver : MonoBehaviour
 
     public void Retry()
     {
+        FindObjectOfType<PlayerStats>().Initialisation();
         sceneFader.FadeTo(SceneManager.GetActiveScene().name,false);
     }
     public void Menu()

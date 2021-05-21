@@ -321,7 +321,7 @@ RectTransform:
   - {fileID: 1979054678}
   - {fileID: 177406506}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -774,7 +774,7 @@ RectTransform:
   m_Children:
   - {fileID: 271304198}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2957,17 +2957,6 @@ Transform:
   m_Father: {fileID: 934023286}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &651994145 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6469283906272483844, guid: 0478be52b78126c43a5efd4de2aebbf6, type: 3}
-  m_PrefabInstance: {fileID: 1389182135}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe453e64a399a474482e087823e42020, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &672728427
 GameObject:
   m_ObjectHideFlags: 0
@@ -4968,63 +4957,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1381054611}
   m_CullTransparentMesh: 0
---- !u!1001 &1389182135
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 892292998064837234, guid: 0478be52b78126c43a5efd4de2aebbf6, type: 3}
-      propertyPath: m_Name
-      value: Range
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387725895610335731, guid: 0478be52b78126c43a5efd4de2aebbf6, type: 3}
-      propertyPath: m_RootOrder
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387725895610335731, guid: 0478be52b78126c43a5efd4de2aebbf6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387725895610335731, guid: 0478be52b78126c43a5efd4de2aebbf6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387725895610335731, guid: 0478be52b78126c43a5efd4de2aebbf6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387725895610335731, guid: 0478be52b78126c43a5efd4de2aebbf6, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387725895610335731, guid: 0478be52b78126c43a5efd4de2aebbf6, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387725895610335731, guid: 0478be52b78126c43a5efd4de2aebbf6, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387725895610335731, guid: 0478be52b78126c43a5efd4de2aebbf6, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387725895610335731, guid: 0478be52b78126c43a5efd4de2aebbf6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387725895610335731, guid: 0478be52b78126c43a5efd4de2aebbf6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387725895610335731, guid: 0478be52b78126c43a5efd4de2aebbf6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0478be52b78126c43a5efd4de2aebbf6, type: 3}
 --- !u!1 &1399004026
 GameObject:
   m_ObjectHideFlags: 0
@@ -5948,10 +5880,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildEffect: {fileID: 8774685446736435092, guid: e863b28aee7308a468ccfdcad3f95b7e, type: 3}
   sellEffect: {fileID: 8774685446736435092, guid: deeef86bb75766c479403ec48fc7af16, type: 3}
-  shopUI: {fileID: 351136812}
+  shopUI: {fileID: 351136807}
   notEnoughMoneyUI: {fileID: 271304197}
-  nodeUI: {fileID: 1547931682}
-  rangeArea: {fileID: 651994145}
+  nodeUI: {fileID: 1547931677}
+  rangeGameObject: {fileID: 892292998064837234, guid: 0478be52b78126c43a5efd4de2aebbf6, type: 3}
 --- !u!114 &1576918273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5967,6 +5899,7 @@ MonoBehaviour:
   startMoney: 500
   startHp: 10
   nodes: {fileID: 7530966282933678160}
+  nodeDataLength: 0
 --- !u!114 &1576918274
 MonoBehaviour:
   m_ObjectHideFlags: 0

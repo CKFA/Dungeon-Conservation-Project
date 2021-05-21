@@ -28,18 +28,20 @@ public class Shop : MonoBehaviour
 
     public void SelectCannon()
     {
-        Debug.Log("CannonPurchased");
+        Debug.Log("Selected Cannon");
+        Debug.Log(cannonTemplate.Prefabs.name);
         buildManager.SelectTowerToBuild(cannonTemplate);
+        Debug.Log(FindObjectOfType<BuildManager>().name);
     }
     public void SelectLauncher()
     {
-        Debug.Log("RocketLauncherPurchased");
+        Debug.Log("RocketLauncher Selected");
         buildManager.SelectTowerToBuild(launcherTemplate);
     }
 
     public void SelectLaserGun()
     {
-        Debug.Log("LaserGunPurchased");
+        Debug.Log("LaserGun Selected");
         buildManager.SelectTowerToBuild(laserTemplate);
     }
 }
