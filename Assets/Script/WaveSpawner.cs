@@ -10,7 +10,7 @@ public class WaveSpawner : MonoBehaviour
     public Wave[] waves;
 
     public Transform spawnPoint;
-    [Range(1,100)]
+    [Range(20,100)]
     public int HpBuff = 1;
     public float timeBetweenWaves = 5f;
     private float countDown = 2f;
@@ -77,6 +77,6 @@ public class WaveSpawner : MonoBehaviour
     void EnemyLevelUpper(GameObject enemy)
     {
         EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
-        EnemyAI.hp = enemyAI.startHp + (PlayerStats.waves * HpBuff);
+        enemyAI.hp = enemyAI.startHp + (PlayerStats.waves * HpBuff);
     }
 }

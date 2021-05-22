@@ -2383,7 +2383,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.58
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2439,13 +2439,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 417024949}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 598.03, y: 261.04, z: 1048.198}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 56.8, y: 44.9, z: -29.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &417074963
 GameObject:
   m_ObjectHideFlags: 0
@@ -6220,9 +6220,9 @@ MonoBehaviour:
   waves:
   - enemy: {fileID: 7747604835553772507, guid: a4892771b1b29344598070b00b5b98a9, type: 3}
     count: 5
-    rate: 5
+    rate: 2
   spawnPoint: {fileID: 846974052}
-  HpBuff: 2
+  HpBuff: 20
   timeBetweenWaves: 10
   waveCountDownTopic: {fileID: 1908658457}
   waveCountDownText: {fileID: 1030495587}
