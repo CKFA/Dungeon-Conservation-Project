@@ -68,6 +68,7 @@ public class Bullet : MonoBehaviour
                 Damage(collider.transform);
             }
         }
+        Destroy(gameObject);
     }
 
     void Damage(Transform enemy)
@@ -82,17 +83,18 @@ public class Bullet : MonoBehaviour
             }
             e.TakeDamage(damage);
         }
+        Destroy(gameObject);
     }
 
     void BulletHitEffect()
     {
         GameObject effectIns = (GameObject)Instantiate(hitEffect, transform.position, transform.rotation);
-        Destroy(effectIns, 5f);
+        Destroy(effectIns, 3f);
     }
 
     void BulletDisappearEffect()
     {
         GameObject effectIns = (GameObject)Instantiate(disappearEffect, transform.position, transform.rotation);
-        Destroy(effectIns, 5f);
+        Destroy(effectIns, 3f);
     }
 }

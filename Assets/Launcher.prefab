@@ -1367,6 +1367,7 @@ MonoBehaviour:
   range: 20
   startRange: 15
   upgradeRange: 5
+  isSlowDown: 0
   slowPrecent: 0.5
   bulletPrefab: {fileID: 4978385564715041698, guid: d3496de9d2a5aa24a92689e3bbf8fddd, type: 3}
   rate: 0.5
@@ -1380,11 +1381,11 @@ MonoBehaviour:
   maxDmgUpgradeTime: 5
   maxRangeUpgradeTime: 5
   maxRateUpgradeTime: 5
-  firstGradedTime: 6
-  secondGradedTime: 12
-  thirdGradedTime: 20
-  partToChange: {fileID: 0}
-  firstGradedColour: {fileID: 2100000, guid: dc72aaf801b08be4dab7f02c29c96daf, type: 2}
+  firstGradedTime: 5
+  secondGradedTime: 10
+  thirdGradedTime: 15
+  partToChange: {fileID: 4029235625698081525}
+  firstGradedColour: {fileID: 2100000, guid: 6f19dc350e76f564eb98e0a5e12290ef, type: 2}
   secondGradedColour: {fileID: 2100000, guid: d1bdc4aed260c1c438ea1b46a900052b, type: 2}
   thirdGradedColour: {fileID: 2100000, guid: 1e65b4fd72d148d4b8c72b7c3eb0367e, type: 2}
   enemyTag: Enemy

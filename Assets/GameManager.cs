@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
         {
             if (buildManager != null)
             {
-                buildManager.DeselectNode();
+                buildManager.DeselectNode(true);
                 buildManager.DeselectTowerToBuild();
             }
             else if(cityBuildManager != null)
@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
 
     void ToNextScene(bool sync)
     {
-        BuildManager.instance.DeselectNode();
+        BuildManager.instance.DeselectNode(true);
         sceneFader.FadeTo(nextSceneToLoad,sync);
     }
 

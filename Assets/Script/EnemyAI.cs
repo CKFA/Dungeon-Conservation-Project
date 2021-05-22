@@ -9,8 +9,9 @@ public class EnemyAI : MonoBehaviour
     [HideInInspector]
     public float speed;
 
-    private float hp;
-    public float startHp = 100;
+    public static float hp;
+    public float startHp;
+    public float hpAtNow;
 
     public int moneyDrop = 50;
 
@@ -22,6 +23,7 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         speed = startSpeed;
+        startHp = 100;
         hp = startHp;
     }
     public void TakeDamage(float amount)
@@ -46,5 +48,8 @@ public class EnemyAI : MonoBehaviour
         WaveSpawner.EnemiesAlive--;
         Destroy(gameObject);
     }
-    
+    private void Update()
+    {
+        hpAtNow = hp;        
+    }
 }

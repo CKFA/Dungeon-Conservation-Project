@@ -29,6 +29,7 @@ public class Tower : MonoBehaviour
     public GameObject bulletPrefab;
     [HideInInspector]
     public float rate;
+    [Header("Rate")]
     public float startRate = 1f;
     public float upgradeRate = 1f;
 
@@ -48,9 +49,9 @@ public class Tower : MonoBehaviour
     public int maxRateUpgradeTime = 5;
     private int upgradeTime = 0;
 
-    public int firstGradedTime = 5;
-    public int secondGradedTime = 10;
-    public int thirdGradedTime = 15;
+    public int firstGradedTime = 0;
+    public int secondGradedTime = 0;
+    public int thirdGradedTime = 0;
 
     public MeshRenderer partToChange;
     public Material firstGradedColour;
@@ -78,6 +79,23 @@ public class Tower : MonoBehaviour
         rate = startRate;
         damage = startDamage;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
+
+        firstGradedTime = 0;
+        secondGradedTime = 0;
+        thirdGradedTime = 0;
+
+        firstGradedTime = Mathf.RoundToInt(maxDmgUpgradeTime + maxRangeUpgradeTime + maxRateUpgradeTime / 3);
+        secondGradedTime = Mathf.RoundToInt(maxDmgUpgradeTime + maxRangeUpgradeTime + maxRateUpgradeTime / 2);
+        thirdGradedTime = maxDmgUpgradeTime + maxRangeUpgradeTime + maxRateUpgradeTime;
+
+        if(secondGradedTime == firstGradedTime)
+        {
+            secondGradedTime++;
+        }
+        if(thirdGradedTime == secondGradedTime)
+        {
+            secondGradedTime--;
+        }
     }
 
     void UpdateTarget()

@@ -10,7 +10,8 @@ public class WaveSpawner : MonoBehaviour
     public Wave[] waves;
 
     public Transform spawnPoint;
-
+    [Range(1,100)]
+    public int HpBuff = 1;
     public float timeBetweenWaves = 5f;
     private float countDown = 2f;
 
@@ -59,12 +60,11 @@ public class WaveSpawner : MonoBehaviour
         }
 
         waveIndex++;
-
+        EnemyLevelUpper(wave.enemy);
 
         if (waves.Length == waveIndex)
         {
             waveIndex = 0; // debug
-            Debug.Log("Wave loop reaches max");
         }
     }
 
@@ -72,5 +72,11 @@ public class WaveSpawner : MonoBehaviour
     {
         Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
         EnemiesAlive++;
+    }
+
+    void EnemyLevelUpper(GameObject enemy)
+    {
+        EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
+        EnemyAI.hp = enemyAI.startHp + (PlayerStats.waves * HpBuff);
     }
 }

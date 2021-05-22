@@ -28,7 +28,7 @@ public class BuildManager : MonoBehaviour
         storedShopUI = shopUI;
         storedNodeUI = nodeUI;
         storedNodeUI.GetComponent<NodeUI>().Hide();
-        DeselectNode();
+        DeselectNode(true);
         if (rangeGameObject == null)
         {
             rangeGameObject = FindObjectOfType<RangeArea>().gameObject;
@@ -38,11 +38,11 @@ public class BuildManager : MonoBehaviour
     public bool CanBuild { get { return towerToBuild != null; } }
     public bool HasMoney { get { return PlayerStats.money >=towerToBuild.cost; } }
 
-    public void SelectNode(Node node)
+    public void SelectNode(Node node,bool needToReset)
     {
-        if(selectedNode == node)
+        if (selectedNode == node && needToReset)
         {
-            DeselectNode();
+            DeselectNode(true);
             return;
         }
         selectedNode = node;
@@ -52,17 +52,21 @@ public class BuildManager : MonoBehaviour
         storedNodeUI.GetComponent<NodeUI>().SetTarget(node);
     }
 
-    public void DeselectNode()
+    public void DeselectNode(bool needToReset)
     {
         rangeGameObject.GetComponent<RangeArea>().TurnOff();
-        selectedNode = null;
+        if (needToReset)
+        {
+            selectedNode = null;
+        }
+
         storedNodeUI.GetComponent<NodeUI>().Hide();
     }
     public void SelectTowerToBuild(TowerTemplate tower)
     {
         towerToBuild = tower;
-        Debug.Log(towerToBuild.Prefabs.name + " from BuildManager" );
-        DeselectNode();
+        //Debug.Log(towerToBuild.Prefabs.name + " from BuildManager" );
+        DeselectNode(true);
     }
 
     public TowerTemplate GetTowerToBuild()

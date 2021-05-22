@@ -10,44 +10,91 @@ public class NodeUI : MonoBehaviour
     private Node target;
     [Header("Buttons")]
     public Button damageUpgradeButton;
-    public RectTransform rangeUpgradeButton;
+    public Button rangeUpgradeButton;
     public Button rateUpgradeButton;
+    [Header("Colour")]
+    public Color normalColour;
+    public Color maxColour;
     [Header("Bar")]
     public Image damageBar;
     public Image rangeBar;
     public Image rateBar;
     [Header("Text")]
-    public Text upgradeDmgCost;
-    public Text upgradeRangeCost;
-    public Text upgradeRateCost;
+    public Text damageUpgradeCost;
+    public Text rangeUpgradeCost;
+    public Text rateUpgradeCost;
     public Text sellCost;
-    public Text dmgAmount;
+    public Text damageAmount;
     public Text rangeAmount;
     public Text rateAmount;
-    public Text timeOfUpgradeDmg;
+    public Text timeOfUpgradeDamage;
     public Text timeOfUpgradeRange;
     public Text timeOfUpgradeRate;
-
+    BuildManager buildManager;
+    public static Node storedNode;
     private void Start()
     {
         damageBar.fillAmount = 0;
         rangeBar.fillAmount = 0;
         rateBar.fillAmount = 0;
+        buildManager = BuildManager.instance;
     }
     //public Button upgradeButton;
     public void SetTarget(Node _target)
     {
         target = _target;
-        //if (!target.isUpgraded)
-        //{
-        //    upgradeDmgCost.text = "$" + target.towerTemplate.upgradeCost;
-        //    upgradeButton.interactable = true;
-        //}
-        //else
-        //{
-        //    upgradeDmgCost.text = "Max";
-        //    upgradeButton.interactable = false;
-        //}
+        storedNode = target;
+
+        if(target.isDmgMaxed)
+        {
+            timeOfUpgradeDamage.text = "Max!";
+            timeOfUpgradeDamage.color = Color.white;
+            damageUpgradeCost.text = " - ";
+            damageUpgradeButton.GetComponent<Image>().color = maxColour;
+            damageUpgradeButton.interactable = false;
+        }
+        else
+        {
+            timeOfUpgradeDamage.color = Color.black;
+            timeOfUpgradeDamage.text = $"{target.damageUpgradeTime} / { target.GetTowerComponent().maxDmgUpgradeTime}";
+            damageUpgradeCost.text = $"${target.towerTemplate.damageUpgradeCost}";
+            damageUpgradeButton.GetComponent<Image>().color = normalColour;
+            damageUpgradeButton.interactable = true;
+        }
+
+        if(target.isRangeMaxed)
+        {
+            timeOfUpgradeRange.text = "Max!";
+            timeOfUpgradeRange.color = Color.white;
+            rangeUpgradeCost.text = " - ";
+            rangeUpgradeButton.GetComponent<Image>().color = maxColour;
+            rangeUpgradeButton.interactable = false;
+        }
+        else
+        {
+            timeOfUpgradeRange.color = Color.black;
+            timeOfUpgradeRange.text = $"{target.rangeUpgradeTime} / { target.GetTowerComponent().maxRangeUpgradeTime}";
+            rangeUpgradeCost.text = $"${ target.towerTemplate.rangeUpgradeCost}";
+            rangeUpgradeButton.GetComponent<Image>().color = normalColour;
+            rangeUpgradeButton.interactable = true;
+        }
+
+        if (target.isRateMaxed)
+        {
+            timeOfUpgradeRate.text = "Max!";
+            timeOfUpgradeRate.color = Color.white;
+            rateUpgradeCost.text = " - ";
+            rateUpgradeButton.GetComponent<Image>().color = maxColour;
+            rateUpgradeButton.interactable = false;
+        }
+        else
+        {
+            timeOfUpgradeRate.color = Color.black;
+            timeOfUpgradeRate.text = $"{target.rateUpgradeTime} / { target.GetTowerComponent().maxRateUpgradeTime}";
+            rateUpgradeCost.text = $"${ target.towerTemplate.rateUpgradeCost}";
+            rateUpgradeButton.GetComponent<Image>().color = normalColour;
+            rateUpgradeButton.interactable = true;
+        }
 
         float currentDamageTime = target.damageUpgradeTime;
         float currentDamageMaxTime = target.GetTowerComponent().maxDmgUpgradeTime;
@@ -58,25 +105,21 @@ public class NodeUI : MonoBehaviour
         float currentRangeMaxTime = target.GetTowerComponent().maxRangeUpgradeTime;
 
         rangeBar.fillAmount = currentRangeTime / currentRangeMaxTime;
-        
+
         float currentRateTime = target.rateUpgradeTime;
         float currentRateMaxTime = target.GetTowerComponent().maxRateUpgradeTime;
 
         rateBar.fillAmount = currentRateTime / currentRateMaxTime;
-        
-        timeOfUpgradeRange.text = $"{target.rangeUpgradeTime} / { target.GetTowerComponent().maxRangeUpgradeTime}";
-        timeOfUpgradeRate.text = $"{target.rateUpgradeTime} / { target.GetTowerComponent().maxRateUpgradeTime}";
 
-
+        damageAmount.text = target.GetTowerObjectComponenet().damage.ToString();
         rangeAmount.text = target.GetTowerObjectComponenet().range.ToString();
         rateAmount.text = target.GetTowerObjectComponenet().rate.ToString();
 
-        upgradeDmgCost.text = $"${target.towerTemplate.damageUpgradeCost}";
-        upgradeRangeCost.text = $"${ target.towerTemplate.rangeUpgradeCost}";
-        upgradeRateCost.text = $"${ target.towerTemplate.rateUpgradeCost}";
         sellCost.text = $"Sell\n${target.towerTemplate.GetSellAmount()}";
 
+
         ui.SetActive(true);
+        
     }
 
     public void Hide()
@@ -86,28 +129,29 @@ public class NodeUI : MonoBehaviour
 
     public void UpgradeDmg()
     {
-
-        target.UpgradeTowerDmg();
-
-        BuildManager.instance.DeselectNode();
+        storedNode.UpgradeTowerDmg();
+        buildManager.DeselectNode(false);
+        buildManager.SelectNode(storedNode,false);
     }
 
     public void UpgradeRange()
     {
-        target.UpgradeTowerRange();
-        BuildManager.instance.DeselectNode();
+        storedNode.UpgradeTowerRange();
+        buildManager.DeselectNode(false);
+        buildManager.SelectNode(storedNode,false);
     }
 
     public void UpgradeRate()
     {
-        target.UpgradeTowerRate();
-        BuildManager.instance.DeselectNode();
+        storedNode.UpgradeTowerRate();
+        buildManager.DeselectNode(false);
+        buildManager.SelectNode(storedNode,false);
     }
 
     public void Sell()
     {
         target.SellTower();
-        BuildManager.instance.DeselectNode();
+        BuildManager.instance.DeselectNode(true);
     }
 
 }

@@ -22,10 +22,6 @@ public class Node : MonoBehaviour
 
     [Header("Upgrade")]
 
-    private int firstGradeTime = 0;
-    private int secondGradeTime = 0;
-    private int thirdGradeTime = 0;
-
     public bool isFirstGraded = false;
     public bool isSecondGraded = false;
     public bool isThirdGraded = false;
@@ -101,11 +97,11 @@ public class Node : MonoBehaviour
         {
             return;
         }
-
+        Debug.Log(this.name + ": " + isDmgMaxed);
         if (towerObject != null) // if this node have tower be built
         {
-            buildManager.SelectNode(this);
-            //Debug.Log(this.name + " is Selected");
+            buildManager.SelectNode(this,true);
+            Debug.Log(this.name + " is Selected");
             return;
         }
 
@@ -236,17 +232,17 @@ public class Node : MonoBehaviour
     }
     public int GradeChecker() // for check grade
     {
-        if ((totalUpgradeTime == firstGradeTime) && (!isFirstGraded))
+        if ((totalUpgradeTime == GetTowerComponent().firstGradedTime) && (!isFirstGraded))
         {
             isFirstGraded = true;
             return 1;
         }
-        else if ((totalUpgradeTime == secondGradeTime) && (!isSecondGraded))
+        else if ((totalUpgradeTime == GetTowerComponent().secondGradedTime) && (!isSecondGraded))
         {
             isSecondGraded = true;
             return 2;
         }
-        else if ((totalUpgradeTime == thirdGradeTime) && (!isThirdGraded))
+        else if ((totalUpgradeTime == GetTowerComponent().thirdGradedTime) && (!isThirdGraded))
         {
             isThirdGraded = true;
             return 3;
@@ -264,16 +260,18 @@ public class Node : MonoBehaviour
         switch (gradeLevel)
         {
             case 1:
-                startColour = GetTowerComponent().firstGradedColour.color;
-                rend.material.color = startColour;
+                GetTowerObjectComponenet().partToChange.material= GetTowerComponent().firstGradedColour;
+                //Debug.Log(this.name + ": 1 Graded");
                 break;
             case 2:
-                startColour = GetTowerComponent().secondGradedColour.color;
-                rend.material.color = startColour;
+                GetTowerObjectComponenet().partToChange.material = GetTowerComponent().secondGradedColour;
+                //startColour = GetTowerComponent().secondGradedColour.color;
+                //rend.material.color = startColour;
+                //Debug.Log(this.name + ": 2 Graded");
                 break;
             case 3:
-                startColour = GetTowerComponent().thirdGradedColour.color;
-                rend.material.color = startColour;
+                GetTowerObjectComponenet().partToChange.material = GetTowerComponent().thirdGradedColour;
+                //Debug.Log(this.name + ": 3 Graded");
                 break;
             default:
                 break;
@@ -286,18 +284,18 @@ public class Node : MonoBehaviour
         {
             totalUpgradeTime++;
             damageUpgradeTime++;
-            Debug.Log(this.name + "'s damage upgrade time: " + damageUpgradeTime);
+            //Debug.Log(this.name + "'s damage upgrade time: " + damageUpgradeTime);
 
-            //if (damageUpgradeTime == GetTowerComponent().bulletPrefab.GetComponent<Bullet>().maxDmgUpgradeTime) // not completed
-            //{
-            //    isDmgMaxed = true;
-            //}
+            if (damageUpgradeTime == GetTowerComponent().maxDmgUpgradeTime)
+            {
+                isDmgMaxed = true;
+            }
 
             return true;
         }
         else
         {
-            Debug.Log(this.name + "'s range level: " + damageUpgradeTime + " (max)");
+            //Debug.Log(this.name + "'s range level: " + damageUpgradeTime + " (max)");
             return false;
         }
 
@@ -309,7 +307,7 @@ public class Node : MonoBehaviour
         {
             totalUpgradeTime++;
             rangeUpgradeTime++;
-            Debug.Log(this.name + "'s range upgrade time: " + rangeUpgradeTime);
+            //Debug.Log(this.name + "'s range upgrade time: " + rangeUpgradeTime);
 
             if (rangeUpgradeTime == GetTowerComponent().maxRangeUpgradeTime)
             {
@@ -320,7 +318,7 @@ public class Node : MonoBehaviour
         }
         else
         {
-            Debug.Log(this.name + "'s range level: " + rangeUpgradeTime + " (max)");
+           // Debug.Log(this.name + "'s range level: " + rangeUpgradeTime + " (max)");
             return false;
         }
     }
@@ -331,7 +329,7 @@ public class Node : MonoBehaviour
         {
             totalUpgradeTime++;
             rateUpgradeTime++;
-            Debug.Log(this.name + "'s rate upgrade time: " + rateUpgradeTime);
+            //Debug.Log(this.name + "'s rate upgrade time: " + rateUpgradeTime);
 
             if (rateUpgradeTime == GetTowerComponent().maxRateUpgradeTime)
             {
@@ -342,7 +340,7 @@ public class Node : MonoBehaviour
         }
         else
         {
-            Debug.Log(this.name + "'s range level: " + rateUpgradeTime + " (max)");
+            //Debug.Log(this.name + "'s range level: " + rateUpgradeTime + " (max)");
             return false;
         }
 
