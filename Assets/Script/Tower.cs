@@ -7,12 +7,22 @@ public class Tower : MonoBehaviour
     private Transform target;
     private EnemyAI targetEnemy;
 
-    [Header("General")]
+    
+    [HideInInspector]
+    public float damage;
+    [Header("Damage")]
+    public float startDamage = 15f;
+    public float upgradeDamage = 5f;
+
+    
     [HideInInspector]
     public float range;
+    [Header("Range")]
     public float startRange = 15f;
     public float upgradeRange = 5f;
-    public float maxRange = 100f;
+
+    [Header("SlowDown")]
+    public bool isSlowDown = false;
     public float slowPrecent = .5f;
 
     [Header("Normal Bullet")]
@@ -21,7 +31,7 @@ public class Tower : MonoBehaviour
     public float rate;
     public float startRate = 1f;
     public float upgradeRate = 1f;
-    public float maxRate = 100f;
+
     private float fireCountDown = 0f;
 
     [Header("Laser")]
@@ -33,10 +43,14 @@ public class Tower : MonoBehaviour
 
     [Header("Upgrade")]
 
+    public int maxDmgUpgradeTime = 5;
+    public int maxRangeUpgradeTime = 5;
+    public int maxRateUpgradeTime = 5;
     private int upgradeTime = 0;
-    public int firstGradedTime = 6;
-    public int secondGradedTime = 12;
-    public int thirdGradedTime = 20;
+
+    public int firstGradedTime = 5;
+    public int secondGradedTime = 10;
+    public int thirdGradedTime = 15;
 
     public MeshRenderer partToChange;
     public Material firstGradedColour;
@@ -62,6 +76,7 @@ public class Tower : MonoBehaviour
     {
         range = startRange;
         rate = startRate;
+        damage = startDamage;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
@@ -136,7 +151,10 @@ public class Tower : MonoBehaviour
     void Laser()
     {
         targetEnemy.TakeDamage(damageOverTime * Time.deltaTime);
-        targetEnemy.Slow(slowPrecent);
+        if(isSlowDown)
+        {
+            targetEnemy.Slow(slowPrecent);
+        }
 
         if (!lineRenderer.enabled)
         {
@@ -159,6 +177,7 @@ public class Tower : MonoBehaviour
     void Shoot()
     {
         GameObject bulletGo = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        bulletGo.transform.parent = gameObject.transform;
         Bullet bullet = bulletGo.GetComponent<Bullet>();
 
         if (bullet != null)
@@ -166,6 +185,13 @@ public class Tower : MonoBehaviour
             bullet.Seek(target);
         }
     }
+
+    public void UpgradeDamage()
+    {
+        upgradeTime++;
+        damage += upgradeDamage;
+    }
+
     public void UpgradeRange()
     {
         upgradeTime++;
@@ -176,10 +202,6 @@ public class Tower : MonoBehaviour
         upgradeTime++;
         rate += upgradeRate;
     }
-
-    public bool CheckIsMaxRange { get { return range >= maxRange; } }
-
-    public bool CheckIsMaxRate { get { return rate >= maxRate; } }
 
     public void ChangeColorChecker() // for upgrading
     {

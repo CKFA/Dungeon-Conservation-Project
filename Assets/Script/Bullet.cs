@@ -6,9 +6,7 @@ public class Bullet : MonoBehaviour
 {
     private Transform target;
     [HideInInspector]
-    public int damage;
-    public int startDamage = 50;
-    public int maxDamage = 100;
+    public float damage;
     public float speed = 70f;
     public float explosionRange = 0f;
     public GameObject hitEffect;
@@ -16,7 +14,7 @@ public class Bullet : MonoBehaviour
     public void Seek(Transform _target)
     {
         target = _target;
-        damage = startDamage;
+        damage = GetComponentInParent<Tower>().damage;
     }
     void Update()
     {
@@ -43,7 +41,7 @@ public class Bullet : MonoBehaviour
     {
         BulletHitEffect();
 
-        if(explosionRange >0f)
+        if(explosionRange > 0f)
         {
             Explode();
         }
@@ -52,16 +50,21 @@ public class Bullet : MonoBehaviour
         {
             Damage(target);
         }
-        Destroy(gameObject);
     }
 
     void Explode()
     {
+
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRange);
         foreach(Collider collider in colliders)
         {
             if (collider.tag == "Enemy")
             {
+                Tower t = GetComponentInParent<Tower>();
+                if (t.isSlowDown)
+                {
+                    collider.GetComponent<EnemyAI>().Slow(t.slowPrecent);
+                }
                 Damage(collider.transform);
             }
         }
@@ -70,9 +73,14 @@ public class Bullet : MonoBehaviour
     void Damage(Transform enemy)
     {
         EnemyAI e = enemy.GetComponent<EnemyAI>();
+        Tower t = GetComponentInParent<Tower>();
         if (e!= null)
         {
-            e.TakeDamage(startDamage);
+            if (t.isSlowDown)
+            {
+                e.Slow(t.slowPrecent);
+            }
+            e.TakeDamage(damage);
         }
     }
 

@@ -36,7 +36,9 @@ public class Node : MonoBehaviour
     public int rateUpgradeTime = 0;
 
     [HideInInspector]
-    public bool isMaxed = false;
+    public bool isDmgMaxed = false;
+    public bool isRangeMaxed = false;
+    public bool isRateMaxed = false;
 
     BuildManager buildManager;
 
@@ -97,24 +99,22 @@ public class Node : MonoBehaviour
     {
         if (EventSystem.current.IsPointerOverGameObject()) // if hovering the UI
         {
-            Debug.Log(this.name + ": 1");
             return;
         }
 
         if (towerObject != null) // if this node have tower be built
         {
             buildManager.SelectNode(this);
-            Debug.Log(this.name + ": 2");
+            //Debug.Log(this.name + " is Selected");
             return;
         }
 
         if (!buildManager.CanBuild) // if no tower be select to build
         {
-            Debug.Log(this.name + ": 3");
             return;
         }
 
-        Debug.Log(this.name + ": 4");
+        //Debug.Log(this.name + ": 4");
         BuildTower(buildManager.GetTowerToBuild()); // build
     }
 
@@ -139,14 +139,12 @@ public class Node : MonoBehaviour
         Destroy(effect, 5f);
     }
 
-    public bool UpgradeTowerDmg(bool isTradeSuccess)
+    public void UpgradeTowerDmg()
     {
         if (PlayerStats.money < towerTemplate.damageUpgradeCost)
         {
             BuildManager.instance.NotEnoughMoney();
-            
-            isTradeSuccess = false;
-            return isTradeSuccess;
+            Debug.Log("Failed to upgrade Dmg, reason: No money");
         }
 
         DamageUpgradeAdder();
@@ -158,56 +156,55 @@ public class Node : MonoBehaviour
         GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 5f);
 
-        towerObject.GetComponent<Tower>().bulletPrefab.GetComponent<Bullet>().startDamage += 10; // add value
-        isTradeSuccess = true;
-        return isTradeSuccess;
+        towerObject.GetComponent<Tower>().UpgradeDamage();
+
         // if max
         //isUpgraded = true;
     }
 
     public void UpgradeTowerRange()
     {
-        if (!towerObject.GetComponent<Tower>().CheckIsMaxRange)
+        if (PlayerStats.money < towerTemplate.rangeUpgradeCost)
         {
-            if (PlayerStats.money < towerTemplate.rangeUpgradeCost)
-            {
-                Debug.Log("Not Enough Money");
-                return;
-            }
+            Debug.Log("Failed to upgrade Range, reason: No money");
+            return;
+        }
 
-            RangeUpgradeAdder();
-            PlayerStats.money -= towerTemplate.rangeUpgradeCost;
+        if (RangeUpgradeAdder())
+        {
 
-            ColourChanger(); // with grade checker
-            SaveTower();
+        PlayerStats.money -= towerTemplate.rangeUpgradeCost;
 
-            GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
-            Destroy(effect, 5f);
+        ColourChanger(); // with grade checker
+        SaveTower();
 
-            towerObject.GetComponent<Tower>().UpgradeRange();
+        GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 5f);
+
+        towerObject.GetComponent<Tower>().UpgradeRange();
         }
     }
 
     public void UpgradeTowerRate()
     {
-        if(!towerObject.GetComponent<Tower>().CheckIsMaxRate)
+        if (PlayerStats.money < towerTemplate.rateUpgradeCost)
         {
-            if (PlayerStats.money < towerTemplate.rateUpgradeCost)
-            {
-                Debug.Log("Not Enough Money");
-                return;
-            }
+            Debug.Log("Failed to upgrade Rate, reason: No money");
+            return;
+        }
 
-            RateUpgradeAdder();
-            PlayerStats.money -= towerTemplate.rateUpgradeCost;
+        if (RateUpgradeAdder())
+        {
 
-            ColourChanger(); // with grade checker
-            SaveTower();
+        PlayerStats.money -= towerTemplate.rateUpgradeCost;
 
-            GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
-            Destroy(effect, 5f);
+        ColourChanger(); // with grade checker
+        SaveTower();
 
-            towerObject.GetComponent<Tower>().UpgradeRate();
+        GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 5f);
+
+        towerObject.GetComponent<Tower>().UpgradeRate();
         }
 
     }
@@ -228,7 +225,7 @@ public class Node : MonoBehaviour
         return towerObject.GetComponent<Tower>().bulletPrefab.GetComponent<Bullet>();
     }
 
-    public Tower GetTower()
+    public Tower GetTowerObjectComponenet()
     {
         return towerObject.GetComponent<Tower>();
     }
@@ -277,7 +274,6 @@ public class Node : MonoBehaviour
             case 3:
                 startColour = GetTowerComponent().thirdGradedColour.color;
                 rend.material.color = startColour;
-                isMaxed = true;
                 break;
             default:
                 break;
@@ -286,38 +282,70 @@ public class Node : MonoBehaviour
 
     public bool DamageUpgradeAdder()
     {
-        if (totalUpgradeTime < GetTowerComponent().bulletPrefab.GetComponent<Bullet>().maxDamage)
+        if (damageUpgradeTime < GetTowerComponent().maxDmgUpgradeTime)
         {
             totalUpgradeTime++;
-            Debug.Log(this.name + "'s damage upgrade time: " + totalUpgradeTime);
+            damageUpgradeTime++;
+            Debug.Log(this.name + "'s damage upgrade time: " + damageUpgradeTime);
+
+            //if (damageUpgradeTime == GetTowerComponent().bulletPrefab.GetComponent<Bullet>().maxDmgUpgradeTime) // not completed
+            //{
+            //    isDmgMaxed = true;
+            //}
+
             return true;
         }
         else
+        {
+            Debug.Log(this.name + "'s range level: " + damageUpgradeTime + " (max)");
             return false;
+        }
+
     }
 
     public bool RangeUpgradeAdder()
     {
-        if (totalUpgradeTime < GetTowerComponent().maxRange)
+        if (rangeUpgradeTime < GetTowerComponent().maxRangeUpgradeTime) // if upgraded time less than max value from tower.
         {
             totalUpgradeTime++;
-            Debug.Log(this.name + "'s range upgrade time: " + totalUpgradeTime);
+            rangeUpgradeTime++;
+            Debug.Log(this.name + "'s range upgrade time: " + rangeUpgradeTime);
+
+            if (rangeUpgradeTime == GetTowerComponent().maxRangeUpgradeTime)
+            {
+                isRangeMaxed = true;
+            }
+
             return true;
         }
         else
+        {
+            Debug.Log(this.name + "'s range level: " + rangeUpgradeTime + " (max)");
             return false;
+        }
     }
 
     public bool RateUpgradeAdder()
     {
-        if (totalUpgradeTime < GetTowerComponent().maxRate)
+        if (rateUpgradeTime < GetTowerComponent().maxRateUpgradeTime)
         {
             totalUpgradeTime++;
-            Debug.Log(this.name + "'s rate upgrade time: " + totalUpgradeTime);
+            rateUpgradeTime++;
+            Debug.Log(this.name + "'s rate upgrade time: " + rateUpgradeTime);
+
+            if (rateUpgradeTime == GetTowerComponent().maxRateUpgradeTime)
+            {
+                isRateMaxed = true;
+            }
+
             return true;
         }
         else
+        {
+            Debug.Log(this.name + "'s range level: " + rateUpgradeTime + " (max)");
             return false;
+        }
+
     }
 
     public void Initialise()
@@ -329,7 +357,9 @@ public class Node : MonoBehaviour
         isSecondGraded = false;
         isThirdGraded = false;
 
-        isMaxed = false;
+        isDmgMaxed = false;
+        isRangeMaxed = false;
+        isRateMaxed = false;
 
         totalUpgradeTime = 0;
         ClearTower();

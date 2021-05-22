@@ -17,6 +17,8 @@ public class PlayerStats : MonoBehaviour
     public static float buildingRangeBuff;
     public static float buildingRateBuff;
 
+    public static int kills;
+
     [Header("Nodes")]
     public GameObject nodes;
     public static GameObject savedNodes;
