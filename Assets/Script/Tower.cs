@@ -44,26 +44,18 @@ public class Tower : MonoBehaviour
 
     [Header("Upgrade")]
 
-    public int maxDmgUpgradeTime = 5;
-    public int maxRangeUpgradeTime = 5;
-    public int maxRateUpgradeTime = 5;
-    private int upgradeTime = 0;
+    public int maxDmgUpgradeTime;
+    public int maxRangeUpgradeTime;
+    public int maxRateUpgradeTime;
 
-    [HideInInspector]
-    public int firstGradedTime = 0;
-    [HideInInspector]
-    public int secondGradedTime = 0;
-    [HideInInspector]
-    public int thirdGradedTime = 0;
+    public int firstGradedTime;
+    public int secondGradedTime;
+    public int thirdGradedTime;
 
     public MeshRenderer partToChange;
     public Material firstGradedColour;
     public Material secondGradedColour;
     public Material thirdGradedColour;
-
-    private bool isFirstGraded = false;
-    private bool isSecondGraded = false;
-    private bool isThirdGraded = false;
 
     [Header("Unity Setup Fields")]
 
@@ -81,14 +73,14 @@ public class Tower : MonoBehaviour
         range = startRange;
         rate = startRate;
         damage = startDamage;
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        
 
         firstGradedTime = 0;
         secondGradedTime = 0;
         thirdGradedTime = 0;
 
-        firstGradedTime = Mathf.RoundToInt(maxDmgUpgradeTime + maxRangeUpgradeTime + maxRateUpgradeTime / 3);
-        secondGradedTime = Mathf.RoundToInt(maxDmgUpgradeTime + maxRangeUpgradeTime + maxRateUpgradeTime / 2);
+        firstGradedTime = (maxDmgUpgradeTime + maxRangeUpgradeTime + maxRateUpgradeTime) / 3;
+        secondGradedTime = firstGradedTime * 2;
         thirdGradedTime = maxDmgUpgradeTime + maxRangeUpgradeTime + maxRateUpgradeTime;
 
         if(secondGradedTime == firstGradedTime)
@@ -99,6 +91,8 @@ public class Tower : MonoBehaviour
         {
             secondGradedTime--;
         }
+
+        InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
     void UpdateTarget()
@@ -116,7 +110,7 @@ public class Tower : MonoBehaviour
             }
         }
 
-        if (nearestEnemy != null && shortestDistance <= startRange)
+        if (nearestEnemy != null && shortestDistance <= range)
         {
             target = nearestEnemy.transform;
             targetEnemy = nearestEnemy.GetComponent<EnemyAI>();
@@ -209,40 +203,16 @@ public class Tower : MonoBehaviour
 
     public void UpgradeDamage()
     {
-        upgradeTime++;
         damage += upgradeDamage;
     }
 
     public void UpgradeRange()
     {
-        upgradeTime++;
         range += upgradeRange;
     }
     public void UpgradeRate()
     {
-        upgradeTime++;
         rate += upgradeRate;
-    }
-
-    public void ChangeColorChecker() // for upgrading
-    {
-        if ((upgradeTime > firstGradedTime) && (!isFirstGraded))
-        {
-            isFirstGraded = true;
-            partToChange.material = firstGradedColour;
-            return;
-        }
-        else if ((upgradeTime > firstGradedTime) && (!isSecondGraded))
-        {
-            isFirstGraded = true;
-            partToChange.material = secondGradedColour;
-            return;
-        }
-        else if ((upgradeTime > firstGradedTime) && (!isThirdGraded))
-        {
-            isFirstGraded = true;
-            partToChange.material = thirdGradedColour;
-        }
     }
 
 

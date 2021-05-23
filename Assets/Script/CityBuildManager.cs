@@ -7,10 +7,6 @@ public class CityBuildManager : MonoBehaviour
     public static CityBuildManager instance;
     // Start is called before the first frame update
 
-    private void Awake()
-    {
-        instance = this;
-    }
 
     public GameObject buildEffect;
     public GameObject sellEffect;
@@ -18,37 +14,59 @@ public class CityBuildManager : MonoBehaviour
     private BuildingTemplate buildingToBuild;
     private CityNode selectedNode;
 
-    public CityShop cityShopUI;
+    public GameObject cityShopUI;
     public GameObject notEnoughMoneyUI;
-    public CityNodeUI cityNodeUI;
-    //public RangeArea rangeArea;
+    public static GameObject storedCityShopUI;
 
+    public GameObject cityNodeUI;
+    public static GameObject storedcityNodeUI;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        storedCityShopUI = cityShopUI;
+        storedcityNodeUI = cityNodeUI;
+        storedcityNodeUI.GetComponent<CityNodeUI>().Hide();
+        DeselectNode(false) ;
+    }
     public bool CanBuild { get { return buildingToBuild != null; } }
     public bool HasMoney { get { return PlayerStats.money >= buildingToBuild.cost; } }
 
-    public void SelectNode(CityNode node)
+    public void SelectNode(CityNode node,bool needToReset)
     {
-        if(selectedNode == node)
+        if(selectedNode == node && needToReset)
         {
-            DeselectNode();
+            DeselectNode(true);
             return;
         }
         selectedNode = node;
         DeselectBuildingToBuild(); 
 
-        cityNodeUI.SetTarget(node);
+        cityNodeUI.GetComponent<CityNodeUI>().SetTarget(node);
     }
 
-    public void DeselectNode()
+    public void DeselectNode(bool needToReset)
     {
-        selectedNode = null;
-        cityNodeUI.Hide();
+        if(needToReset)
+        {
+            selectedNode = null;
+        }
+        
+        cityNodeUI.GetComponent<CityNodeUI>().Hide();
     }
 
     public void SelectBuildingToBuild(BuildingTemplate building)
     {
         buildingToBuild = building;
-        DeselectNode();
+        DeselectNode(true);
     }
 
     public BuildingTemplate GetBuildingToBuild()

@@ -26,10 +26,10 @@ public class Node : MonoBehaviour
     public bool isSecondGraded = false;
     public bool isThirdGraded = false;
 
-    public int totalUpgradeTime = 0;
-    public int damageUpgradeTime = 0;
-    public int rangeUpgradeTime = 0;
-    public int rateUpgradeTime = 0;
+    public int totalUpgradeTime;
+    public int damageUpgradeTime;
+    public int rangeUpgradeTime;
+    public int rateUpgradeTime;
 
     [HideInInspector]
     public bool isDmgMaxed = false;
@@ -143,16 +143,18 @@ public class Node : MonoBehaviour
             Debug.Log("Failed to upgrade Dmg, reason: No money");
         }
 
-        DamageUpgradeAdder();
-        PlayerStats.money -= towerTemplate.damageUpgradeCost;
+        if (DamageUpgradeAdder())
+        {
+            towerObject.GetComponent<Tower>().UpgradeDamage();
+            PlayerStats.money -= towerTemplate.damageUpgradeCost;
 
-        ColourChanger(); // with grade checker
-        SaveTower();
+            int gradeLevel = GradeChecker();
+            ColourChanger(gradeLevel);
+            SaveTower();
 
-        GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
-        Destroy(effect, 5f);
-
-        towerObject.GetComponent<Tower>().UpgradeDamage();
+            GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
+            Destroy(effect, 5f);
+        }
 
         // if max
         //isUpgraded = true;
@@ -168,16 +170,17 @@ public class Node : MonoBehaviour
 
         if (RangeUpgradeAdder())
         {
+            towerObject.GetComponent<Tower>().UpgradeRange();
+            PlayerStats.money -= towerTemplate.rangeUpgradeCost;
 
-        PlayerStats.money -= towerTemplate.rangeUpgradeCost;
+            int gradeLevel = GradeChecker();
+            ColourChanger(gradeLevel); // with grade checker
+            SaveTower();
 
-        ColourChanger(); // with grade checker
-        SaveTower();
+            GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
+            Destroy(effect, 5f);
 
-        GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
-        Destroy(effect, 5f);
-
-        towerObject.GetComponent<Tower>().UpgradeRange();
+        
         }
     }
 
@@ -191,16 +194,15 @@ public class Node : MonoBehaviour
 
         if (RateUpgradeAdder())
         {
+            towerObject.GetComponent<Tower>().UpgradeRate();
+            PlayerStats.money -= towerTemplate.rateUpgradeCost;
 
-        PlayerStats.money -= towerTemplate.rateUpgradeCost;
+            int gradeLevel = GradeChecker();
+            ColourChanger(gradeLevel); // with grade checker
+            SaveTower();
 
-        ColourChanger(); // with grade checker
-        SaveTower();
-
-        GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
-        Destroy(effect, 5f);
-
-        towerObject.GetComponent<Tower>().UpgradeRate();
+            GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
+            Destroy(effect, 5f);
         }
 
     }
@@ -221,7 +223,7 @@ public class Node : MonoBehaviour
         return towerObject.GetComponent<Tower>().bulletPrefab.GetComponent<Bullet>();
     }
 
-    public Tower GetTowerObjectComponenet()
+    public Tower GetTowerObjectComponent()
     {
         return towerObject.GetComponent<Tower>();
     }
@@ -232,17 +234,18 @@ public class Node : MonoBehaviour
     }
     public int GradeChecker() // for check grade
     {
-        if ((totalUpgradeTime == GetTowerComponent().firstGradedTime) && (!isFirstGraded))
+        if ((totalUpgradeTime == GetTowerObjectComponent().firstGradedTime) && (!isFirstGraded))
         {
             isFirstGraded = true;
+            Debug.Log(this.name + ": 1 graded!!!");
             return 1;
         }
-        else if ((totalUpgradeTime == GetTowerComponent().secondGradedTime) && (!isSecondGraded))
+        else if ((totalUpgradeTime == GetTowerObjectComponent().secondGradedTime) && (!isSecondGraded))
         {
             isSecondGraded = true;
             return 2;
         }
-        else if ((totalUpgradeTime == GetTowerComponent().thirdGradedTime) && (!isThirdGraded))
+        else if ((totalUpgradeTime == GetTowerObjectComponent().thirdGradedTime) && (!isThirdGraded))
         {
             isThirdGraded = true;
             return 3;
@@ -251,27 +254,27 @@ public class Node : MonoBehaviour
         {
             return 3;
         }
+        Debug.Log(this.name + ": " + totalUpgradeTime + " / " + GetTowerObjectComponent().firstGradedTime);
         return 0;
     }
 
-    public void ColourChanger()
+    public void ColourChanger(int gradeLevel)
     {
-        int gradeLevel = GradeChecker();
         switch (gradeLevel)
         {
             case 1:
-                GetTowerObjectComponenet().partToChange.material= GetTowerComponent().firstGradedColour;
-                //Debug.Log(this.name + ": 1 Graded");
+                GetTowerObjectComponent().partToChange.material= GetTowerComponent().firstGradedColour;
+                Debug.Log(this.name + ": 1 Graded");
                 break;
             case 2:
-                GetTowerObjectComponenet().partToChange.material = GetTowerComponent().secondGradedColour;
+                GetTowerObjectComponent().partToChange.material = GetTowerComponent().secondGradedColour;
                 //startColour = GetTowerComponent().secondGradedColour.color;
                 //rend.material.color = startColour;
-                //Debug.Log(this.name + ": 2 Graded");
+                Debug.Log(this.name + ": 2 Graded");
                 break;
             case 3:
-                GetTowerObjectComponenet().partToChange.material = GetTowerComponent().thirdGradedColour;
-                //Debug.Log(this.name + ": 3 Graded");
+                GetTowerObjectComponent().partToChange.material = GetTowerComponent().thirdGradedColour;
+                Debug.Log(this.name + ": 3 Graded");
                 break;
             default:
                 break;
@@ -284,7 +287,7 @@ public class Node : MonoBehaviour
         {
             totalUpgradeTime++;
             damageUpgradeTime++;
-            //Debug.Log(this.name + "'s damage upgrade time: " + damageUpgradeTime);
+            Debug.Log(this.name + "'s damage upgrade time: " + damageUpgradeTime);
 
             if (damageUpgradeTime == GetTowerComponent().maxDmgUpgradeTime)
             {
@@ -295,7 +298,7 @@ public class Node : MonoBehaviour
         }
         else
         {
-            //Debug.Log(this.name + "'s range level: " + damageUpgradeTime + " (max)");
+            Debug.Log(this.name + "'s range level: " + damageUpgradeTime + " (max)");
             return false;
         }
 
@@ -307,7 +310,7 @@ public class Node : MonoBehaviour
         {
             totalUpgradeTime++;
             rangeUpgradeTime++;
-            //Debug.Log(this.name + "'s range upgrade time: " + rangeUpgradeTime);
+            Debug.Log(this.name + "'s range upgrade time: " + rangeUpgradeTime);
 
             if (rangeUpgradeTime == GetTowerComponent().maxRangeUpgradeTime)
             {
@@ -318,7 +321,7 @@ public class Node : MonoBehaviour
         }
         else
         {
-           // Debug.Log(this.name + "'s range level: " + rangeUpgradeTime + " (max)");
+           Debug.Log(this.name + "'s range level: " + rangeUpgradeTime + " (max)");
             return false;
         }
     }
@@ -329,10 +332,11 @@ public class Node : MonoBehaviour
         {
             totalUpgradeTime++;
             rateUpgradeTime++;
-            //Debug.Log(this.name + "'s rate upgrade time: " + rateUpgradeTime);
+            Debug.Log(this.name + "'s rate upgrade time: " + rateUpgradeTime);
 
             if (rateUpgradeTime == GetTowerComponent().maxRateUpgradeTime)
             {
+                Debug.Log(this.name + "'s range level: " + rateUpgradeTime + " (max)");
                 isRateMaxed = true;
             }
 
@@ -340,7 +344,7 @@ public class Node : MonoBehaviour
         }
         else
         {
-            //Debug.Log(this.name + "'s range level: " + rateUpgradeTime + " (max)");
+            Debug.Log(this.name + "'s range level: " + rateUpgradeTime + " (max)");
             return false;
         }
 

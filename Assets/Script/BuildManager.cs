@@ -23,7 +23,14 @@ public class BuildManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         storedShopUI = shopUI;
         storedNodeUI = nodeUI;
         storedNodeUI.GetComponent<NodeUI>().Hide();

@@ -3601,9 +3601,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -700.13635, y: -756.22205}
+  m_AnchoredPosition: {x: -570.566, y: 786.79236}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.13534567, y: -0.19982699}
+  m_Pivot: {x: 0.2028302, y: 1.2285116}
 --- !u!114 &827372256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5496,7 +5496,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1315666898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5509,16 +5509,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb8d6d862869bd45ace1cfe03061aa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TypeOfPlayList: 1
   sounds:
   - name: BGM
+    type: 1
     clip: {fileID: 8300000, guid: a52ae5f8aab1c1d45b7b93d86bb91281, type: 3}
     volume: 1
     pitch: 0.8
-    loop: 1
+    loop: 0
     source: {fileID: 0}
     credit: 'Advent by Naoya Sakamata | www.youtube.com/c/NaoyaSakamataPIANOmusicChannel/
       Licensed under Creative Commons: Attribution 3.0 Unported (CC BY 3.0) https://creativecommons.org/licenses/by/3.0/
       Music promoted by https://www.chosic.com/ '
+  - name: Sakuya2
+    type: 1
+    clip: {fileID: 8300000, guid: ed1d4e03ca0986347a924a2147a85cd7, type: 3}
+    volume: 1
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
+    credit: Sakuya2 by PeriTune | http://peritune.com Creative Commons Attribution
+      3.0 Unported License https://creativecommons.org/licenses/by/3.0/deed.en_US
+      Music promoted by https://www.chosic.com/
+  - name: ButtonDisabled
+    type: 0
+    clip: {fileID: 8300000, guid: be97a71dcbc2a4944b6c94d44c68ffad, type: 3}
+    volume: 1
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
+    credit: 
+  - name: ButtonClick
+    type: 0
+    clip: {fileID: 8300000, guid: 0f9d304b4cafed04d990b508e5cba265, type: 3}
+    volume: 1
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
+    credit: 'Button Click 3  by Mellau
+
+      This work is licensed under the Attribution
+      Noncommercial License. https://freesound.org/people/Mellau/sounds/506052/'
 --- !u!4 &1315666899
 Transform:
   m_ObjectHideFlags: 0
@@ -6608,7 +6639,6 @@ MonoBehaviour:
   shopUI: {fileID: 351136807}
   notEnoughMoneyUI: {fileID: 271304197}
   nodeUI: {fileID: 1547931677}
-  rangeGameObject: {fileID: 8799058693700080784}
 --- !u!114 &1576918273
 MonoBehaviour:
   m_ObjectHideFlags: 0

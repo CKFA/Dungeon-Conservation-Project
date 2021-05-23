@@ -561,7 +561,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9058373206458405050, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
       propertyPath: m_Name
-      value: TowerItem (1)
+      value: GuildShop
       objectReference: {fileID: 0}
     - target: {fileID: 9058373206458405051, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
       propertyPath: m_Pivot.x
@@ -666,7 +666,7 @@ PrefabInstance:
     - target: {fileID: 9058373206458405054, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9c3ab65363859584e8d31a0ffb763f6c, type: 3}
+      objectReference: {fileID: 21300000, guid: 4bd1ceae028e52245961880fa9817cc0, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
 --- !u!224 &219882015 stripped
@@ -956,6 +956,14 @@ MonoBehaviour:
     Prefabs: {fileID: 1591762468525210816, guid: c57d745b59e0bf241b9cab2b060c9199, type: 3}
     cost: 500
     upgradeCost: 500
+  bankTemplate:
+    Prefabs: {fileID: 0}
+    cost: 0
+    upgradeCost: 500
+  schoolTemplate:
+    Prefabs: {fileID: 0}
+    cost: 0
+    upgradeCost: 500
   guildPriceText: {fileID: 2120769012}
   apartmentPriceText: {fileID: 773246807}
   noEnoughMoney: {fileID: 271304197}
@@ -1000,7 +1008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9058373206458405050, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
       propertyPath: m_Name
-      value: TowerItem (2)
+      value: BankShopButton
       objectReference: {fileID: 0}
     - target: {fileID: 9058373206458405051, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
       propertyPath: m_Pivot.x
@@ -1101,7 +1109,7 @@ PrefabInstance:
     - target: {fileID: 9058373206458405054, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7040aa6087634864b8eec80bb54f600e, type: 3}
+      objectReference: {fileID: 21300000, guid: ca897230cbff05f43997660e09663255, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
 --- !u!224 &373733581 stripped
@@ -2156,7 +2164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9058373206458405050, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
       propertyPath: m_Name
-      value: TowerItem (3)
+      value: SchoolShopButton
       objectReference: {fileID: 0}
     - target: {fileID: 9058373206458405051, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
       propertyPath: m_Pivot.x
@@ -2249,15 +2257,15 @@ PrefabInstance:
     - target: {fileID: 9058373206458405053, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 351136807}
     - target: {fileID: 9058373206458405053, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SelectLaserGun
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 9058373206458405054, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7040aa6087634864b8eec80bb54f600e, type: 3}
+      objectReference: {fileID: 21300000, guid: d3c41a52c6c8bdc48add86cd9280ae73, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
 --- !u!1 &855711546
@@ -3878,6 +3886,7 @@ MonoBehaviour:
   isSpawning: 0
   waves: []
   spawnPoint: {fileID: 0}
+  HpBuff: 1
   timeBetweenWaves: 5
   waveCountDownTopic: {fileID: 1908658457}
   waveCountDownText: {fileID: 1030495587}
@@ -3912,6 +3921,7 @@ MonoBehaviour:
   startMoney: 50000
   startHp: 10
   nodes: {fileID: 0}
+  nodeDataLength: 0
 --- !u!114 &1576918274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3961,9 +3971,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildEffect: {fileID: 8774685446736435092, guid: e863b28aee7308a468ccfdcad3f95b7e, type: 3}
   sellEffect: {fileID: 8774685446736435092, guid: deeef86bb75766c479403ec48fc7af16, type: 3}
-  cityShopUI: {fileID: 351136812}
+  cityShopUI: {fileID: 351136807}
   notEnoughMoneyUI: {fileID: 271304197}
-  cityNodeUI: {fileID: 1244466231}
+  cityNodeUI: {fileID: 1244466229}
 --- !u!1001 &1637873788
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23411,7 +23421,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9058373206458405050, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
       propertyPath: m_Name
-      value: TowerItem
+      value: ApartmentShopButton
       objectReference: {fileID: 0}
     - target: {fileID: 9058373206458405051, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
       propertyPath: m_Pivot.x
@@ -23513,6 +23523,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: CityShop, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 9058373206458405054, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4e9b8d95c08976c4aad6b51d8b2fd7fd, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
 --- !u!65 &9062947729004397359

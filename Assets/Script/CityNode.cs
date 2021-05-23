@@ -84,7 +84,7 @@ public class CityNode : MonoBehaviour
 
         if (buildingObject != null) // if the tower built
         {
-            cityBuildManager.SelectNode(this); // select this node
+            cityBuildManager.SelectNode(this,true); // select this node
             return;
         }
 

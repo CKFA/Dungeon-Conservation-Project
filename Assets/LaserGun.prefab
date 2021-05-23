@@ -5271,16 +5271,16 @@ MonoBehaviour:
   lineRenderer: {fileID: 8564944785113268804}
   laserEffect: {fileID: 7746546879675195909}
   laserLightEffect: {fileID: 1011290622031088660}
-  maxDmgUpgradeTime: 5
-  maxRangeUpgradeTime: 5
-  maxRateUpgradeTime: 5
+  maxDmgUpgradeTime: 12
+  maxRangeUpgradeTime: 12
+  maxRateUpgradeTime: 12
   firstGradedTime: 6
   secondGradedTime: 12
   thirdGradedTime: 20
-  partToChange: {fileID: 0}
-  firstGradedColour: {fileID: 0}
-  secondGradedColour: {fileID: 0}
-  thirdGradedColour: {fileID: 0}
+  partToChange: {fileID: 8848157119388199179}
+  firstGradedColour: {fileID: 2100000, guid: d1bdc4aed260c1c438ea1b46a900052b, type: 2}
+  secondGradedColour: {fileID: 2100000, guid: 6f19dc350e76f564eb98e0a5e12290ef, type: 2}
+  thirdGradedColour: {fileID: 2100000, guid: 1e65b4fd72d148d4b8c72b7c3eb0367e, type: 2}
   enemyTag: Enemy
   partToRotate: {fileID: 6755022014608399187}
   turnSpeed: 10
