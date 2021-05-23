@@ -4,11 +4,31 @@ using UnityEngine;
 
 public class RangeArea : MonoBehaviour
 {
+    public static RangeArea instance;
     private Node target;
-    // Start is called before the first frame update
-    void Start()
+    public GameObject rangeArea;
+    public static GameObject storedRangeArea;
+
+    private void Awake()
     {
-        this.gameObject.SetActive(false);
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        if(storedRangeArea == null)
+        {
+            storedRangeArea = rangeArea;
+            DontDestroyOnLoad(storedRangeArea.transform.parent.gameObject);
+        }
+        if(rangeArea == null)
+        {
+            return;
+        }
     }
 
     // Update is called once per frame
@@ -17,21 +37,18 @@ public class RangeArea : MonoBehaviour
         
     }
 
-    public void TurnOn(Node _target)
+    public void Show(Node _target)
     {
         target = _target;
 
-        if(!this.gameObject.activeSelf)
-        {
-            this.gameObject.SetActive(!this.gameObject.activeSelf);
-        }
-        transform.position = target.transform.position;
-        transform.localScale = new Vector3(_target.towerObject.GetComponent<Tower>().range, _target.towerObject.GetComponent<Tower>().range, _target.towerObject.GetComponent<Tower>().range);
+        storedRangeArea.SetActive(true);
+        storedRangeArea.transform.position = target.transform.position;
+        storedRangeArea.transform.localScale = new Vector3(_target.towerObject.GetComponent<Tower>().range, _target.towerObject.GetComponent<Tower>().range, _target.towerObject.GetComponent<Tower>().range);
         
     }
 
-    public void TurnOff()
+    public void Hide()
     {
-        this.gameObject.SetActive(false);
+        storedRangeArea.SetActive(false);
     }
 }

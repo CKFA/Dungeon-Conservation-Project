@@ -20,7 +20,6 @@ public class BuildManager : MonoBehaviour
 
     public GameObject nodeUI;
     public static GameObject storedNodeUI;
-    public GameObject rangeGameObject;
 
     private void Awake()
     {
@@ -28,11 +27,8 @@ public class BuildManager : MonoBehaviour
         storedShopUI = shopUI;
         storedNodeUI = nodeUI;
         storedNodeUI.GetComponent<NodeUI>().Hide();
+
         DeselectNode(true);
-        if (rangeGameObject == null)
-        {
-            rangeGameObject = FindObjectOfType<RangeArea>().gameObject;
-        }
     }
 
     public bool CanBuild { get { return towerToBuild != null; } }
@@ -48,13 +44,11 @@ public class BuildManager : MonoBehaviour
         selectedNode = node;
         DeselectTowerToBuild();
 
-        rangeGameObject.GetComponent<RangeArea>().TurnOn(node);
         storedNodeUI.GetComponent<NodeUI>().SetTarget(node);
     }
 
     public void DeselectNode(bool needToReset)
     {
-        rangeGameObject.GetComponent<RangeArea>().TurnOff();
         if (needToReset)
         {
             selectedNode = null;

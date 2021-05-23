@@ -49,8 +49,11 @@ public class Tower : MonoBehaviour
     public int maxRateUpgradeTime = 5;
     private int upgradeTime = 0;
 
+    [HideInInspector]
     public int firstGradedTime = 0;
+    [HideInInspector]
     public int secondGradedTime = 0;
+    [HideInInspector]
     public int thirdGradedTime = 0;
 
     public MeshRenderer partToChange;
@@ -150,7 +153,7 @@ public class Tower : MonoBehaviour
             if (fireCountDown <= 0f)
             {
                 Shoot();
-                fireCountDown = 1f / startRate;
+                fireCountDown = 1f / rate;
             }
 
             fireCountDown -= Time.deltaTime;

@@ -45,24 +45,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008a4140f69da3340944d0061024b8d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
+  startDamage: 20
+  upgradeDamage: 3
   range: 15
   startRange: 15
-  upgradeRange: 5
-  maxRange: 100
+  upgradeRange: 3
+  isSlowDown: 0
   slowPrecent: 0.5
   bulletPrefab: {fileID: 5787892650999074104, guid: 8cc84af548bb7464dbe91d6923434e80, type: 3}
   rate: 1
   startRate: 1
   upgradeRate: 1
-  maxRate: 100
   useLaser: 0
   damageOverTime: 30
   lineRenderer: {fileID: 0}
   laserEffect: {fileID: 0}
   laserLightEffect: {fileID: 0}
-  damageUpgradeCost: 500
-  rangeUpgradeCost: 500
-  rateUpgradeCost: 500
+  maxDmgUpgradeTime: 5
+  maxRangeUpgradeTime: 5
+  maxRateUpgradeTime: 5
   firstGradedTime: 6
   secondGradedTime: 12
   thirdGradedTime: 20

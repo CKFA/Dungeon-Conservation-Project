@@ -117,13 +117,14 @@ public class NodeUI : MonoBehaviour
 
         sellCost.text = $"Sell\n${target.towerTemplate.GetSellAmount()}";
 
-
+        RangeArea.instance.Show(target);
         ui.SetActive(true);
         
     }
 
     public void Hide()
     {
+        RangeArea.instance.Hide();
         ui.SetActive(false);
     }
 

@@ -32,7 +32,7 @@ RectTransform:
   m_Children:
   - {fileID: 8533745078271795152}
   m_Father: {fileID: 6969403380966997776}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -128,7 +128,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6969403380966997776}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!108 &4141319364765973451
 Light:
@@ -142,13 +142,13 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0, g: 0.17894745, b: 1, a: 1}
-  m_Intensity: 1.48
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -374,8 +374,8 @@ Transform:
   m_LocalPosition: {x: 100, y: 0.5, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1461000695}
   - {fileID: 6854858570458535077}
+  - {fileID: 1461000695}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -455,6 +455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startSpeed: 5
   speed: 8
+  hp: 0
   startHp: 100
   moneyDrop: 50
   deathEffect: {fileID: 90013357074398170, guid: 3fcc620f6f3d0324bb2eaa8a75d9abc8, type: 3}

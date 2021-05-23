@@ -1362,17 +1362,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  startDamage: 50
-  upgradeDamage: 10
+  startDamage: 30
+  upgradeDamage: 6
   range: 20
-  startRange: 15
-  upgradeRange: 5
+  startRange: 10
+  upgradeRange: 2
   isSlowDown: 0
   slowPrecent: 0.5
   bulletPrefab: {fileID: 4978385564715041698, guid: d3496de9d2a5aa24a92689e3bbf8fddd, type: 3}
   rate: 0.5
-  startRate: 1
-  upgradeRate: 1
+  startRate: 0.3
+  upgradeRate: 0.5
   useLaser: 0
   damageOverTime: 30
   lineRenderer: {fileID: 0}

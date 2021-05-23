@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
         nextSceneToLoad = SceneManager.GetActiveScene().buildIndex + 1;
         prevSceneToLoad = SceneManager.GetActiveScene().buildIndex - 1;
 
+        TooltipSystem.Hide();
         if (PlayerStats.nodesIsSpawned)
         {
             Destroy(nodes);
