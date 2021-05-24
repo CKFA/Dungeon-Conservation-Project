@@ -124,4 +124,5 @@ public class SceneFader : MonoBehaviour
         }
         return true;
     }
+
 }

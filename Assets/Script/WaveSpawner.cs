@@ -22,7 +22,6 @@ public class WaveSpawner : MonoBehaviour
     public Text waveIndexUi;
     
     public HpUI hpUI;
-    public GameObject enemiesParent;
     // Start is called before the first frame update
 
     // Update is called once per frame
@@ -30,6 +29,8 @@ public class WaveSpawner : MonoBehaviour
     void Start()
     {
         countDown = timeBetweenWaves;
+        if (isSpawning != false)
+        isSpawning = true;
     }
     void Update()
     {

@@ -15,16 +15,14 @@ public class CityNodeUI : MonoBehaviour
     public Text sellCost;
     public Text content;
     public Text currentBuffText;
-    CityBuildManager cityBuildManager;
+    [HideInInspector]
+    public CityBuildManager cityBuildManager;
     public static CityNode storedCityNode;
     private float dmgBuff = 0f;
     private float rangeBuff = 0f;
     private float rateBuff = 0f;
     private float moneyBuff = 0f;
-    private void Awake()
-    {
-        cityBuildManager = CityBuildManager.instance;
-    }
+
     //public Button upgradeButton;
     public void SetTarget(CityNode _target)
     {
@@ -62,6 +60,11 @@ public class CityNodeUI : MonoBehaviour
     public void Upgrade()
     {
         storedCityNode.UpgradeBuilding();
+        if(cityBuildManager == null)
+        {
+            cityBuildManager = FindObjectOfType<GameManager>().cityBuildManager;
+            Debug.Log(cityBuildManager.name);
+        }
         cityBuildManager.DeselectNode(false);
         cityBuildManager.SelectNode(storedCityNode,false);
         
@@ -70,6 +73,11 @@ public class CityNodeUI : MonoBehaviour
     public void Destroy()
     {
         storedCityNode.DestroyBuilding();
+        if (cityBuildManager == null)
+        {
+            cityBuildManager = FindObjectOfType<GameManager>().cityBuildManager;
+        }
         cityBuildManager.DeselectNode(true);
+        ui.SetActive(false);
     }
 }

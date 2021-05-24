@@ -7,10 +7,9 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static bool gameIsOver;
-    public string defenseSceneName;
-    public string townSceneName;
     public bool isThisTownStage;
     public GameObject gameOverUI;
+    public GameObject warningUI;
     public BuildManager buildManager;
     public CityBuildManager cityBuildManager;
     public WaveSpawner waveSpawner;
@@ -60,7 +59,7 @@ public class GameManager : MonoBehaviour
             {
                 Destroy(nodes);
             }
-            Debug.Log("Destroy the nodes and keep the original nodes");
+            //Debug.Log("Destroy the nodes and keep the original nodes");
         }
 
         if (PlayerStats.savedNodes != null) // if savenodes exists
@@ -69,12 +68,12 @@ public class GameManager : MonoBehaviour
             if (isThisTownStage) // if this is town stage, disable it
             {
                 PlayerStats.savedNodes.SetActive(false);
-                Debug.Log("Set SavedNodes to False");
+               // Debug.Log("Set SavedNodes to False");
             }
             else
             {
                 PlayerStats.savedNodes.SetActive(true);
-                Debug.Log("Set SavedNodes to True");
+                //Debug.Log("Set SavedNodes to True");
             }
                 
         }
@@ -84,12 +83,12 @@ public class GameManager : MonoBehaviour
             if (isThisTownStage)
             {
                 PlayerStats.savedCityNodes.SetActive(true);
-                Debug.Log("Set savedCityNodes to True");
+                //Debug.Log("Set savedCityNodes to True");
             }
             else
             {
                 PlayerStats.savedCityNodes.SetActive(false);
-                Debug.Log("Set savedCityNodes to False");
+                //Debug.Log("Set savedCityNodes to False");
             }
         }
         
@@ -128,34 +127,44 @@ public class GameManager : MonoBehaviour
             EndGame();
         }
 
-        if (PlayerStats.waves % 10 == 0 && PlayerStats.waves != 0)
+        if (PlayerStats.waves % 20 == 0 && PlayerStats.waves != 0)
         {
-            if (startNextWaveButton != null)
+            if(waveSpawner!=null)
             {
-                startNextWaveButton.interactable = false;
-            }
-            if (WaveSpawner.EnemiesAlive != 0)
-            {
-                Debug.Log("Still got Enemies!");
+                if (waveSpawner.isSpawning)
+                {
+                    ShowWarningNotice("Almost daytime...", false);
+                    waveSpawner.isSpawning = false;
+                }
 
             }
-            else
+            if (startNextWaveButton != null)
             {
-                ToNextScene(false);
+                
+                startNextWaveButton.interactable = false;
+            }
+            if (WaveSpawner.EnemiesAlive <= 0 && !isThisTownStage)
+            {
+                ToTownBuilderScene();
             }
             
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            ToPrevScene(false);
+            ToTowerDefenseScene();
         }
 
 
         if(Input.GetKeyDown(KeyCode.E))
         {
-            ToNextScene(false);
+            ToTownBuilderScene();
             
+        }
+
+        if(Input.GetKeyDown(KeyCode.N))
+        {
+            waveSpawner.StartNextWave();
         }
 
         if (Input.GetMouseButtonDown(1))
@@ -179,17 +188,28 @@ public class GameManager : MonoBehaviour
         gameOverUI.SetActive(true);
     }
 
-    void ToNextScene(bool sync)
-    {
-        BuildManager.instance.DeselectNode(true);
-        sceneFader.FadeTo(nextSceneToLoad,sync);
+    public void ShowWarningNotice(string content,bool isWarning)
+    { 
+        warningUI.GetComponent<WarningUI>().warningContent = content;
+        warningUI.GetComponent<WarningUI>().isWarning = isWarning;
+        warningUI.SetActive(true);
     }
 
-    void ToPrevScene(bool sync)
+    public void HideWarningNotice()
     {
-        CityBuildManager.instance.DeselectNode(true);
-        sceneFader.FadeTo(prevSceneToLoad,sync);
+        warningUI.SetActive(false);
     }
+    //void ToNextScene(bool sync)
+    //{
+    //    BuildManager.instance.DeselectNode(true);
+    //    sceneFader.FadeTo(nextSceneToLoad,sync);
+    //}
+
+    //void ToPrevScene(bool sync)
+    //{
+    //    CityBuildManager.instance.DeselectNode(true);
+    //    sceneFader.FadeTo(prevSceneToLoad,sync);
+    //}
 
     public void ToTowerDefenseScene()
 
@@ -197,6 +217,12 @@ public class GameManager : MonoBehaviour
         CityBuildManager.instance.DeselectNode(true);
         PlayerStats.waves++;
         sceneFader.FadeTo(prevSceneToLoad, false);
+    }
+
+    public void ToTownBuilderScene()
+    {
+        BuildManager.instance.DeselectNode(true);
+        sceneFader.FadeTo(nextSceneToLoad, false);
     }
 
     void CityNodeInitialisation()

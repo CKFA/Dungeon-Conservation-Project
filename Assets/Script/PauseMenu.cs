@@ -15,6 +15,17 @@ public class PauseMenu : MonoBehaviour
         {
             Toggle();
         }
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            if(Time.timeScale == 1f)
+            {
+                Time.timeScale = 0f;
+            }
+            else
+            {
+                Time.timeScale = 1f;
+            }
+        }
     }
     public void Toggle() // for play or pause
     {

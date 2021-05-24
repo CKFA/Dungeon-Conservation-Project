@@ -80,16 +80,4 @@ public class BuildManager : MonoBehaviour
         return towerToBuild = null;
     }
 
-    public void NotEnoughMoney() // ****************************** Bug
-    {
-        StartCoroutine(ShowingNoMoneyUI());
-        notEnoughMoneyUI.SetActive(false);
-    }
-
-    IEnumerator ShowingNoMoneyUI()
-    {
-        notEnoughMoneyUI.SetActive(true);
-        Debug.Log("Not Enough Money!");
-        yield return new WaitForSeconds(5f);
-    }
 }

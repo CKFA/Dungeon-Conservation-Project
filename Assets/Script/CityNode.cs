@@ -67,7 +67,6 @@ public class CityNode : MonoBehaviour
         else
         {
             rend.material.color = warningColour;
-            CityBuildManager.instance.NotEnoughMoney();
         }
     }
 
@@ -97,7 +96,7 @@ public class CityNode : MonoBehaviour
     {
         if (PlayerStats.money < template.cost)
         {
-            BuildManager.instance.NotEnoughMoney();
+            FindObjectOfType<GameManager>().ShowWarningNotice("Not Enough Money!", true);
             return;
         }
 
@@ -132,7 +131,8 @@ public class CityNode : MonoBehaviour
     {
         if (PlayerStats.money < buildingTemplate.upgradeCost)
         {
-            Debug.Log("Not Enough Money");
+            FindObjectOfType<GameManager>().ShowWarningNotice("Not Enough Money!", true);
+
             return;
         }
 

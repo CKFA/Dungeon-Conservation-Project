@@ -59,6 +59,7 @@ public class PlayerStats : MonoBehaviour
     }
     public void Initialisation() // for game over
     {
+        Debug.Log("Start to initialise");
         isInitialised = false;
         nodesIsSpawned = false;
         money = startMoney;
@@ -69,9 +70,26 @@ public class PlayerStats : MonoBehaviour
         buildingRateBuff = 1;
         buildingMoneyBuff = 1;
 
-        nodes = null;
-        savedNodes = null;
         nodesData = null;
+
+        
+        if(savedCityNodes != null)
+       
+
+        if(savedNodes!=null)
+        {
+            Destroy(savedNodes);
+            Debug.Log("Destroys: " + savedNodes.name);
+        }
+            
+        if(savedCityNodes != null)
+        {
+            Debug.Log("Destroys: " + savedCityNodes.name);
+            Destroy(savedCityNodes);
+        }
+            
+        savedNodes = null;
+        savedCityNodes = null;
     }
 
     public void NodeInitialisation ()

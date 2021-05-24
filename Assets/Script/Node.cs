@@ -84,7 +84,6 @@ public class Node : MonoBehaviour
         else
         {
             rend.material.color = warningColour;
-            BuildManager.instance.NotEnoughMoney();
         }
     }
 
@@ -120,7 +119,7 @@ public class Node : MonoBehaviour
     {
         if (PlayerStats.money < template.cost)
         {
-            BuildManager.instance.NotEnoughMoney();
+            FindObjectOfType<GameManager>().ShowWarningNotice("Not Enough Money to Build!",true);
             return;
         }
 
@@ -141,7 +140,7 @@ public class Node : MonoBehaviour
     {
         if (PlayerStats.money < towerTemplate.damageUpgradeCost)
         {
-            BuildManager.instance.NotEnoughMoney();
+            FindObjectOfType<GameManager>().ShowWarningNotice("Failed to upgrade Damage, reason: No money",true);
             Debug.Log("Failed to upgrade Dmg, reason: No money");
         }
 
@@ -166,6 +165,7 @@ public class Node : MonoBehaviour
     {
         if (PlayerStats.money < towerTemplate.rangeUpgradeCost)
         {
+            FindObjectOfType<GameManager>().ShowWarningNotice("Failed to upgrade Range, reason: No money",true);
             Debug.Log("Failed to upgrade Range, reason: No money");
             return;
         }
@@ -190,7 +190,8 @@ public class Node : MonoBehaviour
     {
         if (PlayerStats.money < towerTemplate.rateUpgradeCost)
         {
-            Debug.Log("Failed to upgrade Rate, reason: No money");
+            FindObjectOfType<GameManager>().ShowWarningNotice("Failed to upgrade Rate, reason: No money!",true);
+            Debug.Log("Failed to upgrade Rate, reason: No money!");
             return;
         }
 
@@ -403,7 +404,7 @@ public class Node : MonoBehaviour
         PlayerStats.nodesData[id].reachedThirdGrade = false;
         PlayerStats.nodesData[id].isMaxLevel = false;
     }
-    
+
     public void LoadTower()
     {
 
@@ -416,6 +417,6 @@ public class Node : MonoBehaviour
         isFirstGraded = PlayerStats.nodesData[id].reachedFirstGrade;
         isSecondGraded = PlayerStats.nodesData[id].reachedSecondGrade;
         isThirdGraded = PlayerStats.nodesData[id].reachedThirdGrade;
-        
+
     }
 }
