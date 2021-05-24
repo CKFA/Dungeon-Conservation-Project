@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverUI;
     public BuildManager buildManager;
     public CityBuildManager cityBuildManager;
+    public WaveSpawner waveSpawner;
+    public Button startNextWaveButton;
     public SceneFader sceneFader;
     public GameObject nodes; // use to destroy
     private GameObject cityNodes; // use to destroy
@@ -27,6 +30,11 @@ public class GameManager : MonoBehaviour
         prevSceneToLoad = SceneManager.GetActiveScene().buildIndex - 1;
 
         TooltipSystem.Hide();
+
+        if(startNextWaveButton != null && !startNextWaveButton.interactable)
+        {
+            startNextWaveButton.interactable = true;    
+        }
 
         if(isThisTownStage && PlayerStats.savedCityNodes == null)
         {
@@ -115,15 +123,34 @@ public class GameManager : MonoBehaviour
             EndGame();
         }
 
-        if(Input.GetKeyDown(KeyCode.Backspace))
+        if (Input.GetKeyDown(KeyCode.Backspace))
         {
             EndGame();
         }
 
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (PlayerStats.waves % 10 == 0 && PlayerStats.waves != 0)
+        {
+            if (startNextWaveButton != null)
+            {
+                startNextWaveButton.interactable = false;
+            }
+            if (WaveSpawner.EnemiesAlive != 0)
+            {
+                Debug.Log("Still got Enemies!");
+
+            }
+            else
+            {
+                ToNextScene(false);
+            }
+            
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             ToPrevScene(false);
         }
+
 
         if(Input.GetKeyDown(KeyCode.E))
         {
@@ -162,6 +189,14 @@ public class GameManager : MonoBehaviour
     {
         CityBuildManager.instance.DeselectNode(true);
         sceneFader.FadeTo(prevSceneToLoad,sync);
+    }
+
+    public void ToTowerDefenseScene()
+
+    {
+        CityBuildManager.instance.DeselectNode(true);
+        PlayerStats.waves++;
+        sceneFader.FadeTo(prevSceneToLoad, false);
     }
 
     void CityNodeInitialisation()

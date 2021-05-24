@@ -7,22 +7,14 @@ public class Building : MonoBehaviour
 
     [Header("General")]
 
-    [Range(1f, 3f)]
-    public float dmgBuff = 0f;
-    [Range(0f, 1f)]
-    public float upgradeDmg = 0f;
-    [Range(1f, 3f)]
-    public float rangeBuff = 0f;
-    [Range(0f, 1f)]
-    public float upgradeRange = 0f;
-    [Range(1f, 3f)]
-    public float rateBuff = 0f;
-    [Range(0f, 1f)]
-    public float upgradeRate = 0f;
-    [Range(1f, 3f)]
-    public float moneyBuff = 0f;
-    [Range(0f, 1f)]
-    public float upgradeMoney = 0f;
+    public int dmgBuff = 0;
+    public int upgradeDmg = 0;
+    public int rangeBuff = 0;
+    public int upgradeRange = 0;
+    public int rateBuff = 0;
+    public int upgradeRate = 0;
+    public int moneyBuff = 0;
+    public int upgradeMoney = 0;
     [Header("Upgrade")]
 
     [Range(0,10)]
@@ -55,52 +47,52 @@ public class Building : MonoBehaviour
 
     public void Build()
     {
-        PlayerStats.buildingDmgBuff += dmgBuff;
-        PlayerStats.buildingRangeBuff += rangeBuff;
-        PlayerStats.buildingRateBuff += rateBuff;
-        PlayerStats.buildingMoneyBuff += moneyBuff;
+        PlayerStats.buildingDmgBuff += (dmgBuff/100f);
+        PlayerStats.buildingRangeBuff += (rangeBuff/100f);
+        PlayerStats.buildingRateBuff += (rateBuff/100f);
+        PlayerStats.buildingMoneyBuff += (moneyBuff/100f);
     }
     public void Upgrade()
     {
-        PlayerStats.buildingDmgBuff += upgradeDmg;
-        PlayerStats.buildingRangeBuff += upgradeRange;
-        PlayerStats.buildingRateBuff += upgradeRate;
-        PlayerStats.buildingMoneyBuff += upgradeMoney;
+        PlayerStats.buildingDmgBuff += (upgradeDmg/100f);
+        PlayerStats.buildingRangeBuff += (upgradeRange/100f);
+        PlayerStats.buildingRateBuff += (upgradeRate/100f);
+        PlayerStats.buildingMoneyBuff += (upgradeMoney/100f);
     }
 
     public void Downgrade(int upgradeTime)
     {
         if(upgradeDmg!= 0) // if value not equal 0, the building have own buff, thus, need to decrease back
         {
-            PlayerStats.buildingDmgBuff -= upgradeDmg * upgradeTime;
+            PlayerStats.buildingDmgBuff -= (upgradeDmg) * upgradeTime / 100f;
         }
         if(upgradeRange != 0)
         {
-            PlayerStats.buildingRangeBuff -= upgradeRange * upgradeTime;
+            PlayerStats.buildingRangeBuff -= (upgradeRange) * upgradeTime / 100f;
         }
         if(upgradeRate != 0)
         {
-            PlayerStats.buildingRateBuff -= upgradeRate * upgradeTime;
+            PlayerStats.buildingRateBuff -= (upgradeRate) * upgradeTime / 100f;
         }
         if(upgradeMoney != 0)
         {
-            PlayerStats.buildingMoneyBuff -= upgradeMoney * upgradeTime;
+            PlayerStats.buildingMoneyBuff -= (upgradeMoney) * upgradeTime / 100f;
         }
         if(dmgBuff != 0)
         {
-            PlayerStats.buildingDmgBuff -= dmgBuff;
+            PlayerStats.buildingDmgBuff -= (dmgBuff / 100f);
         }
         if(rangeBuff != 0)
         {
-            PlayerStats.buildingRangeBuff -= rangeBuff;
+            PlayerStats.buildingRangeBuff -= (rangeBuff/100f);
         }
         if(rateBuff != 0)
         {
-            PlayerStats.buildingRateBuff -= rateBuff;
+            PlayerStats.buildingRateBuff -= (rateBuff/100f);
         }
         if(moneyBuff != 0)
         {
-            PlayerStats.buildingMoneyBuff -= moneyBuff;
+            PlayerStats.buildingMoneyBuff -= (moneyBuff/100f);
         }
     }
 }

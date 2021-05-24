@@ -70,8 +70,8 @@ MonoBehaviour:
   upgradeDmg: 0
   rangeBuff: 0
   upgradeRange: 0
-  rateBuff: 1
-  upgradeRate: 0.2
+  rateBuff: 5
+  upgradeRate: 2
   moneyBuff: 0
   upgradeMoney: 0
   maxUpgradeTime: 3

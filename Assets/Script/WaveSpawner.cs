@@ -20,16 +20,26 @@ public class WaveSpawner : MonoBehaviour
 
     private int waveIndex = 0;
     public Text waveIndexUi;
+    
     public HpUI hpUI;
+    public GameObject enemiesParent;
     // Start is called before the first frame update
 
     // Update is called once per frame
+
+    void Start()
+    {
+        countDown = timeBetweenWaves;
+    }
     void Update()
     {
         if (isSpawning) // if spawning
         {
+            if(hpUI !=null)
+            {
+                hpUI.isEnabled = true;
+            }
             
-            hpUI.isEnabled = true;
             if (countDown <= 0f) // less than 0 second , next wave go
             {
                 StartCoroutine(SpawnWave());
@@ -41,7 +51,11 @@ public class WaveSpawner : MonoBehaviour
         }
         else // if not spawning
         {
-            hpUI.isEnabled = false;
+            if(hpUI != null)
+            {
+                hpUI.isEnabled = false;
+            }
+            
             waveCountDownTopic.color = new Color(0f, 0f, 0f, 0);
             waveCountDownText.color = new Color(0f, 0f, 0f, 0);
         }

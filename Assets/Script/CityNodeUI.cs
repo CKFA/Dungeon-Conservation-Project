@@ -13,8 +13,14 @@ public class CityNodeUI : MonoBehaviour
     [Header("Text")]
     public Text upgradeCost;
     public Text sellCost;
+    public Text content;
+    public Text currentBuffText;
     CityBuildManager cityBuildManager;
     public static CityNode storedCityNode;
+    private float dmgBuff = 0f;
+    private float rangeBuff = 0f;
+    private float rateBuff = 0f;
+    private float moneyBuff = 0f;
     private void Awake()
     {
         cityBuildManager = CityBuildManager.instance;
@@ -25,17 +31,25 @@ public class CityNodeUI : MonoBehaviour
         target = _target;
         storedCityNode = target;
 
-        if (!target.isMaxed)
-        {
-            upgradeCost.text = $"Upgrade\n${_target.buildingTemplate.upgradeCost}";
-            upgradeButton.interactable = true;
-        }
-        else
+        if (target.isMaxed)
         {
             upgradeCost.text = "Upgrade\nlv.Max";
             upgradeButton.interactable = false;
         }
-        
+        else
+        {
+            upgradeCost.text = $"Upgrade\n${target.buildingTemplate.upgradeCost}";
+            upgradeButton.interactable = true;
+        }
+
+        content.text = target.buildingTemplate.content;
+
+        dmgBuff = storedCityNode.GetBuildingObjectComponent().dmgBuff + (storedCityNode.GetBuildingComponent().upgradeDmg * target.totalUpgradeTime);
+        rangeBuff = storedCityNode.GetBuildingObjectComponent().rangeBuff + (storedCityNode.GetBuildingComponent().upgradeRange * target.totalUpgradeTime);
+        rateBuff = storedCityNode.GetBuildingObjectComponent().rateBuff + (storedCityNode.GetBuildingComponent().upgradeRate * target.totalUpgradeTime);
+        moneyBuff = storedCityNode.GetBuildingObjectComponent().moneyBuff + (storedCityNode.GetBuildingComponent().upgradeMoney * target.totalUpgradeTime);
+
+        currentBuffText.text = $"Buff:\nDamage: +{dmgBuff}% | Range: +{rangeBuff}% | Rate: +{rateBuff}% | Money: +{moneyBuff}% ";
         sellCost.text = $"Destroy\n${target.buildingTemplate.GetSellAmount()}";
         ui.SetActive(true);
     }
@@ -47,7 +61,7 @@ public class CityNodeUI : MonoBehaviour
 
     public void Upgrade()
     {
-        target.UpgradeBuilding();
+        storedCityNode.UpgradeBuilding();
         cityBuildManager.DeselectNode(false);
         cityBuildManager.SelectNode(storedCityNode,false);
         
@@ -55,8 +69,7 @@ public class CityNodeUI : MonoBehaviour
 
     public void Destroy()
     {
-        target.DestroyBuilding();
+        storedCityNode.DestroyBuilding();
         cityBuildManager.DeselectNode(true);
     }
-
 }

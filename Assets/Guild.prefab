@@ -228,8 +228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51b086b56573f04892537bb47a2a33b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmgBuff: 1
-  upgradeDmg: 0.2
+  dmgBuff: 5
+  upgradeDmg: 2
   rangeBuff: 0
   upgradeRange: 0
   rateBuff: 0

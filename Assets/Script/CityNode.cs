@@ -143,12 +143,15 @@ public class CityNode : MonoBehaviour
 
             int gradeLevel = GradeChecker();
             ColourChanger(gradeLevel);
-            SaveBuilding();
+            //SaveBuilding();
 
             GameObject effect = (GameObject)Instantiate(cityBuildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
             Destroy(effect, 5f);
         }
-
+        else
+        {
+            Debug.Log("Fail to upgrade!");
+        }
     }
 
     public Renderer GetRenderer()
@@ -195,17 +198,16 @@ public class CityNode : MonoBehaviour
         switch (gradeLevel)
         {
             case 1:
-                startColour = GetBuildingComponent().firstGradedColour;
+                startColour = GetBuildingObjectComponent().firstGradedColour;
                 rend.material.color = startColour;
                 break;
             case 2:
-                startColour = GetBuildingComponent().secondGradedColour;
+                startColour = GetBuildingObjectComponent().secondGradedColour;
                 rend.material.color = startColour;
                 break;
             case 3:
-                startColour = GetBuildingComponent().thirdGradedColour;
+                startColour = GetBuildingObjectComponent().thirdGradedColour;
                 rend.material.color = startColour;
-                isMaxed = true;
                 break;
             default:
                 break;
@@ -219,10 +221,15 @@ public class CityNode : MonoBehaviour
 
     public bool TimesUpgradeAdder()
     {
-        if (totalUpgradeTime < GetBuildingComponent().maxUpgradeTime)
+
+        if (totalUpgradeTime < GetBuildingObjectComponent().maxUpgradeTime && !isMaxed)
         {
             totalUpgradeTime++;
             Debug.Log(this.name + " " + totalUpgradeTime);
+            if (totalUpgradeTime == GetBuildingObjectComponent().maxUpgradeTime)
+            {
+                isMaxed = true;
+            }
             return true;
         }
         else
@@ -241,7 +248,7 @@ public class CityNode : MonoBehaviour
         isMaxed = false;
 
         totalUpgradeTime = 0;
-        ClearBuilding();
+        //ClearBuilding();
     }
 
     public void SaveBuilding()

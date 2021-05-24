@@ -9,7 +9,8 @@ public class BuildingTemplate
     public int cost;
 
     public int upgradeCost = 500;
-
+    [TextArea(5, 10)]
+    public string content;
     public int GetSellAmount()
     {
         return cost / 2;

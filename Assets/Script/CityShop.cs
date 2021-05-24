@@ -11,6 +11,8 @@ public class CityShop : MonoBehaviour
     public BuildingTemplate schoolTemplate;
     public Text guildPriceText;
     public Text apartmentPriceText;
+    public Text bankPriceText;
+    public Text schoolPriceText;
     public GameObject noEnoughMoney;
 
     CityBuildManager cityBuildManager;
@@ -21,8 +23,10 @@ public class CityShop : MonoBehaviour
 
     void Update()
     {
-        guildPriceText.text = guildTemplate.cost.ToString();
-        apartmentPriceText.text = apartmentTemplate.cost.ToString();
+        guildPriceText.text = $"${guildTemplate.cost}";
+        apartmentPriceText.text = $"${apartmentTemplate.cost}";
+        bankPriceText.text = $"${bankTemplate.cost}";
+        schoolPriceText.text = $"${schoolTemplate.cost}";
     }
     public void SelectGuild()
     {

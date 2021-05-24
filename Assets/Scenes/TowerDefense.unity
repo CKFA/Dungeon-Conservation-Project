@@ -407,6 +407,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 36484093}
   m_CullTransparentMesh: 0
+--- !u!1 &44612745
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 44612746}
+  m_Layer: 0
+  m_Name: Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &44612746
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44612745}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 75.34959, y: 49.831543, z: -20.610893}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &54191827
 GameObject:
   m_ObjectHideFlags: 0
@@ -3707,9 +3737,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -1173.4458, y: 1030.8114}
+  m_AnchoredPosition: {x: 22.423462, y: 1533.197}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: -0.61116964, y: 0.95411986}
+  m_Pivot: {x: 0.011678832, y: 1.4207792}
 --- !u!114 &827372256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7155,6 +7185,7 @@ MonoBehaviour:
   waveCountDownText: {fileID: 1030495587}
   waveIndexUi: {fileID: 1458217132}
   hpUI: {fileID: 2088437238}
+  enemiesParent: {fileID: 0}
 --- !u!4 &1576918271
 Transform:
   m_ObjectHideFlags: 0
@@ -7201,7 +7232,6 @@ MonoBehaviour:
   startMoney: 999999
   startHp: 10
   nodes: {fileID: 7530966282933678160}
-  cityNodes: {fileID: 2131491406936750527, guid: a6acac291aa148749bc0972e911a1452, type: 3}
   nodeDataLength: 0
   cityNodeDataLength: 0
 --- !u!114 &1576918274
@@ -7222,9 +7252,10 @@ MonoBehaviour:
   gameOverUI: {fileID: 1979054677}
   buildManager: {fileID: 1576918272}
   cityBuildManager: {fileID: 0}
+  waveSpawner: {fileID: 0}
+  startNextWaveButton: {fileID: 1070818222}
   sceneFader: {fileID: 1637873789}
   nodes: {fileID: 7530966282933678160}
-  cityNodes: {fileID: 0}
 --- !u!114 &1576918275
 MonoBehaviour:
   m_ObjectHideFlags: 0

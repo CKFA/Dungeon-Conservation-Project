@@ -99,7 +99,7 @@ public class NodeUI : MonoBehaviour
 
     public void Sell()
     {
-        target.SellTower();
+        storedNode.SellTower();
         BuildManager.instance.DeselectNode(true);
     }
 
@@ -190,8 +190,8 @@ public class NodeUI : MonoBehaviour
         else
             rateBuffAmount.color = Color.white;
         
-        damageBuffAmount.text = $"×{PlayerStats.buildingDmgBuff/100f}%";
-        rangeBuffAmount.text = $"×{PlayerStats.buildingRangeBuff/100f}%";
-        rateBuffAmount.text = $"×{PlayerStats.buildingRateBuff/100f}%";
+        damageBuffAmount.text = $"×{PlayerStats.buildingDmgBuff.ToString("F2")}%";
+        rangeBuffAmount.text = $"×{PlayerStats.buildingRangeBuff.ToString("F2")}%";
+        rateBuffAmount.text = $"×{PlayerStats.buildingRateBuff.ToString("F2")}%";
     }
 }
