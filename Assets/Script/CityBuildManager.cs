@@ -19,7 +19,7 @@ public class CityBuildManager : MonoBehaviour
     public static GameObject storedCityShopUI;
 
     public GameObject cityNodeUI;
-    public static GameObject storedcityNodeUI;
+    public static GameObject storedCityNodeUI;
 
     private void Awake()
     {
@@ -33,8 +33,8 @@ public class CityBuildManager : MonoBehaviour
             return;
         }
         storedCityShopUI = cityShopUI;
-        storedcityNodeUI = cityNodeUI;
-        storedcityNodeUI.GetComponent<CityNodeUI>().Hide();
+        storedCityNodeUI = cityNodeUI;
+        storedCityNodeUI.GetComponent<CityNodeUI>().Hide();
         DeselectNode(false) ;
     }
     public bool CanBuild { get { return buildingToBuild != null; } }
@@ -50,7 +50,7 @@ public class CityBuildManager : MonoBehaviour
         selectedNode = node;
         DeselectBuildingToBuild(); 
 
-        cityNodeUI.GetComponent<CityNodeUI>().SetTarget(node);
+        storedCityNodeUI.GetComponent<CityNodeUI>().SetTarget(node);
     }
 
     public void DeselectNode(bool needToReset)
@@ -60,7 +60,7 @@ public class CityBuildManager : MonoBehaviour
             selectedNode = null;
         }
         
-        cityNodeUI.GetComponent<CityNodeUI>().Hide();
+        storedCityNodeUI.GetComponent<CityNodeUI>().Hide();
     }
 
     public void SelectBuildingToBuild(BuildingTemplate building)

@@ -190,8 +190,8 @@ public class NodeUI : MonoBehaviour
         else
             rateBuffAmount.color = Color.white;
         
-        damageBuffAmount.text = $"×{PlayerStats.buildingDmgBuff}%";
-        rangeBuffAmount.text = $"×{PlayerStats.buildingRangeBuff}%";
-        rateBuffAmount.text = $"×{PlayerStats.buildingRateBuff}%";
+        damageBuffAmount.text = $"×{PlayerStats.buildingDmgBuff/100f}%";
+        rangeBuffAmount.text = $"×{PlayerStats.buildingRangeBuff/100f}%";
+        rateBuffAmount.text = $"×{PlayerStats.buildingRateBuff/100f}%";
     }
 }

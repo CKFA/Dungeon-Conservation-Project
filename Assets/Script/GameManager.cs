@@ -95,6 +95,14 @@ public class GameManager : MonoBehaviour
         {
             cityNodes = PlayerStats.savedCityNodes;
         }
+        if (buildManager == null)
+        {
+            return;
+        }
+        else if ( cityBuildManager == null)
+        {
+            return;
+        }
     }
 
     // Update is called once per frame
@@ -156,7 +164,7 @@ public class GameManager : MonoBehaviour
         sceneFader.FadeTo(prevSceneToLoad,sync);
     }
 
-    public void CityNodeInitialisation()
+    void CityNodeInitialisation()
     {
         PlayerStats.cityNodesData = new CityNodeData[cityNodes.transform.childCount];
         for (int i = 0; i < PlayerStats.cityNodesData.Length; i++)
