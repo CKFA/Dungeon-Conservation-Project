@@ -1362,28 +1362,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  startDamage: 30
-  upgradeDamage: 6
+  startDamage: 50
+  upgradeDamage: 25
   range: 20
-  startRange: 10
-  upgradeRange: 2
+  startRange: 15
+  upgradeRange: 3
   isSlowDown: 0
   slowPrecent: 0.5
   bulletPrefab: {fileID: 4978385564715041698, guid: d3496de9d2a5aa24a92689e3bbf8fddd, type: 3}
   rate: 0.5
   startRate: 0.3
-  upgradeRate: 0.5
+  upgradeRate: 0.2
   useLaser: 0
   damageOverTime: 30
   lineRenderer: {fileID: 0}
   laserEffect: {fileID: 0}
   laserLightEffect: {fileID: 0}
-  maxDmgUpgradeTime: 5
-  maxRangeUpgradeTime: 5
-  maxRateUpgradeTime: 5
+  maxDmgUpgradeTime: 10
+  maxRangeUpgradeTime: 6
+  maxRateUpgradeTime: 7
   firstGradedTime: 5
   secondGradedTime: 10
   thirdGradedTime: 15
+  dmgBuff: 0
+  rangeBuff: 0
+  rateBuff: 0
   partToChange: {fileID: 4029235625698081525}
   firstGradedColour: {fileID: 2100000, guid: 6f19dc350e76f564eb98e0a5e12290ef, type: 2}
   secondGradedColour: {fileID: 2100000, guid: d1bdc4aed260c1c438ea1b46a900052b, type: 2}

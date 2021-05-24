@@ -18,6 +18,7 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Unit Stuff")]
     public Image healthBar;
+    public GameObject moneyGainTextObject;
 
     private void Start()
     {
@@ -41,7 +42,15 @@ public class EnemyAI : MonoBehaviour
     }
     void Die()
     {
-        PlayerStats.money += moneyDrop;
+        int moneyActualDrop = 0;
+        moneyActualDrop = Mathf.RoundToInt(moneyDrop * PlayerStats.buildingMoneyBuff);
+        PlayerStats.money += moneyActualDrop;
+
+        GameObject moneyDropObject = (GameObject)Instantiate(moneyGainTextObject, transform.position, Quaternion.Euler(90f,0f,0f));
+        moneyDropObject.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+        moneyDropObject.GetComponentInChildren<Text>().text = $"${moneyActualDrop}";
+        Destroy(moneyDropObject,5f);
+
         GameObject effect = (GameObject)Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(effect, 5f);
         WaveSpawner.EnemiesAlive--;

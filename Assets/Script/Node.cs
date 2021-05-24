@@ -33,7 +33,9 @@ public class Node : MonoBehaviour
 
     [HideInInspector]
     public bool isDmgMaxed = false;
+    [HideInInspector]
     public bool isRangeMaxed = false;
+    [HideInInspector]
     public bool isRateMaxed = false;
 
     BuildManager buildManager;
@@ -97,11 +99,11 @@ public class Node : MonoBehaviour
         {
             return;
         }
-        Debug.Log(this.name + ": " + isDmgMaxed);
+        //Debug.Log(this.name + ": " + isDmgMaxed);
         if (towerObject != null) // if this node have tower be built
         {
             buildManager.SelectNode(this,true);
-            Debug.Log(this.name + " is Selected");
+            //Debug.Log(this.name + " is Selected");
             return;
         }
 
@@ -214,6 +216,7 @@ public class Node : MonoBehaviour
         GameObject effect = (GameObject)Instantiate(buildManager.sellEffect, GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 5f);
 
+        Initialise();
         Destroy(towerObject);
         towerTemplate = null;
     }
@@ -237,7 +240,7 @@ public class Node : MonoBehaviour
         if ((totalUpgradeTime == GetTowerObjectComponent().firstGradedTime) && (!isFirstGraded))
         {
             isFirstGraded = true;
-            Debug.Log(this.name + ": 1 graded!!!");
+            //Debug.Log(this.name + ": 1 graded!!!");
             return 1;
         }
         else if ((totalUpgradeTime == GetTowerObjectComponent().secondGradedTime) && (!isSecondGraded))
@@ -254,7 +257,7 @@ public class Node : MonoBehaviour
         {
             return 3;
         }
-        Debug.Log(this.name + ": " + totalUpgradeTime + " / " + GetTowerObjectComponent().firstGradedTime);
+        //Debug.Log(this.name + ": " + totalUpgradeTime + " / " + GetTowerObjectComponent().firstGradedTime);
         return 0;
     }
 
@@ -264,17 +267,17 @@ public class Node : MonoBehaviour
         {
             case 1:
                 GetTowerObjectComponent().partToChange.material= GetTowerComponent().firstGradedColour;
-                Debug.Log(this.name + ": 1 Graded");
+                //Debug.Log(this.name + ": 1 Graded");
                 break;
             case 2:
                 GetTowerObjectComponent().partToChange.material = GetTowerComponent().secondGradedColour;
                 //startColour = GetTowerComponent().secondGradedColour.color;
                 //rend.material.color = startColour;
-                Debug.Log(this.name + ": 2 Graded");
+                //Debug.Log(this.name + ": 2 Graded");
                 break;
             case 3:
                 GetTowerObjectComponent().partToChange.material = GetTowerComponent().thirdGradedColour;
-                Debug.Log(this.name + ": 3 Graded");
+                //Debug.Log(this.name + ": 3 Graded");
                 break;
             default:
                 break;
@@ -332,11 +335,11 @@ public class Node : MonoBehaviour
         {
             totalUpgradeTime++;
             rateUpgradeTime++;
-            Debug.Log(this.name + "'s rate upgrade time: " + rateUpgradeTime);
+            //Debug.Log(this.name + "'s rate upgrade time: " + rateUpgradeTime);
 
             if (rateUpgradeTime == GetTowerComponent().maxRateUpgradeTime)
             {
-                Debug.Log(this.name + "'s range level: " + rateUpgradeTime + " (max)");
+                //Debug.Log(this.name + "'s range level: " + rateUpgradeTime + " (max)");
                 isRateMaxed = true;
             }
 
@@ -344,13 +347,13 @@ public class Node : MonoBehaviour
         }
         else
         {
-            Debug.Log(this.name + "'s range level: " + rateUpgradeTime + " (max)");
+            //Debug.Log(this.name + "'s range level: " + rateUpgradeTime + " (max)");
             return false;
         }
 
     }
 
-    public void Initialise()
+    public void Initialise()  //初期化する Reset all the data
     {
         startColour = initialColour;
         rend.material.color = initialColour;
@@ -358,56 +361,61 @@ public class Node : MonoBehaviour
         isFirstGraded = false;
         isSecondGraded = false;
         isThirdGraded = false;
+        
 
         isDmgMaxed = false;
         isRangeMaxed = false;
         isRateMaxed = false;
 
         totalUpgradeTime = 0;
+        damageUpgradeTime = 0;
+        rangeUpgradeTime = 0;
+        rateUpgradeTime = 0;
+
         ClearTower();
     }
 
     public void SaveTower()
     {
-        PlayerStats.nodeData[id].id = id; // use GetNameToInt()
-        PlayerStats.nodeData[id].towerGameobject = towerObject;
-        PlayerStats.nodeData[id].towerTemplate = towerTemplate;
-        PlayerStats.nodeData[id].totalUpgradeTime = totalUpgradeTime;
-        PlayerStats.nodeData[id].damageUpgradeTime = damageUpgradeTime;
-        PlayerStats.nodeData[id].rangeUpgradeTime = rangeUpgradeTime;
-        PlayerStats.nodeData[id].rateUpgradeTime = rateUpgradeTime;
-        PlayerStats.nodeData[id].reachedFirstGrade = isFirstGraded;
-        PlayerStats.nodeData[id].reachedSecondGrade = isSecondGraded;
-        PlayerStats.nodeData[id].reachedThirdGrade = isThirdGraded;
+        PlayerStats.nodesData[id].id = id; // use GetNameToInt()
+        PlayerStats.nodesData[id].towerGameobject = towerObject;
+        PlayerStats.nodesData[id].towerTemplate = towerTemplate;
+        PlayerStats.nodesData[id].totalUpgradeTime = totalUpgradeTime;
+        PlayerStats.nodesData[id].damageUpgradeTime = damageUpgradeTime;
+        PlayerStats.nodesData[id].rangeUpgradeTime = rangeUpgradeTime;
+        PlayerStats.nodesData[id].rateUpgradeTime = rateUpgradeTime;
+        PlayerStats.nodesData[id].reachedFirstGrade = isFirstGraded;
+        PlayerStats.nodesData[id].reachedSecondGrade = isSecondGraded;
+        PlayerStats.nodesData[id].reachedThirdGrade = isThirdGraded;
     }
 
     public void ClearTower()
     {
-        PlayerStats.nodeData[id].id = id; // use GetNameToInt()
-        PlayerStats.nodeData[id].towerGameobject = null;
-        PlayerStats.nodeData[id].towerTemplate = null;
-        PlayerStats.nodeData[id].totalUpgradeTime = 0;
-        PlayerStats.nodeData[id].damageUpgradeTime = 0;
-        PlayerStats.nodeData[id].rangeUpgradeTime = 0;
-        PlayerStats.nodeData[id].rateUpgradeTime = 0;
-        PlayerStats.nodeData[id].reachedFirstGrade = false;
-        PlayerStats.nodeData[id].reachedSecondGrade = false;
-        PlayerStats.nodeData[id].reachedThirdGrade = false;
-        PlayerStats.nodeData[id].isMaxLevel = false;
+        PlayerStats.nodesData[id].id = id; // use GetNameToInt()
+        PlayerStats.nodesData[id].towerGameobject = null;
+        PlayerStats.nodesData[id].towerTemplate = null;
+        PlayerStats.nodesData[id].totalUpgradeTime = 0;
+        PlayerStats.nodesData[id].damageUpgradeTime = 0;
+        PlayerStats.nodesData[id].rangeUpgradeTime = 0;
+        PlayerStats.nodesData[id].rateUpgradeTime = 0;
+        PlayerStats.nodesData[id].reachedFirstGrade = false;
+        PlayerStats.nodesData[id].reachedSecondGrade = false;
+        PlayerStats.nodesData[id].reachedThirdGrade = false;
+        PlayerStats.nodesData[id].isMaxLevel = false;
     }
     
     public void LoadTower()
     {
 
-        towerObject = PlayerStats.nodeData[id].towerGameobject;
-        towerTemplate = PlayerStats.nodeData[id].towerTemplate;
-        totalUpgradeTime = PlayerStats.nodeData[id].totalUpgradeTime;
-        damageUpgradeTime = PlayerStats.nodeData[id].damageUpgradeTime;
-        rangeUpgradeTime = PlayerStats.nodeData[id].rangeUpgradeTime;
-        rateUpgradeTime = PlayerStats.nodeData[id].rateUpgradeTime;
-        isFirstGraded = PlayerStats.nodeData[id].reachedFirstGrade;
-        isSecondGraded = PlayerStats.nodeData[id].reachedSecondGrade;
-        isThirdGraded = PlayerStats.nodeData[id].reachedThirdGrade;
+        towerObject = PlayerStats.nodesData[id].towerGameobject;
+        towerTemplate = PlayerStats.nodesData[id].towerTemplate;
+        totalUpgradeTime = PlayerStats.nodesData[id].totalUpgradeTime;
+        damageUpgradeTime = PlayerStats.nodesData[id].damageUpgradeTime;
+        rangeUpgradeTime = PlayerStats.nodesData[id].rangeUpgradeTime;
+        rateUpgradeTime = PlayerStats.nodesData[id].rateUpgradeTime;
+        isFirstGraded = PlayerStats.nodesData[id].reachedFirstGrade;
+        isSecondGraded = PlayerStats.nodesData[id].reachedSecondGrade;
+        isThirdGraded = PlayerStats.nodesData[id].reachedThirdGrade;
         
     }
 }

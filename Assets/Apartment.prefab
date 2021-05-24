@@ -67,19 +67,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgBuff: 0
+  upgradeDmg: 0
   rangeBuff: 0
-  upgradeRate: 0
+  upgradeRange: 0
+  rateBuff: 1
+  upgradeRate: 0.2
+  moneyBuff: 0
+  upgradeMoney: 0
   maxUpgradeTime: 3
-  firstGradeTime: 1
-  secondGradeTime: 2
-  thirdGradeTime: 3
-  firstGradedColour: {fileID: 0}
-  secondGradedColour: {fileID: 0}
-  thirdGradedColour: {fileID: 0}
-  enemyTag: Enemy
-  partToRotate: {fileID: 0}
-  turnSpeed: 10
-  firePoint: {fileID: 0}
+  firstGradedColour: {r: 0.24426685, g: 0.8207547, b: 0.127759, a: 0.92941177}
+  secondGradedColour: {r: 0.7830189, g: 0.5060075, b: 0.5060075, a: 1}
+  thirdGradedColour: {r: 0, g: 0, b: 0.9019608, a: 0.87058824}
+  firstGradedTime: 1
+  secondGradedTime: 2
+  thirdGradedTime: 3
 --- !u!1 &1591762468525210818
 GameObject:
   m_ObjectHideFlags: 0

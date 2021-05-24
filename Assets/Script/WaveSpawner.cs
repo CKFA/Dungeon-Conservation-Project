@@ -79,4 +79,9 @@ public class WaveSpawner : MonoBehaviour
         EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
         enemyAI.hp = enemyAI.startHp + (PlayerStats.waves * HpBuff);
     }
+
+    public void StartNextWave()
+    {
+        countDown = 0f;
+    }
 }

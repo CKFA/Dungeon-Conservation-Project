@@ -52,6 +52,10 @@ public class Tower : MonoBehaviour
     public int secondGradedTime;
     public int thirdGradedTime;
 
+    public float dmgBuff;
+    public float rangeBuff;
+    public float rateBuff;
+
     public MeshRenderer partToChange;
     public Material firstGradedColour;
     public Material secondGradedColour;
@@ -73,11 +77,15 @@ public class Tower : MonoBehaviour
         range = startRange;
         rate = startRate;
         damage = startDamage;
-        
+
+        dmgBuff = 1;
+        rangeBuff = 1;
+        rateBuff = 1;
 
         firstGradedTime = 0;
         secondGradedTime = 0;
         thirdGradedTime = 0;
+
 
         firstGradedTime = (maxDmgUpgradeTime + maxRangeUpgradeTime + maxRateUpgradeTime) / 3;
         secondGradedTime = firstGradedTime * 2;
@@ -110,7 +118,7 @@ public class Tower : MonoBehaviour
             }
         }
 
-        if (nearestEnemy != null && shortestDistance <= range)
+        if (nearestEnemy != null && shortestDistance <= (range * rangeBuff))
         {
             target = nearestEnemy.transform;
             targetEnemy = nearestEnemy.GetComponent<EnemyAI>();
@@ -147,7 +155,7 @@ public class Tower : MonoBehaviour
             if (fireCountDown <= 0f)
             {
                 Shoot();
-                fireCountDown = 1f / rate;
+                fireCountDown = 1f / (rate * rateBuff);
             }
 
             fireCountDown -= Time.deltaTime;
@@ -216,9 +224,9 @@ public class Tower : MonoBehaviour
     }
 
 
-    //private void OnDrawGizmosSelected()
-    //{
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireSphere(transform.position, startRange);
-    //}
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, range);
+    }
 }

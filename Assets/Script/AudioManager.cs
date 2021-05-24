@@ -11,7 +11,7 @@ public class AudioManager : MonoBehaviour
     public Sound[] sounds;
     public static AudioManager instance;
     private static AudioSource bgmIsPlaying;
-
+    private int index;
     private void Awake()
     {
         if(instance ==null)
@@ -53,7 +53,7 @@ public class AudioManager : MonoBehaviour
 
     public void Play(SoundType type)
     {
-
+        
         Sound[] s = Array.FindAll(sounds, sound => sound.type == type);
         
         if(s == null)
@@ -63,7 +63,9 @@ public class AudioManager : MonoBehaviour
         
         if(type == SoundType.BGM)
         {
+            
             bgmIsPlaying = s[UnityEngine.Random.Range(0, s.Length)].source;
+            index++;
             bgmIsPlaying.Play();
         }
         else
@@ -78,6 +80,8 @@ public class AudioManager : MonoBehaviour
         {
             if(!bgmIsPlaying.isPlaying)
             {
+                bgmIsPlaying.Stop();
+                Debug.Log(index);
                 Play(TypeOfPlayList);
             }
         }

@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour
     public BuildManager buildManager;
     public CityBuildManager cityBuildManager;
     public SceneFader sceneFader;
-    public GameObject nodes;
+    public GameObject nodes; // use to destroy
+    private GameObject cityNodes; // use to destroy
     private int nextSceneToLoad;
     private int prevSceneToLoad;
 
@@ -26,36 +27,74 @@ public class GameManager : MonoBehaviour
         prevSceneToLoad = SceneManager.GetActiveScene().buildIndex - 1;
 
         TooltipSystem.Hide();
-        if (PlayerStats.nodesIsSpawned)
+
+        if(isThisTownStage && PlayerStats.savedCityNodes == null)
         {
-            Destroy(nodes);
-            Debug.Log("Destroy the nodes and keep the original nodes");
+            cityNodes = FindObjectOfType<CityNode>().gameObject.transform.parent.gameObject;
+            Debug.Log("CityNode: " + cityNodes.name + " Found!");
+            CityNodeInitialisation();
             
-            if (PlayerStats.savedNodes != null) // if savenodes exists
-            {
-                if (isThisTownStage) // if this is town stage, disable it
-                {
-                    PlayerStats.savedNodes.SetActive(false);
-                    Debug.Log("Set SavedNodes to False");
-                    return;
-                }
-                else
-                {
+        }
+        else if(isThisTownStage && PlayerStats.savedCityNodes != null)
+        {
+            cityNodes = FindObjectOfType<CityNode>().gameObject.transform.parent.gameObject;
+            Destroy(cityNodes);
+        }
 
-                    PlayerStats.savedNodes.SetActive(true);
-                    Debug.Log("Set SavedNodes to True");
-                    return;
-                }
-                
+        if(isThisTownStage && cityBuildManager == null)
+        {
+            cityBuildManager = FindObjectOfType<CityBuildManager>();
+        }
+
+        if (PlayerStats.nodesIsSpawned) // if node is spawned
+        {
+            if(nodes!=null)
+            {
+                Destroy(nodes);
             }
+            Debug.Log("Destroy the nodes and keep the original nodes");
+        }
 
-            if (nodes == null)
+        if (PlayerStats.savedNodes != null) // if savenodes exists
+        {
+            PlayerStats.nodesIsSpawned = true;
+            if (isThisTownStage) // if this is town stage, disable it
             {
-                nodes = PlayerStats.savedNodes;
+                PlayerStats.savedNodes.SetActive(false);
+                Debug.Log("Set SavedNodes to False");
+            }
+            else
+            {
+                PlayerStats.savedNodes.SetActive(true);
+                Debug.Log("Set SavedNodes to True");
+            }
+                
+        }
+
+        if (PlayerStats.savedCityNodes != null)
+        {
+            if (isThisTownStage)
+            {
+                PlayerStats.savedCityNodes.SetActive(true);
+                Debug.Log("Set savedCityNodes to True");
+            }
+            else
+            {
+                PlayerStats.savedCityNodes.SetActive(false);
+                Debug.Log("Set savedCityNodes to False");
             }
         }
-        PlayerStats.nodesIsSpawned = true;
+        
+       
 
+        if (nodes == null)
+        {
+            nodes = PlayerStats.savedNodes;
+        }
+        if (cityNodes == null)
+        {
+            cityNodes = PlayerStats.savedCityNodes;
+        }
     }
 
     // Update is called once per frame
@@ -115,5 +154,24 @@ public class GameManager : MonoBehaviour
     {
         CityBuildManager.instance.DeselectNode(true);
         sceneFader.FadeTo(prevSceneToLoad,sync);
+    }
+
+    public void CityNodeInitialisation()
+    {
+        PlayerStats.cityNodesData = new CityNodeData[cityNodes.transform.childCount];
+        for (int i = 0; i < PlayerStats.cityNodesData.Length; i++)
+        {
+            PlayerStats.cityNodesData[i] = new CityNodeData();
+            PlayerStats.cityNodesData[i].id = new int();
+            PlayerStats.cityNodesData[i].totalUpgradeTime = new int();
+            PlayerStats.cityNodesData[i].reachedFirstGrade = new bool();
+            PlayerStats.cityNodesData[i].reachedSecondGrade = new bool();
+            PlayerStats.cityNodesData[i].reachedThirdGrade = new bool();
+            PlayerStats.cityNodesData[i].isMaxLevel = new bool();
+
+        }
+        //PlayerStats.instance.cityNodeDataLength = PlayerStats.cityNodesData.Length;
+        PlayerStats.savedCityNodes = cityNodes;
+        DontDestroyOnLoad(PlayerStats.savedCityNodes);
     }
 }

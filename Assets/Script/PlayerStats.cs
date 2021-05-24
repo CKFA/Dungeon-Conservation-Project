@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerStats : MonoBehaviour
 {
-    public static PlayerPrefs instance;
+    public static PlayerStats instance;
     public static int money;
     public int startMoney;
 
@@ -16,72 +16,86 @@ public class PlayerStats : MonoBehaviour
     public static float buildingDmgBuff;
     public static float buildingRangeBuff;
     public static float buildingRateBuff;
+    public static float buildingMoneyBuff;
 
     public static int kills;
 
     [Header("Nodes")]
     public GameObject nodes;
+
     public static GameObject savedNodes;
+    public static GameObject savedCityNodes;
+
     public static bool nodesIsSpawned = false; // for first spawn
-    public static NodeData[] nodeData;
+    public static bool IsCityNodeSpawned = false;
+    public static NodeData[] nodesData;
+    public static CityNodeData[] cityNodesData;
     public int nodeDataLength;
+    public int cityNodeDataLength;
+    
 
     public static bool isInitialised = false;
     private void Awake()
     {
-
-        if (nodeData == null)
+        if (nodesData == null)
         {
-            nodeData = new NodeData[nodes.transform.childCount]; // array start at 0 ,but childcount don't count 0
-            for (int i = 0; i < nodeData.Length; i++)
-            {
-                PlayerStats.nodeData[i] = new NodeData();
-                PlayerStats.nodeData[i].id = new int(); // use GetNameToInt()
-                //PlayerStats.nodeData[i].towerGameobject = new GameObject();
-                //PlayerStats.nodeData[i].towerTemplate = new TowerTemplate();
-                PlayerStats.nodeData[i].totalUpgradeTime = new int();
-                PlayerStats.nodeData[i].damageUpgradeTime = new int();
-                PlayerStats.nodeData[i].rangeUpgradeTime = new int();
-                PlayerStats.nodeData[i].rateUpgradeTime = new int();
-                PlayerStats.nodeData[i].reachedFirstGrade = new bool();
-                PlayerStats.nodeData[i].reachedSecondGrade = new bool();
-                PlayerStats.nodeData[i].reachedThirdGrade = new bool();
-
-            }
-            nodeDataLength = nodeData.Length;
-            savedNodes = nodes;
-            DontDestroyOnLoad(savedNodes);
+            NodeInitialisation();
         }
+        
         if (!isInitialised)
         {
 
             money = startMoney;
             hp = startHp;
             waves = 0;
-            buildingDmgBuff = 0;
-            buildingRangeBuff = 0;
-            buildingRateBuff = 0;
-
+            buildingDmgBuff = 1;
+            buildingRangeBuff = 1;
+            buildingRateBuff = 1;
+            buildingMoneyBuff = 1;
 
             isInitialised = true;
         }
 
-
     }
-    public void Initialisation()
+    public void Initialisation() // for game over
     {
         isInitialised = false;
         nodesIsSpawned = false;
         money = startMoney;
         hp = startHp;
         waves = 0;
-        buildingDmgBuff = 0;
-        buildingRangeBuff = 0;
-        buildingRateBuff = 0;
+        buildingDmgBuff = 1;
+        buildingRangeBuff = 1;
+        buildingRateBuff = 1;
+        buildingMoneyBuff = 1;
 
         nodes = null;
         savedNodes = null;
-        nodeData = null;
+        nodesData = null;
+    }
+
+    public void NodeInitialisation ()
+    {
+        nodesData = new NodeData[nodes.transform.childCount]; // array start at 0 ,but childcount don't count 0
+        for (int i = 0; i < nodesData.Length; i++)
+        {
+            PlayerStats.nodesData[i] = new NodeData();
+            PlayerStats.nodesData[i].id = new int(); // use GetNameToInt()
+            //PlayerStats.nodeData[i].towerGameobject = new GameObject();
+            //PlayerStats.nodeData[i].towerTemplate = new TowerTemplate();
+            PlayerStats.nodesData[i].totalUpgradeTime = new int();
+            PlayerStats.nodesData[i].damageUpgradeTime = new int();
+            PlayerStats.nodesData[i].rangeUpgradeTime = new int();
+            PlayerStats.nodesData[i].rateUpgradeTime = new int();
+            PlayerStats.nodesData[i].reachedFirstGrade = new bool();
+            PlayerStats.nodesData[i].reachedSecondGrade = new bool();
+            PlayerStats.nodesData[i].reachedThirdGrade = new bool();
+            PlayerStats.nodesData[i].isMaxLevel = new bool();
+
+        }
+        nodeDataLength = nodesData.Length;
+        savedNodes = nodes;
+        DontDestroyOnLoad(savedNodes);
     }
 
 }

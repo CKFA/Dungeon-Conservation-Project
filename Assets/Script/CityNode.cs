@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class CityNode : MonoBehaviour
 {
+    public int id;
     [Header("General")]
     public Color hoverColour;
     public Color warningColour;
@@ -18,25 +19,23 @@ public class CityNode : MonoBehaviour
     public Renderer rend;
     private Color startColour;
     private Color initalColour;
-    CityBuildManager cityBuildManager;
 
     [Header("Upgrade")]
-
-    private int firstGradeTime = 0;
-    private int secondGradeTime = 0;
-    private int thirdGradeTime = 0;
 
     public bool isFirstGraded = false;
     public bool isSecondGraded = false;
     public bool isThirdGraded = false;
 
-    public int upgradeTime = 0;
+    public int totalUpgradeTime = 0;
     [HideInInspector]
     public bool isMaxed = false;
+
+    CityBuildManager cityBuildManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        id = transform.GetSiblingIndex();
         rend = GetComponent<Renderer>();
         startColour = rend.material.color;
         cityBuildManager = CityBuildManager.instance;
@@ -54,7 +53,7 @@ public class CityNode : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject()) // if hovering the UI
             return;
 
-        if (!cityBuildManager.CanBuild) // 
+        if (!cityBuildManager.CanBuild)
         return;
 
         if (buildingObject != null)
@@ -105,12 +104,11 @@ public class CityNode : MonoBehaviour
         PlayerStats.money -= template.cost;
         GameObject _building = (GameObject)Instantiate(template.Prefabs, GetBuildPosition(), Quaternion.identity); //build building
         buildingObject = _building;
+        buildingObject.transform.parent = gameObject.transform;
 
         buildingTemplate = template;
-
-        firstGradeTime = GetBuildingComponent().firstGradeTime;
-        secondGradeTime = GetBuildingComponent().secondGradeTime;
-        thirdGradeTime = GetBuildingComponent().thirdGradeTime;
+        GetBuildingObjectComponent().Build();
+        SaveBuilding();
 
         GameObject effect = (GameObject)Instantiate(cityBuildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 5f);
@@ -122,9 +120,10 @@ public class CityNode : MonoBehaviour
 
         GameObject effect = (GameObject)Instantiate(cityBuildManager.sellEffect, GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 5f);
+        
+        GetBuildingObjectComponent().Downgrade(totalUpgradeTime);
 
         Initialise();
-
         Destroy(buildingObject);
         buildingTemplate = null;
     }
@@ -137,14 +136,19 @@ public class CityNode : MonoBehaviour
             return;
         }
 
-        TimesUpgradeAdder(); // upgrade time ++
+        if(TimesUpgradeAdder()) // upgrade time ++
+        {
+            buildingObject.GetComponent<Building>().Upgrade();
+            PlayerStats.money -= buildingTemplate.upgradeCost;
 
-        PlayerStats.money -= buildingTemplate.upgradeCost;
+            int gradeLevel = GradeChecker();
+            ColourChanger(gradeLevel);
+            SaveBuilding();
 
-        ColourChanger();
-       
-        GameObject effect = (GameObject)Instantiate(cityBuildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
-        Destroy(effect, 5f);
+            GameObject effect = (GameObject)Instantiate(cityBuildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
+            Destroy(effect, 5f);
+        }
+
     }
 
     public Renderer GetRenderer()
@@ -157,19 +161,24 @@ public class CityNode : MonoBehaviour
         return buildingTemplate.Prefabs.GetComponent<Building>();
     }
 
+    public Building GetBuildingObjectComponent()
+    {
+        return buildingObject.GetComponent<Building>();
+    }
+
     public int GradeChecker() // for check grade
     {
-        if ((upgradeTime == firstGradeTime) && (!isFirstGraded))
+        if ((totalUpgradeTime == GetBuildingObjectComponent().firstGradedTime) && (!isFirstGraded))
         {
             isFirstGraded = true;
             return 1;
         }
-        else if ((upgradeTime == secondGradeTime) && (!isSecondGraded))
+        else if ((totalUpgradeTime == GetBuildingObjectComponent().secondGradedTime) && (!isSecondGraded))
         {
             isSecondGraded = true;
             return 2;
         }
-        else if ((upgradeTime == thirdGradeTime) && (!isThirdGraded))
+        else if ((totalUpgradeTime == GetBuildingObjectComponent().thirdGradedTime) && (!isThirdGraded))
         {
             isThirdGraded = true;
             return 3;
@@ -181,9 +190,8 @@ public class CityNode : MonoBehaviour
         return 0;
     }
 
-    public void ColourChanger()
+    public void ColourChanger(int gradeLevel)
     {
-        int gradeLevel = GradeChecker();
         switch (gradeLevel)
         {
             case 1:
@@ -205,16 +213,16 @@ public class CityNode : MonoBehaviour
     }
     public int TimesUpgradeChecker()
     {
-        int _upgradeTime = upgradeTime;
+        int _upgradeTime = totalUpgradeTime;
         return _upgradeTime;
     }
 
     public bool TimesUpgradeAdder()
     {
-        if (upgradeTime < GetBuildingComponent().maxUpgradeTime)
+        if (totalUpgradeTime < GetBuildingComponent().maxUpgradeTime)
         {
-            upgradeTime++;
-            Debug.Log(this.name + " " + upgradeTime);
+            totalUpgradeTime++;
+            Debug.Log(this.name + " " + totalUpgradeTime);
             return true;
         }
         else
@@ -232,6 +240,42 @@ public class CityNode : MonoBehaviour
 
         isMaxed = false;
 
-        upgradeTime = 0;
+        totalUpgradeTime = 0;
+        ClearBuilding();
+    }
+
+    public void SaveBuilding()
+    {
+        PlayerStats.cityNodesData[id].id = id; // use GetNameToInt()
+        PlayerStats.cityNodesData[id].buildingGameobject = buildingObject;
+        PlayerStats.cityNodesData[id].buildingTemplate = buildingTemplate;
+        PlayerStats.cityNodesData[id].totalUpgradeTime = totalUpgradeTime;
+        PlayerStats.cityNodesData[id].reachedFirstGrade = isFirstGraded;
+        PlayerStats.cityNodesData[id].reachedSecondGrade = isSecondGraded;
+        PlayerStats.cityNodesData[id].reachedThirdGrade = isThirdGraded;
+    }
+
+    public void ClearBuilding()
+    {
+        PlayerStats.cityNodesData[id].id = id; // use GetNameToInt()
+        PlayerStats.cityNodesData[id].buildingGameobject = null;
+        PlayerStats.cityNodesData[id].buildingTemplate = null;
+        PlayerStats.cityNodesData[id].totalUpgradeTime = 0;
+        PlayerStats.cityNodesData[id].reachedFirstGrade = false;
+        PlayerStats.cityNodesData[id].reachedSecondGrade = false;
+        PlayerStats.cityNodesData[id].reachedThirdGrade = false;
+        PlayerStats.cityNodesData[id].isMaxLevel = false;
+    }
+
+    public void LoadBuilding()
+    {
+
+        buildingObject = PlayerStats.cityNodesData[id].buildingGameobject;
+        buildingTemplate = PlayerStats.cityNodesData[id].buildingTemplate;
+        totalUpgradeTime = PlayerStats.cityNodesData[id].totalUpgradeTime;
+        isFirstGraded = PlayerStats.cityNodesData[id].reachedFirstGrade;
+        isSecondGraded = PlayerStats.cityNodesData[id].reachedSecondGrade;
+        isThirdGraded = PlayerStats.cityNodesData[id].reachedThirdGrade;
+
     }
 }

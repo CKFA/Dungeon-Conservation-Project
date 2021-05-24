@@ -91,8 +91,9 @@ GameObject:
   m_Component:
   - component: {fileID: 609539340468386570}
   - component: {fileID: 609539340475340010}
+  - component: {fileID: 3349381674445412105}
   m_Layer: 0
-  m_Name: House_2
+  m_Name: School
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,6 +135,33 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3349381674445412105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609539340468086570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a51b086b56573f04892537bb47a2a33b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmgBuff: 0
+  upgradeDmg: 0
+  rangeBuff: 0
+  upgradeRange: 1
+  rateBuff: 1
+  upgradeRate: 0
+  moneyBuff: 0
+  upgradeMoney: 0
+  maxUpgradeTime: 3
+  firstGradedColour: {r: 1, g: 0.68047726, b: 0.3726415, a: 0}
+  secondGradedColour: {r: 0.764151, g: 0.05406728, b: 0.05406728, a: 0}
+  thirdGradedColour: {r: 0.16503142, g: 1, b: 0.0141509175, a: 0}
+  firstGradedTime: 1
+  secondGradedTime: 2
+  thirdGradedTime: 3
 --- !u!1 &609539340468086572
 GameObject:
   m_ObjectHideFlags: 0

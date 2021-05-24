@@ -38,7 +38,8 @@ public class RangeArea : MonoBehaviour
 
         storedRangeArea.SetActive(true);
         storedRangeArea.transform.position = target.transform.position;
-        storedRangeArea.transform.localScale = new Vector3(_target.towerObject.GetComponent<Tower>().range, _target.towerObject.GetComponent<Tower>().range, _target.towerObject.GetComponent<Tower>().range);
+        float towerRange = target.towerObject.GetComponent<Tower>().range * 2;
+        storedRangeArea.transform.localScale = new Vector3(towerRange, towerRange, towerRange);
         
     }
 
