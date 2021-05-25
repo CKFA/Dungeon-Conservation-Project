@@ -1370,6 +1370,8 @@ MonoBehaviour:
   isSlowDown: 0
   slowPrecent: 0.5
   bulletPrefab: {fileID: 4978385564715041698, guid: d3496de9d2a5aa24a92689e3bbf8fddd, type: 3}
+  isBullet: 0
+  isRocket: 1
   rate: 0.5
   startRate: 0.3
   upgradeRate: 0.2
@@ -1388,7 +1390,7 @@ MonoBehaviour:
   rangeBuff: 0
   rateBuff: 0
   partToChange: {fileID: 4029235625698081525}
-  firstGradedColour: {fileID: 2100000, guid: 6f19dc350e76f564eb98e0a5e12290ef, type: 2}
+  firstGradedColour: {fileID: 2100000, guid: 3a1b50bb6008b9c43b8bb976b2ab9b93, type: 2}
   secondGradedColour: {fileID: 2100000, guid: d1bdc4aed260c1c438ea1b46a900052b, type: 2}
   thirdGradedColour: {fileID: 2100000, guid: 1e65b4fd72d148d4b8c72b7c3eb0367e, type: 2}
   enemyTag: Enemy

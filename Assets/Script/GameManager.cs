@@ -8,8 +8,11 @@ public class GameManager : MonoBehaviour
 {
     public static bool gameIsOver;
     public bool isThisTownStage;
+    public bool isThisTitlePage;
     public GameObject gameOverUI;
     public GameObject warningUI;
+    public GameObject settingsUI;
+    public GameObject creditUI;
     public BuildManager buildManager;
     public CityBuildManager cityBuildManager;
     public WaveSpawner waveSpawner;
@@ -17,17 +20,16 @@ public class GameManager : MonoBehaviour
     public SceneFader sceneFader;
     public GameObject nodes; // use to destroy
     private GameObject cityNodes; // use to destroy
-    private int nextSceneToLoad;
-    private int prevSceneToLoad;
 
     // Start is called before the first frame update
     void Start()
     {
         gameIsOver = false;
 
-        nextSceneToLoad = SceneManager.GetActiveScene().buildIndex + 1;
-        prevSceneToLoad = SceneManager.GetActiveScene().buildIndex - 1;
-
+        if(isThisTitlePage)
+        {
+            return;
+        }
         TooltipSystem.Hide();
 
         if(startNextWaveButton != null && !startNextWaveButton.interactable)
@@ -117,12 +119,12 @@ public class GameManager : MonoBehaviour
     {
         if (gameIsOver)
             return;
-        if (PlayerStats.hp <= 0)
+        if (PlayerStats.hp <= 0 && !isThisTitlePage)
         {
             EndGame();
         }
 
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (Input.GetKeyDown(KeyCode.Backspace) && !isThisTitlePage)
         {
             EndGame();
         }
@@ -199,32 +201,52 @@ public class GameManager : MonoBehaviour
     {
         warningUI.SetActive(false);
     }
-    //void ToNextScene(bool sync)
-    //{
-    //    BuildManager.instance.DeselectNode(true);
-    //    sceneFader.FadeTo(nextSceneToLoad,sync);
-    //}
-
-    //void ToPrevScene(bool sync)
-    //{
-    //    CityBuildManager.instance.DeselectNode(true);
-    //    sceneFader.FadeTo(prevSceneToLoad,sync);
-    //}
 
     public void ToTowerDefenseScene()
 
     {
-        CityBuildManager.instance.DeselectNode(true);
-        PlayerStats.waves++;
-        sceneFader.FadeTo(prevSceneToLoad, false);
+        if(!isThisTitlePage)
+        {
+            CityBuildManager.instance.DeselectNode(true);
+            PlayerStats.waves++;
+        }
+        sceneFader.FadeTo(1, false);
     }
 
     public void ToTownBuilderScene()
     {
         BuildManager.instance.DeselectNode(true);
-        sceneFader.FadeTo(nextSceneToLoad, false);
+        sceneFader.FadeTo(2, false);
     }
 
+    public void ToTitleScreen()
+    {
+        if (PlayerStats.instance == null)
+        {
+            PlayerStats.instance = FindObjectOfType<PlayerStats>();
+        }
+        PlayerStats.instance.Initialisation();
+        sceneFader.FadeTo(0, false);
+    }
+
+    public void CallSettings()
+    {
+        settingsUI.SetActive(true);
+    }
+
+    public void HideSettings()
+    {
+        settingsUI.SetActive(false);
+    }
+
+    public void OpenCredit()
+    {
+        creditUI.SetActive(true);
+    }
+    public void CloseCredit()
+    {
+        creditUI.SetActive(false);
+    }
     void CityNodeInitialisation()
     {
         PlayerStats.cityNodesData = new CityNodeData[cityNodes.transform.childCount];

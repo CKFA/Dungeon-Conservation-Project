@@ -6,6 +6,13 @@ public class CameraController : MonoBehaviour
 {
     private Camera cam;
     private float targetZoom;
+    [Header("CameraLimit")]
+    public bool isLimitedCamPosition = true;
+    public float cameraMinX = 0f;
+    public float cameraMaxX = 1f;
+    public float cameraMinZ = 0f;
+    public float cameraMaxZ = 1f;
+    [Header("Other")]
     public float zoomFactor = 3f;
     public float ZoomMinSize = 5f;
     public float ZoomMaxSize = 30f;
@@ -27,8 +34,13 @@ public class CameraController : MonoBehaviour
             this.enabled = false;
             return;
         }
+        if (isLimitedCamPosition)
+        {
+            ClampCamera(); // limit the camera
+        }
+
         ZoomCamera();
-        PanCamera();
+        PanCamera(); // move the camera
     }
 
     private void PanCamera()
@@ -54,5 +66,13 @@ public class CameraController : MonoBehaviour
         targetZoom -= scrollData * zoomFactor;
         targetZoom = Mathf.Clamp(targetZoom, ZoomMinSize, ZoomMaxSize);
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, Time.deltaTime * zoomLerpSpeed);
+    }
+
+    void ClampCamera()
+    {
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x, cameraMinX, cameraMaxX),
+            transform.position.y,
+            Mathf.Clamp(transform.position.z, cameraMinZ, cameraMaxZ));
     }
 }

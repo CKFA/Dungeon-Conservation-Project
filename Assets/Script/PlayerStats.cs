@@ -72,14 +72,10 @@ public class PlayerStats : MonoBehaviour
 
         nodesData = null;
 
-        
-        if(savedCityNodes != null)
-       
-
         if(savedNodes!=null)
         {
-            Destroy(savedNodes);
             Debug.Log("Destroys: " + savedNodes.name);
+            Destroy(savedNodes);
         }
             
         if(savedCityNodes != null)

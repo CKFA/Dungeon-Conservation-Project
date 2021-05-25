@@ -17,12 +17,21 @@ public class GameOver : MonoBehaviour
 
     public void Retry()
     {
-        FindObjectOfType<PlayerStats>().Initialisation();
+        if (PlayerStats.instance == null)
+        {
+            PlayerStats.instance = FindObjectOfType<PlayerStats>();
+        }
+        PlayerStats.instance.Initialisation();
         sceneFader.FadeTo(SceneManager.GetActiveScene().name,false);
     }
     public void Menu()
     {
-        sceneFader.FadeTo(menuSceneName,false);
+        if(PlayerStats.instance == null)
+        {
+            PlayerStats.instance = FindObjectOfType<PlayerStats>();
+        }
+        PlayerStats.instance.Initialisation();
+        sceneFader.FadeTo(0,false);
     }
 
     IEnumerator AnimateText()

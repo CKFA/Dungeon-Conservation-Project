@@ -27,6 +27,8 @@ public class Tower : MonoBehaviour
 
     [Header("Normal Bullet")]
     public GameObject bulletPrefab;
+    public bool isBullet;
+    public bool isRocket;
     [HideInInspector]
     public float rate;
     [Header("Rate")]
@@ -69,7 +71,7 @@ public class Tower : MonoBehaviour
     public float turnSpeed = 10f;
 
     public Transform firePoint;
-
+    private bool isLaserAlreadyedPlayed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -137,6 +139,7 @@ public class Tower : MonoBehaviour
                 if (lineRenderer.enabled)
                 {
                     laserEffect.Stop();
+                    isLaserAlreadyedPlayed = false;
                     lineRenderer.enabled = false;
                     laserLightEffect.enabled = false;
                 }
@@ -154,6 +157,14 @@ public class Tower : MonoBehaviour
         {
             if (fireCountDown <= 0f)
             {
+                if(isBullet)
+                {
+                    AudioManager.instance.Play("Bullet");
+                }
+                if(isRocket)
+                {
+                    AudioManager.instance.Play("Launch");
+                }
                 Shoot();
                 fireCountDown = 1f / (rate * rateBuff);
             }
@@ -173,6 +184,11 @@ public class Tower : MonoBehaviour
 
     void Laser()
     {
+        if (!isLaserAlreadyedPlayed)
+        {
+            AudioManager.instance.Play("Laser");
+            isLaserAlreadyedPlayed = true;
+        }
         targetEnemy.TakeDamage(damageOverTime * Time.deltaTime);
         if(isSlowDown)
         {

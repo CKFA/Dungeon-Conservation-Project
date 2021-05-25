@@ -1,0 +1,184 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6560487896591917230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6560487896591917228}
+  - component: {fileID: 6560487896591917229}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6560487896591917228
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6560487896591917230}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6560487896591917229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6560487896591917230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb8d6d862869bd45ace1cfe03061aa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmMixerGroup: {fileID: 1860611124963227725, guid: 39465054a1d71bc4eae6e9f4cd88b386, type: 2}
+  soundMixerGroup: {fileID: -2538785567247848764, guid: 39465054a1d71bc4eae6e9f4cd88b386, type: 2}
+  TypeOfPlayList: 1
+  sounds:
+  - name: Advent
+    type: 1
+    clip: {fileID: 8300000, guid: a52ae5f8aab1c1d45b7b93d86bb91281, type: 3}
+    volume: 0.5
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
+    credit: 'Advent by Naoya Sakamata | www.youtube.com/c/NaoyaSakamataPIANOmusicChannel/
+      Licensed under Creative Commons: Attribution 3.0 Unported (CC BY 3.0) https://creativecommons.org/licenses/by/3.0/
+      Music promoted by https://www.chosic.com/ '
+  - name: Sakuya2
+    type: 1
+    clip: {fileID: 8300000, guid: ed1d4e03ca0986347a924a2147a85cd7, type: 3}
+    volume: 0.4
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
+    credit: Sakuya2 by PeriTune | http://peritune.com Creative Commons Attribution
+      3.0 Unported License https://creativecommons.org/licenses/by/3.0/deed.en_US
+      Music promoted by https://www.chosic.com/
+  - name: ButtonDisabled
+    type: 0
+    clip: {fileID: 8300000, guid: be97a71dcbc2a4944b6c94d44c68ffad, type: 3}
+    volume: 1
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
+    credit: 'Low Tone with RingMod (100, 200).wav by shimsewn.
+
+      This work is
+      licensed under the Attribution License.
+
+      https://freesound.org/people/shimsewn/sounds/38718/'
+  - name: ButtonClick
+    type: 0
+    clip: {fileID: 8300000, guid: 0f9d304b4cafed04d990b508e5cba265, type: 3}
+    volume: 1
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
+    credit: 'Button Click 3  by Mellau
+
+      This work is licensed under the Attribution
+      Noncommercial License. https://freesound.org/people/Mellau/sounds/506052/'
+  - name: Bullet
+    type: 0
+    clip: {fileID: 8300000, guid: ab93a3c28949f0245af1112d40389a5c, type: 3}
+    volume: 1
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
+    credit: 'Sharp Explosion 4 (of 5) by Rudmer_Rotteveel
+
+      This work is licensed
+      under the Creative Commons 0 License. https://freesound.org/people/Rudmer_Rotteveel/sounds/336011/'
+  - name: Explosion
+    type: 0
+    clip: {fileID: 8300000, guid: 4e323763e24e8884482f9d6e7068c377, type: 3}
+    volume: 1
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
+    credit: 'Explosion by Aiwha.
+
+      This work is licensed under the Attribution
+      License.
+
+      https://freesound.org/people/Aiwha/sounds/250712/
+
+'
+  - name: Launch
+    type: 0
+    clip: {fileID: 8300000, guid: 50cd5d6b93f34cb408889b2dcea50c31, type: 3}
+    volume: 1
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
+    credit: 'Missle Launch 01 by unfa.
+
+      This work is licensed under the Creative
+      Commons 0 License.
+
+      https://freesound.org/people/unfa/sounds/232184/'
+  - name: Laser
+    type: 0
+    clip: {fileID: 8300000, guid: 24c635cd7a75a6447ab57a339a1ca09a, type: 3}
+    volume: 1
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
+    credit: 'laser by kafokafo.
+
+      This work is licensed under the Creative Commons
+      0 License.
+
+      https://freesound.org/people/kafokafo/sounds/128229/'
+  - name: Upgrade
+    type: 0
+    clip: {fileID: 8300000, guid: 1e0811fe2d189d3438f25b0200f29457, type: 3}
+    volume: 1
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
+    credit: 'Announcement Sound 2 by DDmyzik.
+
+      This work is licensed under
+      the Attribution Noncommercial License.
+
+      https://freesound.org/people/DDmyzik/sounds/567206/'
+  - name: Build
+    type: 0
+    clip: {fileID: 8300000, guid: ddaf6de8e1741864392a87df29aee21b, type: 3}
+    volume: 1
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
+    credit: 'SH01a Bass Drum 004 by ANARKYA.
+
+      This work is licensed under the
+      Creative Commons 0 License.
+
+      https://freesound.org/people/ANARKYA/sounds/459895/'
+  - name: Sell
+    type: 0
+    clip: {fileID: 8300000, guid: a6d0a1d5987ffec4c9221e4a8bbc391f, type: 3}
+    volume: 1
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
+    credit: 'Coins *Small* Sound by BeezleFM.
+
+      This work is licensed under
+      the Attribution License.
+
+      https://freesound.org/people/BeezleFM/sounds/512131/'

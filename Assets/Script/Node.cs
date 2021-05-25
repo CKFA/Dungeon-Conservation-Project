@@ -122,7 +122,7 @@ public class Node : MonoBehaviour
             FindObjectOfType<GameManager>().ShowWarningNotice("Not Enough Money to Build!",true);
             return;
         }
-
+        AudioManager.instance.Play("Build");
         PlayerStats.money -= template.cost;
         GameObject _tower = (GameObject)Instantiate(template.Prefabs, GetBuildPosition(), Quaternion.identity); //build tower
         towerObject = _tower;
@@ -148,7 +148,7 @@ public class Node : MonoBehaviour
         {
             towerObject.GetComponent<Tower>().UpgradeDamage();
             PlayerStats.money -= towerTemplate.damageUpgradeCost;
-
+            AudioManager.instance.Play("Upgrade");
             int gradeLevel = GradeChecker();
             ColourChanger(gradeLevel);
             SaveTower();
@@ -174,7 +174,7 @@ public class Node : MonoBehaviour
         {
             towerObject.GetComponent<Tower>().UpgradeRange();
             PlayerStats.money -= towerTemplate.rangeUpgradeCost;
-
+            AudioManager.instance.Play("Upgrade");
             int gradeLevel = GradeChecker();
             ColourChanger(gradeLevel); // with grade checker
             SaveTower();
@@ -199,7 +199,7 @@ public class Node : MonoBehaviour
         {
             towerObject.GetComponent<Tower>().UpgradeRate();
             PlayerStats.money -= towerTemplate.rateUpgradeCost;
-
+            AudioManager.instance.Play("Upgrade");
             int gradeLevel = GradeChecker();
             ColourChanger(gradeLevel); // with grade checker
             SaveTower();
@@ -213,7 +213,7 @@ public class Node : MonoBehaviour
     public void SellTower()
     {
         PlayerStats.money += towerTemplate.GetSellAmount();
-
+        AudioManager.instance.Play("Sell");
         GameObject effect = (GameObject)Instantiate(buildManager.sellEffect, GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 5f);
 

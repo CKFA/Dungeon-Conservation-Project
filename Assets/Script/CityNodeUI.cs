@@ -60,6 +60,7 @@ public class CityNodeUI : MonoBehaviour
     public void Upgrade()
     {
         storedCityNode.UpgradeBuilding();
+        
         if(cityBuildManager == null)
         {
             cityBuildManager = FindObjectOfType<GameManager>().cityBuildManager;

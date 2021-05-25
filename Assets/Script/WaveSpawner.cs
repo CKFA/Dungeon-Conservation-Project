@@ -13,7 +13,7 @@ public class WaveSpawner : MonoBehaviour
     [Range(20,100)]
     public int HpBuff = 1;
     public float timeBetweenWaves = 5f;
-    private float countDown = 2f;
+    private float countDown = 15f;
 
     public Text waveCountDownTopic;
     public Text waveCountDownText;
@@ -28,7 +28,6 @@ public class WaveSpawner : MonoBehaviour
 
     void Start()
     {
-        countDown = timeBetweenWaves;
         if (isSpawning != false)
         isSpawning = true;
     }

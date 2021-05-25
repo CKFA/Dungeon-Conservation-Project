@@ -7,6 +7,8 @@ using UnityEngine.Audio;
 [System.Serializable]
 public class AudioManager : MonoBehaviour
 {
+    public AudioMixerGroup bgmMixerGroup;
+    public AudioMixerGroup soundMixerGroup;
     public SoundType TypeOfPlayList;
     public Sound[] sounds;
     public static AudioManager instance;
@@ -33,6 +35,14 @@ public class AudioManager : MonoBehaviour
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
+            if(s.type == SoundType.BGM)
+            {
+                s.source.outputAudioMixerGroup = bgmMixerGroup;
+            }
+            else if(s.type == SoundType.Sound)
+            {
+                s.source.outputAudioMixerGroup = soundMixerGroup;
+            }
         }
     }
 

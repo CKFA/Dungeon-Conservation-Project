@@ -101,6 +101,7 @@ public class CityNode : MonoBehaviour
         }
 
         PlayerStats.money -= template.cost;
+        AudioManager.instance.Play("Build");
         GameObject _building = (GameObject)Instantiate(template.Prefabs, GetBuildPosition(), Quaternion.identity); //build building
         buildingObject = _building;
         buildingObject.transform.parent = gameObject.transform;
@@ -116,7 +117,7 @@ public class CityNode : MonoBehaviour
     public void DestroyBuilding()
     {
         PlayerStats.money += buildingTemplate.GetSellAmount();
-
+        AudioManager.instance.Play("Sell");
         GameObject effect = (GameObject)Instantiate(cityBuildManager.sellEffect, GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 5f);
         

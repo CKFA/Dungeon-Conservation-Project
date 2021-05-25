@@ -70,6 +70,7 @@ public class Bullet : MonoBehaviour
                 Damage(collider.transform);
             }
         }
+        AudioManager.instance.Play("Explosion");
         Destroy(gameObject); // destroy self;
     }
 
