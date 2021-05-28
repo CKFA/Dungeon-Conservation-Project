@@ -38,7 +38,9 @@ public class CityNode : MonoBehaviour
         id = transform.GetSiblingIndex();
         rend = GetComponent<Renderer>();
         startColour = rend.material.color;
-        cityBuildManager = CityBuildManager.instance;
+        cityBuildManager = FindObjectOfType<CityBuildManager>().GetComponent<CityBuildManager>();
+
+        
         initalColour = startColour;
     }
 
@@ -97,6 +99,7 @@ public class CityNode : MonoBehaviour
         if (PlayerStats.money < template.cost)
         {
             FindObjectOfType<GameManager>().ShowWarningNotice("Not Enough Money!", true);
+            AudioManager.instance.Play("ButtonDisabled");
             return;
         }
 
@@ -151,6 +154,7 @@ public class CityNode : MonoBehaviour
         }
         else
         {
+            FindObjectOfType<GameManager>().ShowWarningNotice("Lv.Max Already!", true);
             Debug.Log("Fail to upgrade!");
         }
     }

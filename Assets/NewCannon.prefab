@@ -878,10 +878,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  startDamage: 15
+  startDamage: 20
   upgradeDamage: 20
   range: 0
-  startRange: 20
+  startRange: 15
   upgradeRange: 2
   isSlowDown: 0
   slowPrecent: 0.5

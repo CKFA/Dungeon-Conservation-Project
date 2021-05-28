@@ -45,7 +45,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmMixerGroup: {fileID: 1860611124963227725, guid: 39465054a1d71bc4eae6e9f4cd88b386, type: 2}
   soundMixerGroup: {fileID: -2538785567247848764, guid: 39465054a1d71bc4eae6e9f4cd88b386, type: 2}
-  TypeOfPlayList: 1
+  TowerBGMPlayList: 1
+  TownBGMPlayList: 2
   sounds:
   - name: Advent
     type: 1
@@ -58,7 +59,7 @@ MonoBehaviour:
       Licensed under Creative Commons: Attribution 3.0 Unported (CC BY 3.0) https://creativecommons.org/licenses/by/3.0/
       Music promoted by https://www.chosic.com/ '
   - name: Sakuya2
-    type: 1
+    type: 2
     clip: {fileID: 8300000, guid: ed1d4e03ca0986347a924a2147a85cd7, type: 3}
     volume: 0.4
     pitch: 0.8
@@ -182,3 +183,16 @@ MonoBehaviour:
       the Attribution License.
 
       https://freesound.org/people/BeezleFM/sounds/512131/'
+  - name: Select
+    type: 0
+    clip: {fileID: 8300000, guid: fad9bf061fd751c44b188995cac3029c, type: 3}
+    volume: 1
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
+    credit: 'select8.wav by bumpelsnake.
+
+      This work is licensed under the Attribution
+      License.
+
+      https://freesound.org/people/bumpelsnake/sounds/456631/'

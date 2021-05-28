@@ -37,6 +37,14 @@ public class PlayerStats : MonoBehaviour
     public static bool isInitialised = false;
     private void Awake()
     {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
         if (nodesData == null)
         {
             NodeInitialisation();

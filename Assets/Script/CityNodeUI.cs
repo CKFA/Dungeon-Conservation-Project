@@ -10,6 +10,7 @@ public class CityNodeUI : MonoBehaviour
     private CityNode target;
     [Header("Button")]
     public Button upgradeButton;
+    public Button sellButton;
     [Header("Text")]
     public Text upgradeCost;
     public Text sellCost;
@@ -50,6 +51,7 @@ public class CityNodeUI : MonoBehaviour
         currentBuffText.text = $"Buff:\nDamage: +{dmgBuff}% | Range: +{rangeBuff}% | Rate: +{rateBuff}% | Money: +{moneyBuff}% ";
         sellCost.text = $"Destroy\n${target.buildingTemplate.GetSellAmount()}";
         ui.SetActive(true);
+        StartCoroutine(DelayButtonInteractble());
     }
 
     public void Hide()
@@ -80,5 +82,21 @@ public class CityNodeUI : MonoBehaviour
         }
         cityBuildManager.DeselectNode(true);
         ui.SetActive(false);
+    }
+
+    IEnumerator DelayButtonInteractble()
+    {
+        if(!target.isMaxed)
+        {
+            upgradeButton.interactable = false;
+        }
+        sellButton.interactable = false;
+        yield return new WaitForSeconds(.2f);
+        if (!target.isMaxed)
+        {
+            upgradeButton.interactable = true;
+        }
+        sellButton.interactable = true;
+        yield break;
     }
 }

@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 100
   m_Viewport: {fileID: 2869058962406518724}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 2869058962372612196}
@@ -3870,7 +3870,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 100
   m_Viewport: {fileID: 2869058961747662199}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 2869058962049350846}
@@ -3931,9 +3931,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75f59617dc4fd924e8b91f07575c3459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fullscreenToggle: {fileID: 2869058961650075247}
   renderDistanceSlider: {fileID: 0}
   renderDistanceText: {fileID: 0}
   dd_resolution: {fileID: 2869058962190931758}
+  dd_quality: {fileID: 2869058961528530509}
   dd_antiAlias: {fileID: 0}
   dd_shadow: {fileID: 0}
   mainLight: {fileID: 0}

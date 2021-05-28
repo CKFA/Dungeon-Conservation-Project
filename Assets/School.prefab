@@ -156,9 +156,9 @@ MonoBehaviour:
   moneyBuff: 0
   upgradeMoney: 0
   maxUpgradeTime: 3
-  firstGradedColour: {r: 1, g: 0.68047726, b: 0.3726415, a: 0}
-  secondGradedColour: {r: 0.764151, g: 0.05406728, b: 0.05406728, a: 0}
-  thirdGradedColour: {r: 0.16503142, g: 1, b: 0.0141509175, a: 0}
+  firstGradedColour: {r: 1, g: 0.68047726, b: 0.3726415, a: 0.87058824}
+  secondGradedColour: {r: 0.764151, g: 0.05406728, b: 0.05406728, a: 0.87058824}
+  thirdGradedColour: {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 0.87058824}
   firstGradedTime: 1
   secondGradedTime: 2
   thirdGradedTime: 3

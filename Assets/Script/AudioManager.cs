@@ -9,13 +9,16 @@ public class AudioManager : MonoBehaviour
 {
     public AudioMixerGroup bgmMixerGroup;
     public AudioMixerGroup soundMixerGroup;
-    public SoundType TypeOfPlayList;
+    public SoundType TowerBGMPlayList;
+    public SoundType TownBGMPlayList;
     public Sound[] sounds;
     public static AudioManager instance;
     private static AudioSource bgmIsPlaying;
+    public SoundType currentList;
     private int index;
     private void Awake()
     {
+        
         if(instance ==null)
         {
             instance = this;
@@ -35,7 +38,11 @@ public class AudioManager : MonoBehaviour
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
-            if(s.type == SoundType.BGM)
+            if(s.type == SoundType.TowerBGM)
+            {
+                s.source.outputAudioMixerGroup = bgmMixerGroup;
+            }
+            else if (s.type == SoundType.TownBGM)
             {
                 s.source.outputAudioMixerGroup = bgmMixerGroup;
             }
@@ -48,9 +55,12 @@ public class AudioManager : MonoBehaviour
 
     public void Start()
     {
-        Play(TypeOfPlayList);
+        if(bgmIsPlaying == null)
+        {
+            Play(SoundType.TowerBGM);
+        }
     }
-    public void Play(string name)
+    public void Play(string name) // for sounds
     {
         Sound s =Array.Find(sounds, sound => sound.name == name);
         if(s==null)
@@ -63,17 +73,27 @@ public class AudioManager : MonoBehaviour
 
     public void Play(SoundType type)
     {
-        
+        //if(bgmIsPlaying.isPlaying) // initialisation
+        //{
+        //    bgmIsPlaying.Stop();
+        //}
+        currentList = type;
         Sound[] s = Array.FindAll(sounds, sound => sound.type == type);
         
         if(s == null)
         {
             Debug.LogWarning("Sound type: " + name + " not found!");
         }
-        
-        if(type == SoundType.BGM)
+
+        if (type == SoundType.TowerBGM)
         {
-            
+
+            bgmIsPlaying = s[UnityEngine.Random.Range(0, s.Length)].source;
+            index++;
+            bgmIsPlaying.Play();
+        }
+        else if (type == SoundType.TownBGM)
+        {
             bgmIsPlaying = s[UnityEngine.Random.Range(0, s.Length)].source;
             index++;
             bgmIsPlaying.Play();
@@ -84,16 +104,34 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void SwitchToPlayTowerBGM()
+    {
+        if(bgmIsPlaying != null)
+            if (bgmIsPlaying.isPlaying)
+                bgmIsPlaying.Stop();
+        Play(SoundType.TowerBGM);
+        
+    }
+
+    public void SwitchToPlayTownBGM()
+    {
+        if(bgmIsPlaying != null)
+            if(bgmIsPlaying.isPlaying)
+                bgmIsPlaying.Stop();
+        Play(SoundType.TownBGM);
+    }
+
     private void Update()
     {
-        if(bgmIsPlaying!=null)
+        if (bgmIsPlaying != null) 
         {
             if(!bgmIsPlaying.isPlaying)
             {
                 bgmIsPlaying.Stop();
                 Debug.Log(index);
-                Play(TypeOfPlayList);
+                Play(currentList);
             }
         }
+        
     }
 }

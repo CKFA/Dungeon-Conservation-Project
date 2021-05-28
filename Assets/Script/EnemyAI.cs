@@ -43,7 +43,7 @@ public class EnemyAI : MonoBehaviour
     void Die()
     {
         int moneyActualDrop = 0;
-        moneyActualDrop = Mathf.RoundToInt(moneyDrop * PlayerStats.buildingMoneyBuff);
+        moneyActualDrop = Mathf.RoundToInt(moneyDrop * PlayerStats.buildingMoneyBuff + PlayerStats.waves);
         PlayerStats.money += moneyActualDrop;
 
         GameObject moneyDropObject = (GameObject)Instantiate(moneyGainTextObject, transform.position, Quaternion.Euler(90f,0f,0f));

@@ -22,7 +22,7 @@ public class GameOver : MonoBehaviour
             PlayerStats.instance = FindObjectOfType<PlayerStats>();
         }
         PlayerStats.instance.Initialisation();
-        sceneFader.FadeTo(SceneManager.GetActiveScene().name,false);
+        sceneFader.FadeTo(1,false);
     }
     public void Menu()
     {

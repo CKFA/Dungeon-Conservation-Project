@@ -18,7 +18,7 @@ public class CityShop : MonoBehaviour
     CityBuildManager cityBuildManager;
     private void Start()
     {
-        cityBuildManager = CityBuildManager.instance;
+        cityBuildManager = FindObjectOfType<CityBuildManager>().GetComponent<CityBuildManager>();
     }
 
     void Update()

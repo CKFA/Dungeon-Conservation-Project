@@ -10,6 +10,9 @@ public class CameraController : MonoBehaviour
     public bool isLimitedCamPosition = true;
     public float cameraMinX = 0f;
     public float cameraMaxX = 1f;
+    public bool ClampY = false;
+    public float cameraMinY = 0f;
+    public float cameraMaxY = 0f;
     public float cameraMinZ = 0f;
     public float cameraMaxZ = 1f;
     [Header("Other")]
@@ -38,7 +41,10 @@ public class CameraController : MonoBehaviour
         {
             ClampCamera(); // limit the camera
         }
-
+        if(ClampY)
+        {
+            ClampCameraY();
+        }
         ZoomCamera();
         PanCamera(); // move the camera
     }
@@ -74,5 +80,9 @@ public class CameraController : MonoBehaviour
             Mathf.Clamp(transform.position.x, cameraMinX, cameraMaxX),
             transform.position.y,
             Mathf.Clamp(transform.position.z, cameraMinZ, cameraMaxZ));
+    }
+    void ClampCameraY()
+    {
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, cameraMinY, cameraMaxY), transform.position.z);
     }
 }

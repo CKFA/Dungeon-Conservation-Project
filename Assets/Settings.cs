@@ -13,12 +13,14 @@ public class Settings : MonoBehaviour
     //public Toggle fpsToggle60;
     //public Toggle fpsToggleunlimited;
     //public Toggle vSyncToggle;
+    public Toggle fullscreenToggle;
     [Header("Slider")]
     public Slider renderDistanceSlider;
     [Header("Text")]
     public Text renderDistanceText;
     [Header("DropDown")]
     public Dropdown dd_resolution;
+    public Dropdown dd_quality;
     public Dropdown dd_antiAlias;
     public Dropdown dd_shadow;
     [Header("Other")]
@@ -41,6 +43,15 @@ public class Settings : MonoBehaviour
     private void Start()
     {
         ResolutionSetup();
+        if(Screen.fullScreen)
+        {
+            fullscreenToggle.isOn = true;
+        }
+        else
+        {
+            fullscreenToggle.isOn = false;
+        }
+        dd_quality.value = QualitySettings.GetQualityLevel();
     }
     public void SetSoundVolume(float volume)
     {
@@ -122,7 +133,7 @@ public class Settings : MonoBehaviour
         int currentResolutionIndex = 0;
         for (int i = 0; i < resolutions.Length; i++)
         {
-            string option = resolutions[i].width + "x" + resolutions[i].height;
+            string option = resolutions[i].width + "x" + resolutions[i].height + " @" + resolutions[i].refreshRate + "Hz";
             options.Add(option);
             if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
             {

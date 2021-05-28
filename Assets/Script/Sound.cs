@@ -7,7 +7,8 @@ using UnityEngine.Audio;
 public enum SoundType
 {
     Sound,
-    BGM
+    TowerBGM,
+    TownBGM
 }
 [System.Serializable]
 public class Sound

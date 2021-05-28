@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject warningUI;
     public GameObject settingsUI;
     public GameObject creditUI;
+    public GameObject howToPlayUI;
     public BuildManager buildManager;
     public CityBuildManager cityBuildManager;
     public WaveSpawner waveSpawner;
@@ -119,12 +120,12 @@ public class GameManager : MonoBehaviour
     {
         if (gameIsOver)
             return;
-        if (PlayerStats.hp <= 0 && !isThisTitlePage)
+        if (PlayerStats.hp <= 0 && !isThisTitlePage && !isThisTownStage)
         {
             EndGame();
         }
 
-        if (Input.GetKeyDown(KeyCode.Backspace) && !isThisTitlePage)
+        if (Input.GetKeyDown(KeyCode.Backspace) && !isThisTitlePage && !isThisTownStage)
         {
             EndGame();
         }
@@ -135,7 +136,7 @@ public class GameManager : MonoBehaviour
             {
                 if (waveSpawner.isSpawning)
                 {
-                    ShowWarningNotice("Almost daytime...", false);
+                    ShowWarningNotice("Almost daytime...", false); // call warning UI
                     waveSpawner.isSpawning = false;
                 }
 
@@ -152,19 +153,23 @@ public class GameManager : MonoBehaviour
             
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            ToTowerDefenseScene();
-        }
+        //if (Input.GetKeyDown(KeyCode.Q) && isThisTownStage)
+        //{
+        //    ToTowerDefenseScene();
+        //}
+        //else if(Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    ToTitleScreen();
+        //}
 
 
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            ToTownBuilderScene();
-            
-        }
+        //if (Input.GetKeyDown(KeyCode.E) && !isThisTitlePage && !isThisTownStage)
+        //{
+        //    ToTownBuilderScene();
 
-        if(Input.GetKeyDown(KeyCode.N))
+        //}
+
+        if (Input.GetKeyDown(KeyCode.N))
         {
             waveSpawner.StartNextWave();
         }
@@ -207,14 +212,17 @@ public class GameManager : MonoBehaviour
     {
         if(!isThisTitlePage)
         {
+            AudioManager.instance.SwitchToPlayTowerBGM();
             CityBuildManager.instance.DeselectNode(true);
             PlayerStats.waves++;
         }
+        
         sceneFader.FadeTo(1, false);
     }
 
     public void ToTownBuilderScene()
     {
+        AudioManager.instance.SwitchToPlayTownBGM();
         BuildManager.instance.DeselectNode(true);
         sceneFader.FadeTo(2, false);
     }
@@ -247,6 +255,17 @@ public class GameManager : MonoBehaviour
     {
         creditUI.SetActive(false);
     }
+
+    public void OpenHowToPlay()
+    {
+        howToPlayUI.SetActive(true);
+    }
+
+    public void CloseHowToPlay()
+    {
+        howToPlayUI.SetActive(false);
+    }
+
     void CityNodeInitialisation()
     {
         PlayerStats.cityNodesData = new CityNodeData[cityNodes.transform.childCount];

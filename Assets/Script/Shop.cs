@@ -21,9 +21,9 @@ public class Shop : MonoBehaviour
 
     void Update()
     {
-        cannonPriceText.text = cannonTemplate.cost.ToString();
-        launcherPriceText.text = launcherTemplate.cost.ToString();
-        laserPriceText.text = laserTemplate.cost.ToString();
+        cannonPriceText.text = $"${cannonTemplate.cost}";
+        launcherPriceText.text = $"${launcherTemplate.cost}";
+        laserPriceText.text = $"${laserTemplate.cost}";
     }
 
     public void SelectCannon()

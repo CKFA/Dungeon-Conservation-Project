@@ -47,7 +47,7 @@ public class Node : MonoBehaviour
         rend = GetComponent<Renderer>();
         startColour = rend.material.color;
         initialColour = startColour;
-        buildManager = BuildManager.instance;
+        buildManager = FindObjectOfType<BuildManager>().GetComponent<BuildManager>();
 
 
     }
@@ -120,6 +120,7 @@ public class Node : MonoBehaviour
         if (PlayerStats.money < template.cost)
         {
             FindObjectOfType<GameManager>().ShowWarningNotice("Not Enough Money to Build!",true);
+            AudioManager.instance.Play("ButtonDisabled");
             return;
         }
         AudioManager.instance.Play("Build");
@@ -141,7 +142,9 @@ public class Node : MonoBehaviour
         if (PlayerStats.money < towerTemplate.damageUpgradeCost)
         {
             FindObjectOfType<GameManager>().ShowWarningNotice("Failed to upgrade Damage, reason: No money",true);
-            Debug.Log("Failed to upgrade Dmg, reason: No money");
+            AudioManager.instance.Play("ButtonDisabled");
+            //Debug.Log("Failed to upgrade Dmg, reason: No money");
+            return;
         }
 
         if (DamageUpgradeAdder())
@@ -166,7 +169,8 @@ public class Node : MonoBehaviour
         if (PlayerStats.money < towerTemplate.rangeUpgradeCost)
         {
             FindObjectOfType<GameManager>().ShowWarningNotice("Failed to upgrade Range, reason: No money",true);
-            Debug.Log("Failed to upgrade Range, reason: No money");
+            AudioManager.instance.Play("ButtonDisabled");
+            //Debug.Log("Failed to upgrade Range, reason: No money");
             return;
         }
 
@@ -191,7 +195,8 @@ public class Node : MonoBehaviour
         if (PlayerStats.money < towerTemplate.rateUpgradeCost)
         {
             FindObjectOfType<GameManager>().ShowWarningNotice("Failed to upgrade Rate, reason: No money!",true);
-            Debug.Log("Failed to upgrade Rate, reason: No money!");
+            AudioManager.instance.Play("ButtonDisabled");
+            //Debug.Log("Failed to upgrade Rate, reason: No money!");
             return;
         }
 
