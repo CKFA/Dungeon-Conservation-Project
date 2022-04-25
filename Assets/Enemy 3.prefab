@@ -362,9 +362,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startSpeed: 3
   speed: 8
-  hp: 580
-  startHp: 500
-  moneyDrop: 8
+  hp: 400
+  startHp: 25
+  moneyDrop: 0
   deathEffect: {fileID: 90013357074398170, guid: 3fcc620f6f3d0324bb2eaa8a75d9abc8, type: 3}
   healthBar: {fileID: 8636298719836037129}
   moneyGainTextObject: {fileID: 134710925819026868, guid: 0d30f49868bff4642b98cd6efe99815f, type: 3}

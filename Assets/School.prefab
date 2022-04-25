@@ -150,8 +150,8 @@ MonoBehaviour:
   dmgBuff: 0
   upgradeDmg: 0
   rangeBuff: 0
-  upgradeRange: 5
-  rateBuff: 2
+  upgradeRange: 20
+  rateBuff: 25
   upgradeRate: 0
   moneyBuff: 0
   upgradeMoney: 0

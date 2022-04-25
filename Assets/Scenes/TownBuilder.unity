@@ -623,7 +623,7 @@ PrefabInstance:
       objectReference: {fileID: 351136812}
     - target: {fileID: 9058373206458405053, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SelectApartment
+      value: SelectGuild
       objectReference: {fileID: 0}
     - target: {fileID: 9058373206458405053, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -837,24 +837,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guildTemplate:
     Prefabs: {fileID: 8166983355331216333, guid: e0a458fdd6cf2f74cbc170dacb1700f1, type: 3}
-    cost: 500
-    upgradeCost: 500
+    cost: 1500
+    upgradeCost: 300
     content: The Guild could hire adventurers to help for running the turrets, contribute
       to improve the attack damage of the turrets.
   apartmentTemplate:
     Prefabs: {fileID: 1591762468525210816, guid: c57d745b59e0bf241b9cab2b060c9199, type: 3}
-    cost: 500
-    upgradeCost: 500
+    cost: 1000
+    upgradeCost: 100
     content: The Apartment enable more people live in the town, contribute to solve
       the problem of understaffed. The turrets rate will be increased.
   bankTemplate:
     Prefabs: {fileID: 3015865466939794336, guid: ef25c5b6076f1fe409e4d663a0773458, type: 3}
-    cost: 1000
+    cost: 5000
     upgradeCost: 500
     content: The bank increases the amount of money dropped from enemies.
   schoolTemplate:
     Prefabs: {fileID: 609539340468086570, guid: 600bd31d56ae3ce43b1d9b63f176de29, type: 3}
-    cost: 1000
+    cost: 2000
     upgradeCost: 500
     content: The school educates students the theory on defense. Contribute to increase
       the range of turrets.
@@ -1162,6 +1162,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8362162288867509841, guid: 821bff580a693c240a0f7d6f4c4128c7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.01586914
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362162288867509841, guid: 821bff580a693c240a0f7d6f4c4128c7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 109.23999
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362162288985451790, guid: 821bff580a693c240a0f7d6f4c4128c7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.8000488
+      objectReference: {fileID: 0}
     - target: {fileID: 8362162289886122430, guid: 821bff580a693c240a0f7d6f4c4128c7, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1261,6 +1273,30 @@ PrefabInstance:
     - target: {fileID: 8362162290211505100, guid: 821bff580a693c240a0f7d6f4c4128c7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: CloseHowToPlay
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362162290578200866, guid: 821bff580a693c240a0f7d6f4c4128c7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.0041503906
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362162290578200866, guid: 821bff580a693c240a0f7d6f4c4128c7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 38.19995
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362162290736185573, guid: 821bff580a693c240a0f7d6f4c4128c7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.0041503906
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362162290736185573, guid: 821bff580a693c240a0f7d6f4c4128c7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 38.19995
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362162290762175928, guid: 821bff580a693c240a0f7d6f4c4128c7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 98.701904
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362162290762175928, guid: 821bff580a693c240a0f7d6f4c4128c7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -733.19995
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 821bff580a693c240a0f7d6f4c4128c7, type: 3}
@@ -2499,7 +2535,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -34.119873, y: 36}
+  m_AnchoredPosition: {x: -34.120117, y: 36}
   m_SizeDelta: {x: 160, y: 70}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1132907597
@@ -3953,11 +3989,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8526043564933747473, guid: 8df6bca8e0138a148bb022ee1ee6e1ef, type: 3}
       propertyPath: m_Pivot.x
-      value: -0.12944984
+      value: 0.2749196
       objectReference: {fileID: 0}
     - target: {fileID: 8526043564933747473, guid: 8df6bca8e0138a148bb022ee1ee6e1ef, type: 3}
       propertyPath: m_Pivot.y
-      value: 1.4123564
+      value: 1.1028571
       objectReference: {fileID: 0}
     - target: {fileID: 8526043564933747473, guid: 8df6bca8e0138a148bb022ee1ee6e1ef, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3969,11 +4005,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8526043564933747473, guid: 8df6bca8e0138a148bb022ee1ee6e1ef, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -248.5437
+      value: 527.8457
       objectReference: {fileID: 0}
     - target: {fileID: 8526043564933747473, guid: 8df6bca8e0138a148bb022ee1ee6e1ef, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1526.9904
+      value: 1191.5114
       objectReference: {fileID: 0}
     - target: {fileID: 8526043565774433094, guid: 8df6bca8e0138a148bb022ee1ee6e1ef, type: 3}
       propertyPath: m_AnchorMax.y
@@ -19678,7 +19714,7 @@ PrefabInstance:
       objectReference: {fileID: 351136812}
     - target: {fileID: 9058373206458405053, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SelectGuild
+      value: SelectApartment
       objectReference: {fileID: 0}
     - target: {fileID: 9058373206458405053, guid: 9bebf2cff4eae16438101cf2f0834e81, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

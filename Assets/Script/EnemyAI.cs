@@ -23,7 +23,6 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         speed = startSpeed;
-        startHp = 100;
         hp = startHp;
     }
     public void TakeDamage(float amount)

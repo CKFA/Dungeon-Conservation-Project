@@ -91,11 +91,11 @@ public class WaveSpawner : MonoBehaviour
     void EnemyLevelUpper(GameObject enemy)
     {
         EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
-        enemyAI.hp = enemyAI.startHp + (PlayerStats.waves * HpBuff);
+        enemyAI.hp = enemyAI.startHp + (PlayerStats.waves * HpBuff + PlayerStats.waves * 100);
     }
 
     public void StartNextWave()
     {
-        countDown = 0f;
+        countDown = .1f;
     }
 }

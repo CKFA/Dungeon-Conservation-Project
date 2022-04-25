@@ -7,7 +7,6 @@ public class Bullet : MonoBehaviour
     private Transform target;
     [HideInInspector]
     public float damage;
-    public float damageBuff;
     public float speed = 70f;
     public float explosionRange = 0f;
     public GameObject hitEffect;
@@ -16,7 +15,6 @@ public class Bullet : MonoBehaviour
     {
         target = _target;
         damage = GetComponentInParent<Tower>().damage;
-        damageBuff = GetComponentInParent<Tower>().dmgBuff;
     }
     void Update()
     {
@@ -84,7 +82,7 @@ public class Bullet : MonoBehaviour
             {
                 e.Slow(t.slowPrecent);
             }
-            e.TakeDamage(damage*damageBuff);
+            e.TakeDamage(damage * PlayerStats.buildingDmgBuff);
         }
         Destroy(gameObject);
     }

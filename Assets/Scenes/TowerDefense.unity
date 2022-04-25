@@ -1840,22 +1840,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cannonTemplate:
     Prefabs: {fileID: 7395590437336789225, guid: c0883473e6c712443af91f300e116b32, type: 3}
-    cost: 50
-    damageUpgradeCost: 500
-    rangeUpgradeCost: 500
-    rateUpgradeCost: 500
+    cost: 10
+    damageUpgradeCost: 100
+    rangeUpgradeCost: 100
+    rateUpgradeCost: 100
   launcherTemplate:
     Prefabs: {fileID: 6242151812343106774, guid: af397aaaf5b26f7498456cc59e5f82c3, type: 3}
-    cost: 100
-    damageUpgradeCost: 500
-    rangeUpgradeCost: 500
-    rateUpgradeCost: 500
+    cost: 20
+    damageUpgradeCost: 200
+    rangeUpgradeCost: 200
+    rateUpgradeCost: 200
   laserTemplate:
     Prefabs: {fileID: 1385343013451457341, guid: 16ef8bf6ee274784681de700cd703d65, type: 3}
-    cost: 150
-    damageUpgradeCost: 500
-    rangeUpgradeCost: 500
-    rateUpgradeCost: 500
+    cost: 15
+    damageUpgradeCost: 150
+    rangeUpgradeCost: 150
+    rateUpgradeCost: 150
   cannonPriceText: {fileID: 2120769012}
   launcherPriceText: {fileID: 773246807}
   laserPriceText: {fileID: 1886903520}
@@ -6152,19 +6152,19 @@ MonoBehaviour:
   isSpawning: 1
   waves:
   - enemy: {fileID: 7747604835553772507, guid: a4892771b1b29344598070b00b5b98a9, type: 3}
-    count: 5
+    count: 10
     rate: 2
   - enemy: {fileID: 7747604835553772507, guid: e9893305a11c8204aaee034875bd7226, type: 3}
-    count: 5
+    count: 10
     rate: 2
   - enemy: {fileID: 7747604835553772507, guid: a142e5b8a9cfb0d469cefdf1b73f090e, type: 3}
-    count: 5
+    count: 10
     rate: 2
   - enemy: {fileID: 7747604835553772507, guid: 58798a7ed605685458f53ace141b33bc, type: 3}
-    count: 5
-    rate: 2
+    count: 10
+    rate: 1
   spawnPoint: {fileID: 846974052}
-  HpBuff: 20
+  HpBuff: 100
   timeBetweenWaves: 20
   waveCountDownTopic: {fileID: 1908658457}
   waveCountDownText: {fileID: 1030495587}
@@ -6213,7 +6213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50331a46c41e29f4188609f6576b8cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startMoney: 400
+  startMoney: 30
   startHp: 10
   nodes: {fileID: 7530966282933678160}
   nodeDataLength: 0
@@ -29382,11 +29382,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8526043564933747473, guid: 8df6bca8e0138a148bb022ee1ee6e1ef, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.26956055
+      value: 0.29957128
       objectReference: {fileID: 0}
     - target: {fileID: 8526043564933747473, guid: 8df6bca8e0138a148bb022ee1ee6e1ef, type: 3}
       propertyPath: m_Pivot.y
-      value: 1.1180953
+      value: 1.104762
       objectReference: {fileID: 0}
     - target: {fileID: 8526043564933747473, guid: 8df6bca8e0138a148bb022ee1ee6e1ef, type: 3}
       propertyPath: m_SizeDelta.x
@@ -29398,11 +29398,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8526043564933747473, guid: 8df6bca8e0138a148bb022ee1ee6e1ef, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 517.5563
+      value: 575.1769
       objectReference: {fileID: 0}
     - target: {fileID: 8526043564933747473, guid: 8df6bca8e0138a148bb022ee1ee6e1ef, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1207.9744
+      value: 1193.5692
       objectReference: {fileID: 0}
     - target: {fileID: 8526043565774433094, guid: 8df6bca8e0138a148bb022ee1ee6e1ef, type: 3}
       propertyPath: m_AnchorMax.y

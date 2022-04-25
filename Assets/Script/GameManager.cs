@@ -130,28 +130,28 @@ public class GameManager : MonoBehaviour
             EndGame();
         }
 
-        if (PlayerStats.waves % 20 == 0 && PlayerStats.waves != 0)
-        {
-            if(waveSpawner!=null)
-            {
-                if (waveSpawner.isSpawning)
-                {
-                    ShowWarningNotice("Almost daytime...", false); // call warning UI
-                    waveSpawner.isSpawning = false;
-                }
+        //if (PlayerStats.waves % 20 == 0 && PlayerStats.waves != 0)
+        //{
+        //    if(waveSpawner!=null)
+        //    {
+        //        if (waveSpawner.isSpawning)
+        //        {
+        //            ShowWarningNotice("Almost daytime...", false); // call warning UI
+        //            waveSpawner.isSpawning = false;
+        //        }
 
-            }
-            if (startNextWaveButton != null)
-            {
+        //    }
+        //    if (startNextWaveButton != null)
+        //    {
                 
-                startNextWaveButton.interactable = false;
-            }
-            if (WaveSpawner.EnemiesAlive <= 0 && !isThisTownStage)
-            {
-                ToTownBuilderScene();
-            }
-            
-        }
+        //        startNextWaveButton.interactable = false;
+        //    }
+        //    if (WaveSpawner.EnemiesAlive <= 0 && !isThisTownStage)
+        //    {
+        //        ToTownBuilderScene();
+        //    }
+
+        //}
 
         //if (Input.GetKeyDown(KeyCode.Q) && isThisTownStage)
         //{

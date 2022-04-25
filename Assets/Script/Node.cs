@@ -367,7 +367,6 @@ public class Node : MonoBehaviour
         isFirstGraded = false;
         isSecondGraded = false;
         isThirdGraded = false;
-        
 
         isDmgMaxed = false;
         isRangeMaxed = false;

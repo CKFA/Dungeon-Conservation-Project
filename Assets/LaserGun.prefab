@@ -5255,13 +5255,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  startDamage: 20
-  upgradeDamage: 15
+  startDamage: 2
+  upgradeDamage: 2
   range: 15
   startRange: 10
   upgradeRange: 3
   isSlowDown: 1
-  slowPrecent: 0.5
+  slowPrecent: 0.1
   bulletPrefab: {fileID: 5787892650999074104, guid: 8cc84af548bb7464dbe91d6923434e80, type: 3}
   isBullet: 0
   isRocket: 0
@@ -5269,7 +5269,7 @@ MonoBehaviour:
   startRate: 1
   upgradeRate: 1
   useLaser: 1
-  damageOverTime: 30
+  damageOverTime: 2
   lineRenderer: {fileID: 8564944785113268804}
   laserEffect: {fileID: 7746546879675195909}
   laserLightEffect: {fileID: 1011290622031088660}

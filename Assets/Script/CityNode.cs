@@ -38,9 +38,8 @@ public class CityNode : MonoBehaviour
         id = transform.GetSiblingIndex();
         rend = GetComponent<Renderer>();
         startColour = rend.material.color;
-        cityBuildManager = FindObjectOfType<CityBuildManager>().GetComponent<CityBuildManager>();
+        cityBuildManager = FindObjectOfType<GameManager>().cityBuildManager;
 
-        
         initalColour = startColour;
     }
 

@@ -1362,8 +1362,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  startDamage: 25
-  upgradeDamage: 25
+  startDamage: 6
+  upgradeDamage: 5
   range: 20
   startRange: 20
   upgradeRange: 3

@@ -26,11 +26,11 @@ public class Building : MonoBehaviour
     public Color secondGradedColour;
     public Color thirdGradedColour;
 
-    [Range(0, 10)]
+    [HideInInspector]
     public int firstGradedTime = 1;
-    [Range(0, 10)]
+    [HideInInspector]
     public int secondGradedTime = 2;
-    [Range(0, 10)]
+    [HideInInspector]
     public int thirdGradedTime = 3;
 
     private void Start()

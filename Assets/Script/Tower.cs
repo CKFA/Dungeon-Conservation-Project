@@ -39,7 +39,7 @@ public class Tower : MonoBehaviour
 
     [Header("Laser")]
     public bool useLaser = false;
-    public int damageOverTime = 30;
+    public float damageOverTime = 30;
     public LineRenderer lineRenderer;
     public ParticleSystem laserEffect;
     public Light laserLightEffect;
@@ -120,7 +120,7 @@ public class Tower : MonoBehaviour
             }
         }
 
-        if (nearestEnemy != null && shortestDistance <= (range * rangeBuff))
+        if (nearestEnemy != null && shortestDistance <= (range * PlayerStats.buildingRangeBuff))
         {
             target = nearestEnemy.transform;
             targetEnemy = nearestEnemy.GetComponent<EnemyAI>();
@@ -166,7 +166,7 @@ public class Tower : MonoBehaviour
                     AudioManager.instance.Play("Launch");
                 }
                 Shoot();
-                fireCountDown = 1f / (rate * rateBuff);
+                fireCountDown = 1f / (rate * PlayerStats.buildingRateBuff);
             }
 
             fireCountDown -= Time.deltaTime;
@@ -189,7 +189,7 @@ public class Tower : MonoBehaviour
             AudioManager.instance.Play("Laser");
             isLaserAlreadyedPlayed = true;
         }
-        targetEnemy.TakeDamage(damageOverTime * Time.deltaTime);
+        targetEnemy.TakeDamage(damageOverTime * PlayerStats.buildingDmgBuff * Time.deltaTime);
         if(isSlowDown)
         {
             targetEnemy.Slow(slowPrecent);
@@ -228,6 +228,7 @@ public class Tower : MonoBehaviour
     public void UpgradeDamage()
     {
         damage += upgradeDamage;
+        damageOverTime += upgradeDamage;
     }
 
     public void UpgradeRange()
